@@ -1,5 +1,5 @@
 const Usuario = require("../database/models/Usuario");
-
+const bcrypt = require("bcrypt");
 
 const getAllUsers = async () => {
     try {
@@ -37,10 +37,45 @@ const getAllUsers = async () => {
     }
   };
 
+  const editUser = async (id, userData) => {
+    try {
+      const user = await Usuario.findByPk(id);
+      if (!user) {
+        throw new Error("Cliente no encontrado");
+      }
+      if (userData.pass) {
+        userData.pass=bcrypt.hashSync(userData.pass, 10)
+      }
+      return await Usuario.update(userData,{
+        where: { id: id }
+      });
+    } catch (error) {
+      throw new Error("Error al modificar el usuario: " + error.message);
+    }
+  };
+
+  const loginUser = async (email) => {
+    try {
+      const user = await Usuario.findOne({
+        where: {
+          email: email,
+        },
+      });
+      if (!user) {
+        throw new Error("Usuario no encontrado");
+      }
+      return user;
+    } catch (error) {
+      throw new Error("Error al logear el usuario: " + error.message);
+    }
+  };
   
+
   module.exports = {
     getAllUsers,
     getUserById,
     deleteUser,
     createUser,
+    editUser,
+    loginUser,
   }

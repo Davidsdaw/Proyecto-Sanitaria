@@ -26,6 +26,11 @@ Model.init({
         type: DataTypes.STRING(255),
         allowNull: false,
         unique: true,
+        validate:{
+            isEmail:{
+                msg:"No es un email"
+            }
+        }
     },
 
     pass: {
