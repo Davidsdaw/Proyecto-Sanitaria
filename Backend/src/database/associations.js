@@ -1,13 +1,26 @@
-const Usuario = require("./models/Usuario");
-const Cassette = require("./models/Cassette");
-const Muestra = require("./models/Muestra");
+const { Sequelize } = require('sequelize');
+const sequelize = require('./db');
 
-// Relación 1 a N un usuario puede tener muchos cassettes
-Usuario.hasMany(Cassette, { foreignKey: 'id_usuario' });
-Cassette.belongsTo(Usuario, { foreignKey: 'id_usuario' });
+// Importar modelos
+const Usuario = require('./models/Usuario');
+const Cassette = require('./models/Cassette');
+const Muestra = require('./models/Muestra');
+const Imagen = require('./models/Imagen');
 
-// Relación 1 a N un cassette puede tener muchas muestras
-Cassette.hasMany(Muestra, { foreignKey: 'id_cassette' });
-Muestra.belongsTo(Cassette, { foreignKey: 'id_cassette' });
+// Definir relaciones en orden correcto
+Usuario.hasMany(Cassette, { foreignKey: 'usuario_id' });
+Cassette.belongsTo(Usuario, { foreignKey: 'usuario_id' });
 
-module.exports = { Usuario, Cassette, Muestra };
+Cassette.hasMany(Muestra, { foreignKey: 'cassette_id' });
+Muestra.belongsTo(Cassette, { foreignKey: 'cassette_id' });
+
+Muestra.hasMany(Imagen, { foreignKey: 'muestra_id' }); 
+Imagen.belongsTo(Muestra, { foreignKey: 'muestra_id' });
+
+module.exports = {
+  sequelize,
+  Usuario,
+  Cassette,
+  Muestra,
+  Imagen,
+};

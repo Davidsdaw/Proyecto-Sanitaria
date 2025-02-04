@@ -42,11 +42,11 @@ const deleteUser = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const createdUser = await usersService.createUser({nombre: req.body.nombre,
-      apellidos: req.body.apellidos,
+      apellido: req.body.apellido,
       email: req.body.email,
-      pass: bcrypt.hashSync(req.body.pass, 10),
-      rol: req.body.rol,
+      password: bcrypt.hashSync(req.body.password, 10),
       centro: req.body.centro,
+      rol: req.body.rol,
     });
     res.status(201).json(createdUser);
   } catch (error) {
@@ -81,12 +81,12 @@ const createToken=(user) => {
 
  const loginUser = async (req, res) => {
   try {
-    const { email, pass } = req.body;
+    const { email, password } = req.body;
 
     const user = await usersService.loginUser(email);
 
     if (user) {
-      const isCorrectPass = bcrypt.compareSync(pass, user.pass);
+      const isCorrectPass = bcrypt.compareSync(password, user.password);
       if (isCorrectPass) {
         res.json({ success: createToken(user) });
       } else {

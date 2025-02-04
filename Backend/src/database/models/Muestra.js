@@ -1,38 +1,56 @@
-const sequelize = require("../db");
-const { Model, DataTypes } = require("sequelize");
+const { DataTypes, Model } = require('sequelize');
+const sequelize = require('../db');
 
 class Muestra extends Model {}
 
-Muestra.init({
-  id: {
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER,
+Muestra.init(
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      //no puede ser superior a 255 caracterres
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      //hoy o de la semana siguiente
+    },
+    tincion: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    observaciones: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      //no puede ser superior a 255 caracteres
+    },
+    qr_muestra: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    cassette_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'cassettes',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
   },
-  descripcion: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  fecha: {
-    type: DataTypes.DATEONLY,
-    allowNull: true,
-  },
-  tincion: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-  },
-  observaciones: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  id_cassette: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
+  {
+    sequelize,
+    modelName: 'Muestra',
+    tableName: 'muestras',
+    timestamps: true,
+    underscored: true,
   }
-}, {
-  sequelize,
-  modelName: "Muestra", 
-  timestamps: false,  
-});
+);
 
 module.exports = Muestra;

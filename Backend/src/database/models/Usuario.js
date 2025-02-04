@@ -1,57 +1,91 @@
-const sequelize = require("../db");
-const { Model, DataTypes } = require("sequelize");
+const { DataTypes, Model } = require('sequelize');
+const sequelize = require('../db');
 
-class Usuario extends Model { }
+class Usuario extends Model {}
 
-Model.init({
-
+Usuario.init(
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
     },
-    
     nombre: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isAlpha: {
+          args: true,
+          msg: 'El nombre solo puede contener letras',
+        },
+        len: {
+          args: [3, 50],
+          msg: 'El nombre debe tener entre 3 y 50 caracteres',
+        },
+      },
     },
-
-    apellidos: {
-        type: DataTypes.STRING(100),
-        allowNull: true,
+    apellido: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isAlpha: {
+          args: true,
+          msg: 'El apellido solo puede contener letras',
+        },
+        len: {
+          args: [3, 50],
+          msg: 'El apellido debe tener entre 3 y 50 caracteres',
+        },
+      },
     },
-
     email: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        unique: true,
-        validate:{
-            isEmail:{
-                msg:"No es un email"
-            }
-        }
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: {
+          msg: 'El email no es válido',
+        },
+      },
     },
-
-    pass: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: {
+          args: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,100}$/],
+          msg: "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial (Ejemplo: Abcdef1!)."
+        },
+        len: {
+          args: [8, 100],
+          msg: "La contraseña debe tener entre 8 y 100 caracteres."
+        },
+      },
     },
-
-    rol: {
-        type: DataTypes.ENUM('admin', 'tecnico'),
-        allowNull: false,
-    },
-
     centro: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-    }
-
-}, {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    rol: {
+      type: DataTypes.ENUM('administrador', 'alumno'),
+      allowNull: false,
+      defaultValue: 'alumno',
+      validate: {
+        isIn: {
+          args: [['administrador', 'alumno']],
+          msg: "El rol debe ser 'administrador' o 'alumno'.",
+        },
+      },
+    },
+  },
+  {
     sequelize,
-    modelName: "Usuario",
-    timestamps: false,
-});
+    modelName: 'Usuario',
+    tableName: 'usuarios',
+    timestamps: true,
+    underscored: true,
+  }
+);
 
 module.exports = Usuario;

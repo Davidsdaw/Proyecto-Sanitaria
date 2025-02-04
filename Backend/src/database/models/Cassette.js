@@ -1,42 +1,72 @@
-const sequelize = require("../db");
-const { Model, DataTypes } = require("sequelize");
+const { DataTypes, Model } = require('sequelize');
+const sequelize = require('../db');
 
 class Cassette extends Model {}
 
-Cassette.init({
-  id: {
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER,
+Cassette.init(
+  {
+    id: {
+      type: DataTypes.UUID, 
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    organo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El campo 'organo' no puede estar vacío."
+        },
+        isAlpha: {
+          msg: "El campo 'organo' solo puede contener letras."
+        },
+        len: {
+          args: [3, 50],
+          msg: "El campo 'organo' debe tener entre 3 y 50 caracteres."
+        },
+        isIn: {
+          args: [["corazon", "higado", "pulmon", "riñon", "cerebro"]],
+          msg: "El 'organo' debe ser uno de los valores permitidos."
+        }
+      }
+    },
+    caracteristicas: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    observaciones: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    qr_cassette: {
+      type: DataTypes.TEXT,
+    },
+    usuario_id: {
+      type: DataTypes.UUID, 
+      allowNull: false,
+      references: {
+        model: 'usuarios',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
   },
-  fecha: {
-    type: DataTypes.DATEONLY,
-    allowNull: true,
-  },
-  descripcion: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  organo: {
-    type: DataTypes.STRING(100),
-    allowNull: true,
-  },
-  caracteristicas: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  id_usuario: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  observaciones: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-}, {
-  sequelize,
-  modelName: "Cassette",  
-  timestamps: false, 
-});
+  {
+    sequelize,
+    modelName: 'Cassette',
+    tableName: 'cassettes',
+    timestamps: true,
+    underscored: true,
+  }
+);
 
 module.exports = Cassette;
