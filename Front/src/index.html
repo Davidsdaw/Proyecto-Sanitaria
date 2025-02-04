@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body>
+    
+    
+    
+    <!-- MODAL REGISTRO -->
+
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+        <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Registro</h2>
+        <form action="#" method="POST" class="space-y-4">
+            <div>
+                <input type="text" name="nombre" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Nombre">
+            </div>
+            <div>
+                <input type="text" name="apellidos" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Apellidos">
+            </div>
+            <div>
+                <select name="centro" id="centro" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300">
+                    <option value="">Centro</option>
+                    <option value="centro1">IES Ribera del Tajo</option>
+                    <option value="centro2">IES Gabriel Alonso de Herrera</option>
+                </select>
+            </div>
+            
+            <div>
+                <input type="email" name="email" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Email">
+            </div>
+            <div>
+                <input type="password" name="password" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
+                <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
+            </div>
+            <div>
+                <input type="password" name="password_confirmation" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Repetir Contraseña">
+                <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
+            </div>
+            <button type="submit" class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500">Registrarse</button>
+            <p class="text-center text-blue-400">Si ya te has registrado <a href="">Login</a></p>
+        </form>
+    </div>
+
+    
+
+
+    <!-- MODAL SOLICITAR CONTRASEÑA -->
+
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+        <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Solicitar Contraseña</h2>
+        <form action="#" method="POST" class="space-y-4">
+            <div>
+                <input type="text" name="nombre" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Correo">
+            </div>
+            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Soliciar Contraseña</button>
+            <p class="text-center text-blue-400">Volver al<a href=""> Login</a></p>
+
+        </form>
+    </div>
+
+
+
+
+    <!-- MODAL LOGIN -->
+
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+        <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Login</h2>
+        <form action="#" method="POST" class="space-y-4">
+            <div>
+                <input type="text" name="nombre" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Correo">                
+            </div>
+            <div>
+                <input type="text" name="nombre" class="border-blue-300 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
+                <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
+                
+            </div>
+            <div class="text-center">
+                <a class="text-xs text-blue-400" href="">Olvidaste tu contraseña...</a>                
+            </div>
+            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Login</button>
+            <p class="text-center text-blue-300">Si no tienes cuenta...<a class="text-blue-300" href=""> Registro</a></p>
+
+        </form>
+    </div>
+
+    
+</body>
+</html>
