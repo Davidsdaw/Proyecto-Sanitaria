@@ -22,9 +22,22 @@ const getUserById = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const deleted = await usersService.deleteUser(req.params.id);
+    if (deleted) {
+      res.status(204).json({ message: "Usuario eliminado" });
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
     getAllUsers,
     getUserById,
+    deleteUser,
   };
   
