@@ -2,6 +2,7 @@ const usersService = require("./../services/usersService");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const jwt = require("jwt-simple");
+const {sendRecoveryEmail} = require("../utils/mailer")
 
 const getAllUsers = async (req, res) => {
   try {
@@ -101,6 +102,64 @@ const createToken=(user) => {
 };
 
 
+const generateRecoveryToken = (email) => {
+  const payload = {
+    email: email,
+    createdAt: moment().unix(),
+    expiredAt: moment().add(1, "hour").unix(),
+  };
+  const secret = process.env.JWT_SECRET;
+  return jwt.encode(payload, secret);
+};
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const user = await usersService.getUserByEmail(email);
+    if (!user) {
+      return res.status(404).json({ error: "Correo no encontrado" });
+    }
+
+    const token = generateRecoveryToken(email);
+
+    await sendRecoveryEmail(email, token);
+
+    res.status(200).json({ message: "Correo de recuperación enviado" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+  try {
+    if (!newPassword) {
+      return res.status(400).json({ error: "La nueva contraseña es requerida via Body" });
+    }
+
+    const decoded = jwt.decode(token, process.env.JWT_SECRET);
+
+    if (decoded.expiredAt < moment().unix()) {
+      return res.status(400).json({ error: "El token ha expirado" });
+    }
+
+    const user = await usersService.getUserByDecodedEmail(decoded.email);
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    user.password = bcrypt.hashSync(newPassword, 10);
+    await user.save();
+
+    res.status(200).json({ message: "Contraseña restablecida con éxito" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al restablecer la contraseña" });
+  }
+};
+
+
 module.exports = {
     getAllUsers,
     getUserById,
@@ -108,5 +167,7 @@ module.exports = {
     createUser,
     editUser,
     loginUser,
+    forgotPassword,
+    resetPassword
   };
   

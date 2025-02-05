@@ -17,6 +17,23 @@ const getAllUsers = async () => {
     }
   };
 
+  const getUserByEmail = async (email) => {
+    try {
+      return await Usuario.findOne({ where: { email: email } });
+    } catch (error) {
+      throw new Error("Error al pedir un usuario por email : " + error.message);
+    }
+  };
+
+  const getUserByDecodedEmail = async (email) => {
+    try {
+      if (!email) throw new Error("El email es undefined");
+      return await Usuario.findOne({ where: { email: email } });
+    } catch (error) {
+      throw new Error("Error al pedir un usuario por email: " + error.message);
+    }
+  };
+  
   const deleteUser = async (id) => {
     try {
       const usuario = await Usuario.findByPk(id);
@@ -74,6 +91,8 @@ const getAllUsers = async () => {
   module.exports = {
     getAllUsers,
     getUserById,
+    getUserByEmail,
+    getUserByDecodedEmail,
     deleteUser,
     createUser,
     editUser,
