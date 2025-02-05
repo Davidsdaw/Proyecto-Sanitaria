@@ -1,0 +1,47 @@
+html{
+    overflow: hidden;
+}
+
+.display_hidden{
+    display: hidden;
+}
+
+.display_on{
+    opacity: 0;
+    animation-name: show;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+
+@keyframes show{
+    0%{
+        transform: translateX(-1000px);
+    }
+    40%{
+        transform: translateX(100px);
+    }
+    100%{
+        transform: translateX(-50%);
+        opacity: 1;
+    }
+}
+
+.display_off{
+    animation-name: show_off;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show_off{
+    0%{
+        transform: translateX(-50%);
+    }
+    40%{
+        transform: translateX(-400px);
+    }
+    100%{
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+}
