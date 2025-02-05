@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
+const organos= require("../../utils/organos");
 
 class Cassette extends Model {}
 
@@ -34,7 +35,7 @@ Cassette.init(
           msg: "El campo 'organo' debe tener entre 3 y 50 caracteres."
         },
         isIn: {
-          args: [["corazon", "higado", "pulmon", "riñon", "cerebro"]],
+          args: [organos],
           msg: "El 'organo' debe ser uno de los valores permitidos."
         }
       }

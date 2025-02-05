@@ -13,7 +13,4 @@ usersRouter.post("/login", usersController.loginUser);
 usersRouter.post("/forgot-password", usersController.forgotPassword);
 usersRouter.post("/reset-password/:token", usersController.resetPassword);
 
-
-
-
 module.exports = usersRouter;

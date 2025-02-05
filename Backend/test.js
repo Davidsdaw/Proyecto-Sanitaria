@@ -23,11 +23,11 @@ async function testInsert() {
     const cassette = await Cassette.create({
       descripcion: 'Cassette de prueba',
       fecha: new Date(),
-      organo: 'cerebro',
+      organo: 'Huesoss',
       caracteristicas: 'Tejido sano',
       observaciones: 'Ninguna',
       qr_cassette: 'codigoqr123',
-      usuario_id: usuario.id, // Relación con Usuario
+      usuario_id: "b39a09cb-2a23-4e7a-8eac-cda92bdc3729", // Relación con Usuario
     });
 
     console.log('✅ Cassette creado:', cassette.toJSON());
@@ -56,8 +56,6 @@ async function testInsert() {
 
   } catch (error) {
     console.error('❌ Error insertando datos:', error);
-  } finally {
-    sequelize.close(); // Cierra la conexión a la BD después de insertar
   }
 }
 
