@@ -7,22 +7,36 @@
   <link href="./output.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/ec5d753fff.js" crossorigin="anonymous"></script>
 </head>
-<body class="w-full max-w-[1400px] mx-auto flex justify-center">
-    <header class="w-full max-w-[1000px] min-w-[600px] rounded-[10px] h-[50px] m-4 p-4 shadow-md shadow-gray-300">
-        <nav class="">
-            <ul class="flex justify-between items-center text-md">
-                <li class="text-gray-500"><a href="#">Inicio</a></li>
-                <li><a href="#">Proyecto</a></li>
-                <li><a href="#">Laboratorio</a></li>
-                <li><a href="#">Autopsias</a></li>
-                <li><a href="#">Microscopio</a></li>
-                <li><a href="#">Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i></a></li>
-                <li><a href="#">Ejercicios</a></li>
-                <li><a href="#">Registro</a></li>
+<body class="w-full mx-auto flex justify-center">
+    <header class="w-full max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] m-4 p-4 shadow-md shadow-gray-300">
+        <nav class="md:flex justify-start md:justify-center items-center">
+            <ul class="flex justify-between items-center text-md gap-5">
+                <li class="flex md:hidden"><i id="nav_button" class="fa-solid fa-bars md:hidden"></i></li>
+                <li class="hidden md:flex text-gray-500"><a href="#">Inicio</a></li>
+                <li class="hidden md:flex"><a href="#">Proyecto</a></li>
+                <li class="hidden md:flex"><a href="#">Laboratorio</a></li>
+                <li class="hidden md:flex"><a href="#">Autopsias</a></li>
+                <li class="hidden md:flex"><a href="#">Microscopio</a></li>
+                <li class="hidden md:flex"><a href="#">Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i></a></li>
+                <li class="hidden md:flex"><a href="#">Ejercicios</a></li>
+                <li class="hidden md:flex"><a href="#">Registro</a></li>
             </ul>
         </nav>
     </header>
 
+    <nav id="nav_list" class="absolute z-10 w-full flex justify-center items-center text-md hidden show_off_nav_list bg-blue-300 text-white text-center p-4">
+        <ul>
+            <li><i id="nav_list_button" class="fa-solid fa-bars"></i></li>
+            <li class="text-gray-500"><a href="#">Inicio</a></li>
+            <li><a href="#">Proyecto</a></li>
+            <li><a href="#">Laboratorio</a></li>
+            <li><a href="#">Autopsias</a></li>
+            <li><a href="#">Microscopio</a></li>
+            <li><a href="#">Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i></a></li>
+            <li><a href="#">Ejercicios</a></li>
+            <li><a href="#">Registro</a></li>
+        </ul>
+    </nav>
     
     <!-- MODAL LOGIN -->
 
@@ -83,6 +97,7 @@
         <form id="form_register" action="#" method="POST" class="space-y-4">
             <div>
                 <input id="register_nombre" type="text" class="border-blue-300 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Nombre">
+                <p id="register_nombre_error" class="text-sm bg-red-600"></p>
             </div>
             <div>
                 <input id="register_apellidos" type="text" class="border-blue-300 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-blue-300 placeholder:text-blue-300" placeholder="Apellidos">
@@ -103,7 +118,7 @@
                 <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
             </div>
             <div>
-                <input id="register_password-repeat" minlength="8" maxlength="16" type="password" class="border-blue-300  w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
+                <input id="register_password_repeat" minlength="8" maxlength="16" type="password" class="border-blue-300  w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
                 <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
                 
             </div>

@@ -8,13 +8,13 @@ html{
 
 .display_on{
     opacity: 0;
-    animation-name: show;
+    animation-name: display_on;
     animation-duration: 2s;
     animation-fill-mode: forwards;
     animation-delay: 1s;
 }
 
-@keyframes show{
+@keyframes display_on{
     0%{
         transform: translateX(-1000px);
     }
@@ -24,16 +24,17 @@ html{
     100%{
         transform: translateX(-50%);
         opacity: 1;
+        display: block;
     }
 }
 
 .display_off{
-    animation-name: show_off;
+    animation-name: display_off;
     animation-duration: 2s;
     animation-fill-mode: forwards;
 }
 
-@keyframes show_off{
+@keyframes display_off{
     0%{
         transform: translateX(-50%);
     }
@@ -42,11 +43,40 @@ html{
     }
     100%{
         transform: translateX(1000px);
+        display: none;
         opacity: 0;
     }
 }
 
+.show_nav_list{
+    animation-name: show_nav_list;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
 
+@keyframes show_nav_list{
+    0%{
+        transform: translateY(-1000px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+.show_off_nav_list{
+    animation-name: show_off_nav_list;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show_off_nav_list{
+    0%{
+        transform: translateY(0px);
+    }
+    100%{
+        transform: translateY(-1000px);
+    }
+}
 
 
 /*CSS OJO FORMULARIO*/

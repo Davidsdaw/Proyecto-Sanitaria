@@ -17,6 +17,10 @@ const mostrar_password_forgotten = document.getElementById(
   "mostrar_password_forgotten"
 );
 
+const nav_button = document.getElementById("nav_button");
+const nav_list = document.getElementById("nav_list");
+const nav_list_button = document.getElementById("nav_list");
+
 const mostrar_register_login_function = () => {
   container_login.classList.toggle("display_on");
   container_login.classList.toggle("display_off");
@@ -32,16 +36,15 @@ const mostrar_password_login_function = () => {
   container_password.classList.remove("opacity-0");
 };
 
-const display_hidden=(event)=>{
-  if(event.target.classList=="display_off"){
-    event.target.classList.add("display_hidden");
-  }
-}
+const mostrar_nav_list = () => {
+  nav_list.classList.remove("hidden");
+  nav_list.classList.toggle("show_off_nav_list");
+  nav_list.classList.toggle("show_nav_list");
+};
 
 mostrar_register.addEventListener("click", mostrar_register_login_function);
 mostrar_login_register.addEventListener("click", mostrar_register_login_function);
 mostrar_login_password.addEventListener("click", mostrar_password_login_function);
 mostrar_password_forgotten.addEventListener("click", mostrar_password_login_function);
-container_login.addEventListener("animationend", display_none);
-container_register.addEventListener("animationend", display_none);
-container_password.addEventListener("animationend", display_none);
+nav_button.addEventListener("click", mostrar_nav_list)
+nav_list_button.addEventListener("click", mostrar_nav_list)
