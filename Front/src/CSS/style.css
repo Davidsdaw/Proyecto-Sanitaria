@@ -45,3 +45,38 @@ html{
         opacity: 0;
     }
 }
+
+
+
+
+/*CSS OJO FORMULARIO*/
+
+#togglePassword {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; 
+    right: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    cursor: pointer; 
+}
+
+#togglePassword i {
+    font-size: 1.2rem;
+}
+
+#password_login {
+    padding-right: 2.5rem; 
+    width: 100%;
+    padding: 0.5rem; 
+}
+
+.relative {
+    position: relative; 
+    display: flex;
+    align-items: center;
+    background: white;
+    width: 100%; 
+}
+

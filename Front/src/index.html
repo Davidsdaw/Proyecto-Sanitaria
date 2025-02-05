@@ -30,21 +30,37 @@
         <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Login</h2>
         <form id="form_login" action="#" method="POST" class="space-y-4">
             <div>
-                <input id="email_login" type="email" class="border-blue-300 invalid:border-red-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Correo">                
+                <input id="email_login" type="email" 
+                    class="border-blue-300 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" 
+                    placeholder="Correo">
             </div>
-            <div>
-                <input id="password_login" minlength="8" maxlength="16" type="password" class="border-blue-300 invalid:border-red-300 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
-                <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
-                
+            <p id="email_error" class="text-red-500 text-xs mt-1 font-bold"></p>
+            
+            <div class="relative">
+                <input id="password_login" minlength="8" maxlength="16" type="password" 
+                    class="border-blue-300 w-full px-4 py-2 pr-10 border rounded-lg focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" 
+                    placeholder="Contraseña">
+                <span id="togglePassword" 
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400">
+                    <i id="icon_eye" class="fa-regular fa-eye"></i>
+                </span>
             </div>
+            <p id="password_error" class="text-red-500 text-xs mt-1 font-bold"></p> <!-- Error de contraseña -->
+    
+            <p class="text-xs text-end text-blue-400 mt-1">
+                8-16 caracteres, mayúsculas, minúsculas, números y símbolos
+            </p>
+    
             <div class="text-center">
-                <a id="mostrar_password_forgotten" class="text-xs text-blue-400" href="#">Olvidaste tu contraseña...</a>                
+                <a id="mostrar_password_forgotten" class="text-xs text-blue-400 font-bold" href="#">Olvidaste tu contraseña...</a>
             </div>
-            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Login</button>
-            <p class="text-center text-blue-300">Si no tienes cuenta... <a id="mostrar_register" class=" font-extrabold" href="#">Registro</a></p>
-
+            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500">Login</button>
+            <p class="text-center text-blue-300">
+                Si no tienes cuenta... <a id="mostrar_register" class="font-extrabold" href="#">Registro</a>
+            </p>
         </form>
     </div>
+    
     
     <!-- MODAL SOLICITAR CONTRASEÑA -->
 
@@ -52,7 +68,8 @@
         <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Solicitar Contraseña</h2>
         <form id="form_password" action="#" method="POST" class="space-y-4">
             <div>
-                <input id="email_recuperar-contrasena" type="email" class="border-blue-300 invalid:border-red-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Correo">
+                <input id="email_recuperar-contrasena" type="email" class=" border-blue-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Correo">
+                <p id="email_error_password" class="text-red-500 text-sm mt-1 font-bold" ></p>
             </div>
             <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Soliciar Contraseña</button>
             <p class="text-center text-blue-400">Volver al<a id="mostrar_login_password" class=" font-extrabold" href="#"> Login</a></p>
@@ -79,23 +96,26 @@
             </div>
             
             <div>
-                <input id="register_email" type="email" class="border-blue-300 invalid:border-red-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Correo">
+                <input id="register_email" type="email" class="border-blue-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Correo">
             </div>
             <div>
-                <input id="register_password" minlength="8" maxlength="16" type="password" class="border-blue-300 invalid:border-red-300 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
+                <input id="register_password" minlength="8" maxlength="16" type="password" class="border-blue-300  w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
                 <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
             </div>
             <div>
-                <input id="register_password-repeat" minlength="8" maxlength="16" type="password" class="border-blue-300 invalid:border-red-300 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
+                <input id="register_password-repeat" minlength="8" maxlength="16" type="password" class="border-blue-300  w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-2  text-blue-300 placeholder:text-blue-300" placeholder="Contraseña">
                 <p class="text-xs text-end text-blue-400 mt-1">8-16 caracteres, mayúsculas, minúsculas, números y símbolos</p>
+                
             </div>
             <button type="submit" class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500">Registrarse</button>
             <p class="text-center text-blue-400">Si ya te has registrado <a id="mostrar_login_register" class="text-blue-500 font-extrabold" href="#">Login</a></p>
+            
         </form>
     </div>
     
     <script src="./JS/script.js"></script>
     <script src="./JS/style.js"></script>
     <script src="./JS/validacion.js"></script>
+    <script src="./JS/validacionRegister.js"></script>
 </body>
 </html>
