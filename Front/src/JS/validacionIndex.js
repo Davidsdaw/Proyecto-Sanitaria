@@ -37,13 +37,34 @@ const register_password_repeat_error = document.getElementById(
 
 /////////////////////////////////////////////////////////////////////////
 //Funcion Login
-const login = (event) => {
+const login = async (event) => {
   event.preventDefault();
+  if (validate_login()) {
 
-  if (validate_login() == true) {
-    console.log("Has iniciado sesión correctamente.");
+    try {
+      const response = await fetch("http://localhost:3000/sanitaria/users"); //
+      const data = await response.json();
+      let userFound = false;
+      
+      data.forEach(user => {
+        if (user.email === login_email.value && user.password === login_password.value) {
+          userFound = true;
+          console.log("Has iniciado sesión correctamente.");
+          // location.href = "index.html";
+        }
+      });
+
+      //si no se encuentra el usuario
+      if (!userFound) {
+        console.log("Credenciales incorrectas. Inténtalo de nuevo.");
+      }
+
+    } catch (error) {
+      console.error("Mala de la api:", error);
+    }
   }
 };
+
 //Funcion validar login
 const validate_login = () => {
   let valid = true;
