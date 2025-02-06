@@ -59,12 +59,12 @@ const login = async (event) => {
   const data2 = await response.json();
 
   if (data2.success) {
-
-    localStorage.setItem("token", data2.token);
-    location.href("/pages/aplicacion.html")
+    console.log(data2.success)
+    localStorage.setItem("token", data2.success);
+    location.href="/Front/src/pages/aplicacion.html"
 
   }else{
-    alert("Error al iniciar sesión");
+    
     
   }
   }
