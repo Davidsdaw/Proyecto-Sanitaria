@@ -41,27 +41,32 @@ const login = async (event) => {
   event.preventDefault();
   if (validate_login()) {
 
-    try {
-      const response = await fetch("http://localhost:3000/sanitaria/users"); //
-      const data = await response.json();
-      let userFound = false;
-      
-      data.forEach(user => {
-        if (user.email === login_email.value && user.password === login_password.value) {
-          userFound = true;
-          console.log("Has iniciado sesión correctamente.");
-          // location.href = "index.html";
-        }
-      });
+    let email = login_email.value.trim();
+    let password = login_password.value.trim();
 
-      //si no se encuentra el usuario
-      if (!userFound) {
-        console.log("Credenciales incorrectas. Inténtalo de nuevo.");
-      }
+    const data = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+         email: email,
+         password: password
+      })
+  };
 
-    } catch (error) {
-      console.error("Mala de la api:", error);
-    }
+  const response = await fetch("http://localhost:3000/sanitaria/users/login", data);
+  const data2 = await response.json();
+
+  if (data2.success) {
+
+    localStorage.setItem("token", data2.token);
+    location.href("/pages/aplicacion.html")
+
+  }else{
+    alert("Error al iniciar sesión");
+    
+  }
   }
 };
 
