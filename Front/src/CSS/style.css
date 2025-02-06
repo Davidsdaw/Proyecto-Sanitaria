@@ -1,9 +1,5 @@
-html{
-    overflow: hidden;
-}
-
-.display_hidden{
-    display: hidden;
+::-webkit-scrollbar {
+    display: none;
 }
 
 .display_on{

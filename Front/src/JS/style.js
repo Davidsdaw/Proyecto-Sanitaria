@@ -2,10 +2,6 @@ const container_login = document.getElementById("container_login");
 const container_password = document.getElementById("container_password");
 const container_register = document.getElementById("container_register");
 
-const form_login = document.getElementById("form_login");
-const form_register = document.getElementById("form_register");
-const form_password = document.getElementById("form_password");
-
 const mostrar_register = document.getElementById("mostrar_register");
 const mostrar_login_register = document.getElementById(
   "mostrar_login_register"
