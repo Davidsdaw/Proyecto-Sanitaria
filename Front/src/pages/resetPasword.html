@@ -42,22 +42,57 @@
 
     <div id="container_new_password" class="display_on absolute left-[50%] top-[100px] max-w-md mx-auto bg-white p-6 rounded-lg shadow-md m-4">
         <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Nueva Contraseña</h2>
-        <form id="form_new_password" action="#" method="POST" class="space-y-4">
-            <div>
-                <input id="new_password" type="password" class=" border-blue-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Password">
-                <p id="email_error_password" class="text-red-500 text-sm mt-1 font-bold" ></p>
-            </div>
-            <div>
-                <input id="new_password_repeat" type="password" class=" border-blue-300 w-full px-4 py-2 border rounded-lg  focus:outline-none focus:border-2 text-blue-300 placeholder:text-blue-300" placeholder="Password">
-            </div>
-            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Soliciar Contraseña</button>
+        <form id="form_new_password" action="#" method="POST" class="space-y-4" novalidate>
+            <div class="relative">
+                <input
+                  id="new_password"
+                  minlength="8"
+                  maxlength="16"
+                  type="password"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$"
+                  minlength="8"
+                  maxlength="16"
+                  class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
+                  placeholder="Contraseña" required
+                />
+      
+                <span
+                  id="togglePassword"
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
+                >
+                  
+                </span>
+              </div>
+            <div class="relative">
+                <input
+                  id="new_password_repeat"
+                  minlength="8"
+                  maxlength="16"
+                  type="password"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$"
+                  minlength="8"
+                  maxlength="16"
+                  class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
+                  placeholder="Contraseña" required
+                />
+      
+                <span
+                  id="togglePassword"
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
+                >
+                  
+                </span>
+              </div>
+            <p
+            id="new_password_repeat_error"
+            class="text-red-500 text-sm mt-1 font-bold"
+          ></p>
+            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Modificar Contraseña</button>
             <p class="text-center text-blue-400">Volver al<a id="mostrar_login_password" class=" font-extrabold" href="./../index.html"> Login</a></p>
         </form>
     </div>
     
     <script src="./../JS/script.js"></script>
-    <script src="./../JS/style.js"></script>
-    <script src="./../JS/validacion.js"></script>
-    <script src="./../JS/validacionRegister.js"></script>
+    <script src="./../JS/validacion_resetPassword.js"></script>
 </body>
 </html>
