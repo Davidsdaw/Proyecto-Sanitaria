@@ -1,284 +1,346 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Cassette</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://kit.fontawesome.com/ec5d753fff.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body class="">
-    <div
-      class="flex justify-center items-center align-middle w-full h-full bg-blue-300"
-    >
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 w-8/12 mt-3">
-        <select
-          class="p-2 border rounded text-blue-400"
-          id="organos"
-          aria-label="Floating label select example"
-        >
-          <option disabled selected>Seleccionar un Órgano</option>
-          <option value="*">Todos</option>
-          <optgroup label="Sistema Nervioso">
-            <option>Encéfalo</option>
-            <option>Médula Espinal</option>
-            <option>Nervio</option>
-            <option>Ganglio Nervios</option>
-          </optgroup>
+    <script src="https://kit.fontawesome.com/ec5d753fff.js" crossorigin="anonymous"></script>
+</head>
 
-          <optgroup label="Tegumento">
-            <option>Piel</option>
-            <option>Uña</option>
-            <option>Pelo</option>
-          </optgroup>
+<body class="">
+    <div class="flex justify-center items-center align-middle w-full h-full bg-blue-300">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 w-8/12 mt-3">
+            <select class="p-2 border rounded text-blue-400" id="organos" aria-label="Floating label select example">
+                <option disabled selected>Seleccionar un Órgano</option>
+                <option value="*">Todos</option>
+                <optgroup label="Sistema Nervioso">
+                    <option>Encéfalo</option>
+                    <option>Médula Espinal</option>
+                    <option>Nervio</option>
+                    <option>Ganglio Nervios</option>
+                </optgroup>
 
-          <optgroup label="Cardiovascular">
-            <option>Corazón</option>
-            <option>Venas</option>
-            <option>Arteria</option>
-          </optgroup>
+                <optgroup label="Tegumento">
+                    <option>Piel</option>
+                    <option>Uña</option>
+                    <option>Pelo</option>
+                </optgroup>
 
-          <optgroup label="Linfático">
-            <option>Ganglio Linfático</option>
-            <option>Timo</option>
-            <option>Bazo</option>
-          </optgroup>
+                <optgroup label="Cardiovascular">
+                    <option>Corazón</option>
+                    <option>Venas</option>
+                    <option>Arteria</option>
+                </optgroup>
 
-          <optgroup label="Sistema Digestivo">
-            <option>Lengua</option>
-            <option>Esófago</option>
-            <option>Estómago</option>
-            <option>Intestino Delgado</option>
-            <option>Intestino Grueso</option>
-            <option>Diente</option>
-            <option>Glándula Salivar</option>
-            <option>Páncrea</option>
-            <option>Hígado</option>
-          </optgroup>
+                <optgroup label="Linfático">
+                    <option>Ganglio Linfático</option>
+                    <option>Timo</option>
+                    <option>Bazo</option>
+                </optgroup>
 
-          <optgroup label="Aparato Excretor">
-            <option>Riñón</option>
-            <option>Vejiga</option>
-          </optgroup>
+                <optgroup label="Sistema Digestivo">
+                    <option>Lengua</option>
+                    <option>Esófago</option>
+                    <option>Estómago</option>
+                    <option>Intestino Delgado</option>
+                    <option>Intestino Grueso</option>
+                    <option>Diente</option>
+                    <option>Glándula Salivar</option>
+                    <option>Páncrea</option>
+                    <option>Hígado</option>
+                </optgroup>
 
-          <optgroup label="Respiratorio">
-            <option>Tránquea</option>
-            <option>Bronquios</option>
-            <option>Tejido Respiratorio</option>
-          </optgroup>
+                <optgroup label="Aparato Excretor">
+                    <option>Riñón</option>
+                    <option>Vejiga</option>
+                </optgroup>
 
-          <optgroup label="Endocrino">
-            <option>Tiroides</option>
-            <option>Parótidas</option>
-            <option>Suprarrenales</option>
-            <option>Ovario</option>
-            <option>Testículo</option>
-          </optgroup>
+                <optgroup label="Respiratorio">
+                    <option>Tránquea</option>
+                    <option>Bronquios</option>
+                    <option>Tejido Respiratorio</option>
+                </optgroup>
 
-          <optgroup label="Locomotor">
-            <option>Hueso</option>
-            <option>Musculo Esquelético</option>
-          </optgroup>
-          <option>Otros</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Escanear QR"
-          class="p-2 border rounded text-center placeholder-blue-400"
-        />
-        <input type="date" class="p-2 border rounded text-blue-400" />
-        <input type="date" class="p-2 border rounded text-blue-400" />
-      </div>
+                <optgroup label="Endocrino">
+                    <option>Tiroides</option>
+                    <option>Parótidas</option>
+                    <option>Suprarrenales</option>
+                    <option>Ovario</option>
+                    <option>Testículo</option>
+                </optgroup>
+
+                <optgroup label="Locomotor">
+                    <option>Hueso</option>
+                    <option>Musculo Esquelético</option>
+                </optgroup>
+                <option>Otros</option>
+            </select>
+            <input type="text" placeholder="Escanear QR" class="p-2 border rounded text-center placeholder-blue-400" />
+            <input type="date" class="p-2 border rounded text-blue-400" />
+            <input type="date" class="p-2 border rounded text-blue-400" />
+        </div>
     </div>
 
     <div class="max-w-7xl mx-auto bg-white p-4 shadow-lg rounded-lg">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div class="lg:col-span-2 p-4 rounded shadow border-blue-400 border">
-          <div class="flex justify-evenly text-center">
-            <div class="w-9/12">
-              <h2 class="text-xl font-semibold text-center mb-3 text-blue-300">
-                Cassettes
-              </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-2 p-4 rounded shadow border-blue-400 border">
+                <div class="flex justify-evenly text-center">
+                    <div class="w-9/12">
+                        <h2 class="text-xl font-semibold text-center mb-3 text-blue-300">
+                            Cassettes
+                        </h2>
+                    </div>
+                    <div>
+                        <a href=""><i class="fa-solid fa-file-circle-plus" style="color: rgb(147 197 253)"></i></a>
+                        <a href=""><i class="fa-regular fa-file" style="color: rgb(147 197 253)"></i></a>
+                    </div>
+                </div>
+                <div class="overflow-auto max-h-60">
+                    <div class="w-full rounded-lg overflow-hidden border-blue-400 border">
+                        <div class="bg-gray-200 text-blue-400 flex h-8">
+                            <div
+                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                Fecha
+                                <span class="text-gray-500 hidden">&#x25B4;</span>
+                            </div>
+                            <div
+                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                Descripción
+                                <span class="text-gray-500 hidden">&#x25BE;</span>
+                            </div>
+                            <div
+                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                Órgano
+                                <span class="text-gray-500 hidden">&#x25B4;</span>
+                            </div>
+                        </div>
+                        <div class="divide-y border-blue-400 border">
+                            <div class="flex border-b">
+                                <div class="flex-1 p-2 text-sm"></div>
+                                <div class="flex-1 p-2 text-sm ml-7"></div>
+                                <div class="flex-1 p-2 text-sm ml-8"></div>
+                                <div class="mr-1 p-2 hidden">
+                                    <i class="fa-solid fa-file-invoice"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <a href=""
-                ><i
-                  class="fa-solid fa-file-circle-plus"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
-              <a href=""
-                ><i
-                  class="fa-regular fa-file"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
+            <div class="p-4 rounded shadow border-blue-400 border">
+                <div class="flex align-middle justify-between">
+                    <h2 class="text-xl font-semibold text-blue-300">
+                        Detalle Cassette
+                    </h2>
+
+                    <div class="">
+                        <a href=""><i class="fa-solid fa-qrcode" style="color: rgb(147 197 253)"></i></a>
+                        <a href="#" id="abrirModalBasura"><i class="fa-solid fa-trash text-blue-300"></i></a>
+                        
+                        <!-- MODAL ELIMINAR CASSETE-->
+                        <div id="modal"
+                            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                            <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
+                                <button id="cerrarModalBasura"
+                                    class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">
+                                    &times;
+                                </button>
+
+                                <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                                    Desea Eliminar el Cassete.
+                                </h2>
+                                <p class="text-blue-400 mb-4">
+                                    Al eliminar el cassete se eliminarán también todas sus
+                                    muestras.
+                                </p>
+                                <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                                    Eliminar
+                                </button>
+                            </div>
+                        </div>
+
+                        <a href="#" id="abrirModificarCassete"><i class="fa-solid fa-file-pen"
+                        style="color: rgb(147 197 253)"></i></a>
+                        
+                        <!--MODAL MODIFICAR CASSETE-->
+                        <div id="modalModificarCassete"
+                            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                            <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+                                <button id="cerrarModalModificarCassete"
+                                    class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                                    &times;
+                                </button>
+                                <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Modificar Cassete</h2>
+
+                                <div class="mb-5">
+                                    <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                                        Descripción Corta
+                                    </h2>
+                                    <input type="text" class="border w-full rounded h-8">
+                                </div>
+
+                                <div class="flex mb-5 w-full">
+                                    <div class="flex-col justify-center mr-1 w-full">
+                                        <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                                            Fecha
+                                        </h2>
+                                        <input type="text" class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                                    </div>
+                                    <div class="flex-col justify-center w-full">
+                                        <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                                            Organo
+                                        </h2>
+                                        <select class="p-2 border rounded text-blue-400 w-full" id="organos" aria-label="Floating label select example">
+                                            <option disabled selected>Seleccionar un Órgano</option>
+                                            <option value="*">Todos</option>
+                                            <optgroup label="Sistema Nervioso">
+                                                <option>Encéfalo</option>
+                                                <option>Médula Espinal</option>
+                                                <option>Nervio</option>
+                                                <option>Ganglio Nervios</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Tegumento">
+                                                <option>Piel</option>
+                                                <option>Uña</option>
+                                                <option>Pelo</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Cardiovascular">
+                                                <option>Corazón</option>
+                                                <option>Venas</option>
+                                                <option>Arteria</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Linfático">
+                                                <option>Ganglio Linfático</option>
+                                                <option>Timo</option>
+                                                <option>Bazo</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Sistema Digestivo">
+                                                <option>Lengua</option>
+                                                <option>Esófago</option>
+                                                <option>Estómago</option>
+                                                <option>Intestino Delgado</option>
+                                                <option>Intestino Grueso</option>
+                                                <option>Diente</option>
+                                                <option>Glándula Salivar</option>
+                                                <option>Páncrea</option>
+                                                <option>Hígado</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Aparato Excretor">
+                                                <option>Riñón</option>
+                                                <option>Vejiga</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Respiratorio">
+                                                <option>Tránquea</option>
+                                                <option>Bronquios</option>
+                                                <option>Tejido Respiratorio</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Endocrino">
+                                                <option>Tiroides</option>
+                                                <option>Parótidas</option>
+                                                <option>Suprarrenales</option>
+                                                <option>Ovario</option>
+                                                <option>Testículo</option>
+                                            </optgroup>
+                            
+                                            <optgroup label="Locomotor">
+                                                <option>Hueso</option>
+                                                <option>Musculo Esquelético</option>
+                                            </optgroup>
+                                            <option>Otros</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                    <div class="mb-5">
+                                        <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                                            Características
+                                        </h2>
+                                        <input type="text" class="border w-full rounded h-12">
+                                    </div>
+                                    <div class="mb-5">
+                                        <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                                            Observaciones
+                                        </h2>
+                                        <input type="type" class="border w-full rounded h-12">
+                                    </div>
+                                    <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                                        Modificar Cassete
+                                    </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="mt-5 border-b-2">
+                    <p><strong class="text-blue-300">Descripción:</strong></p>
+                </div>
+                <div class="border-b-2 h-32">
+                    <div class="flex justify-between mb-5 mt-2">
+                        <p><strong class="text-blue-300">Órgano:</strong></p>
+                        <p class="mr-5"><strong class="text-blue-300">Fecha:</strong></p>
+                    </div>
+                    <p class="mb-5">
+                        <strong class="text-blue-300">Características:</strong>
+                    </p>
+                    <p class="text-sm"></p>
+                </div>
+                <div class="h-20">
+                    <p><strong class="text-blue-300">Observaciones:</strong></p>
+                    <p class="text-sm"></p>
+                </div>
             </div>
-          </div>
-          <div class="overflow-auto max-h-60">
-            <div
-              class="w-full rounded-lg overflow-hidden border-blue-400 border"
-            >
-              <div class="bg-gray-200 text-blue-400 flex h-8">
-                <div
-                  class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-                >
-                  Fecha
-                  <span class="text-gray-500 hidden">&#x25B4;</span>
-                </div>
-                <div
-                  class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-                >
-                  Descripción
-                  <span class="text-gray-500 hidden">&#x25BE;</span>
-                </div>
-                <div
-                  class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-                >
-                  Órgano
-                  <span class="text-gray-500 hidden">&#x25B4;</span>
-                </div>
-              </div>
-              <div class="divide-y border-blue-400 border">
-                <div class="flex border-b">
-                  <div class="flex-1 p-2 text-sm"></div>
-                  <div class="flex-1 p-2 text-sm ml-7"></div>
-                  <div class="flex-1 p-2 text-sm ml-8"></div>
-                  <div class="mr-1 p-2 hidden">
-                    <i class="fa-solid fa-file-invoice"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="p-4 rounded shadow border-blue-400 border">
-          <div class="flex align-middle justify-between">
-            <h2 class="text-xl font-semibold text-blue-300">
-              Detalle Cassette
-            </h2>
 
-            <div class="">
-              <a href=""
-                ><i
-                  class="fa-solid fa-qrcode"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
-              <a href="#" id="abrirModalBasura"
-                ><i class="fa-solid fa-trash text-blue-300"></i
-              ></a>
-              <!-- MODAL ELIMINAR CASSETE-->
-              <div
-                id="modal"
-                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-              >
-                <div
-                  class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center"
-                >
-                  <button
-                    id="cerrarModalBasura"
-                    class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
-                  >
-                    &times;
-                  </button>
-
-                  <h2 class="text-lg font-semibold mb-4 text-blue-400">
-                    Desea Eliminar el Cassete.
-                  </h2>
-                  <p class="text-blue-400 mb-4">
-                    Al eliminar el cassete se eliminarán también todas sus
-                    muestras.
-                  </p>
-                  <button
-                    class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
-                  >
-                    Eliminar
-                  </button>
+        <div class="p-4 rounded shadow mt-4 h-60 border-blue-400 border">
+            <div class="flex justify-evenly mb-3">
+                <div class="w-9/12">
+                    <h2 class="text-xl font-bold text-center text-blue-300">
+                        Muestras
+                    </h2>
                 </div>
-              </div>
-
-              <a href=""
-                ><i
-                  class="fa-solid fa-file-pen"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
+                <div>
+                    <a href=""><i class="fa-solid fa-file-circle-plus" style="color: rgb(147 197 253)"></i></a>
+                </div>
             </div>
-          </div>
-          <div class="mt-5 border-b-2">
-            <p><strong class="text-blue-300">Descripción:</strong></p>
-          </div>
-          <div class="border-b-2 h-32">
-            <div class="flex justify-between mb-5 mt-2">
-              <p><strong class="text-blue-300">Órgano:</strong></p>
-              <p class="mr-5"><strong class="text-blue-300">Fecha:</strong></p>
-            </div>
-            <p class="mb-5">
-              <strong class="text-blue-300">Características:</strong>
-            </p>
-            <p class="text-sm"></p>
-          </div>
-          <div class="h-20">
-            <p><strong class="text-blue-300">Observaciones:</strong></p>
-            <p class="text-sm"></p>
-          </div>
+            <table class="w-full text-left">
+                <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border">
+                    <div
+                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                        Fecha
+                        <span class="text-gray-500 hidden">&#x25B4;</span>
+                    </div>
+                    <div
+                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                        Descripción
+                        <span class="text-gray-500 hidden">&#x25BE;</span>
+                    </div>
+                    <div
+                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                        Tinción
+                        <span class="text-gray-500 hidden">&#x25B4;</span>
+                    </div>
+                </div>
+                <tbody>
+                    <tr class="rounded border-blue-400 border">
+                        <td class="p-2 text-red-400" colspan="3">
+                            No se ha encontrado ninguna muestra
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-      </div>
-
-      <div class="p-4 rounded shadow mt-4 h-60 border-blue-400 border">
-        <div class="flex justify-evenly mb-3">
-          <div class="w-9/12">
-            <h2 class="text-xl font-bold text-center text-blue-300">
-              Muestras
-            </h2>
-          </div>
-          <div>
-            <a href=""
-              ><i
-                class="fa-solid fa-file-circle-plus"
-                style="color: rgb(147 197 253)"
-              ></i
-            ></a>
-          </div>
-        </div>
-        <table class="w-full text-left">
-          <div
-            class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border"
-          >
-            <div
-              class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-            >
-              Fecha
-              <span class="text-gray-500 hidden">&#x25B4;</span>
-            </div>
-            <div
-              class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-            >
-              Descripción
-              <span class="text-gray-500 hidden">&#x25BE;</span>
-            </div>
-            <div
-              class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-            >
-              Tinción
-              <span class="text-gray-500 hidden">&#x25B4;</span>
-            </div>
-          </div>
-          <tbody>
-            <tr class="rounded border-blue-400 border">
-              <td class="p-2 text-red-400" colspan="3">
-                No se ha encontrado ninguna muestra
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
 
     <script src="../JS/modales.js"></script>
-  </body>
+</body>
+
 </html>
