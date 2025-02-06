@@ -269,7 +269,7 @@
                                         <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                                             Observaciones
                                         </h2>
-                                        <input type="type" class="border w-full rounded h-12">
+                                        <input type="text" class="border w-full rounded h-12">
                                     </div>
                                     <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                                         Modificar Cassete
@@ -308,7 +308,68 @@
                     </h2>
                 </div>
                 <div>
-                    <a href=""><i class="fa-solid fa-file-circle-plus" style="color: rgb(147 197 253)"></i></a>
+                    <a href="" id="abrirModalNuevaMuestra"><i class="fa-solid fa-file-circle-plus" style="color: rgb(147 197 253)"></i></a>
+
+                    <div id="modalNuevaMuestra"
+                            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                            <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+                                <button id="cerrarModalNuevaMuestra"
+                                    class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                                    &times;
+                                </button>
+                                <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Nueva Muestra</h2>
+
+                                <div class="mb-5">
+                                    <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                                        Descripción
+                                    </h2>
+                                    <input type="text" class="border w-full rounded h-8">
+                                </div>
+                                    
+                                <div class="flex-col justify-center mr-1 w-full mb-5">
+                                    <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
+                                        Fecha
+                                    </h2>
+                                    <input type="date" class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                                
+                                </div>
+                                    
+                                <div class="flex-col justify-center w-full mb-5">
+                                    <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
+                                        Tinción
+                                    </h2>
+                                    <select id="tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                                        <option value="gram">Gram</option>
+                                        <option value="ziehl-neelsen">Ziehl-Neelsen</option>
+                                        <option value="giemsa">Giemsa</option>
+                                        <option value="wright">Wright</option>
+                                        <option value="pas">PAS (Ácido Periódico de Schiff)</option>
+                                        <option value="tricromico-masson">Tricrómica de Masson</option>
+                                        <option value="azul-toluidina">Azul de Toluidina</option>
+                                        <option value="sudan">Sudan</option>
+                                        <option value="wright-giemsa">Wright-Giemsa</option>
+                                        <option value="plata">Plata</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-5">
+                                    <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                                        Observaciones
+                                    </h2>
+                                    <input type="text" class="border w-full rounded h-12">
+                                </div>
+
+                                <div>
+                                    <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left w-full">
+                                        Imagen
+                                    </h2>
+                                    <input type="file" class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center">
+                                </div>
+                                    <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                                        Crear Muestra
+                                    </button>
+                            </div>
+                        </div>
                 </div>
             </div>
             <table class="w-full text-left">

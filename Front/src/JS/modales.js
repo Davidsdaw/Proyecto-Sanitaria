@@ -37,3 +37,28 @@ const modal = document.getElementById("modal");
             modalModifiCass.classList.add("hidden");
         }
     });
+
+
+
+
+    const modalNuevaMuestra = document.getElementById("modalNuevaMuestra");
+    const abrirModalNuevaMuestra = document.getElementById("abrirModalNuevaMuestra");
+    const cerrarModalNuevaMuestra = document.getElementById("cerrarModalNuevaMuestra");
+    
+
+
+
+    abrirModalNuevaMuestra.addEventListener("click", (e) => {
+        e.preventDefault();
+        modalNuevaMuestra.classList.remove("hidden");
+    });
+
+    cerrarModalNuevaMuestra.addEventListener("click", () => {
+        modalNuevaMuestra.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modalNuevaMuestra) {
+            modalNuevaMuestra.classList.add("hidden");
+        }
+    });
