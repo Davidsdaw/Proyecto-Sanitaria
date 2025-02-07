@@ -153,7 +153,6 @@ const validate_register = () => {
 
   // Validacion de password
   if (register_password.validity.valueMissing) {
-    console.log("hola");
     register_password_repeat_error.textContent =
       "El campo contraseña es obligatorio.";
     valid = false;

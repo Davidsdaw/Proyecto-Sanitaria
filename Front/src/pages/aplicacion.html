@@ -426,6 +426,7 @@
                 <div>
                     <a href="" id="abrirModalNuevaMuestra"><i class="fa-solid fa-file-circle-plus" style="color: rgb(147 197 253)"></i></a>
 
+                    <!--MODAL NUEVA MUESTRA-->
                     <div id="modalNuevaMuestra"
                             class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                             <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
@@ -485,7 +486,7 @@
                                         Crear Muestra
                                     </button>
                             </div>
-                        </div>
+                    </div>
                 </div>
             </div>
             <table class="w-full text-left">
@@ -511,10 +512,86 @@
                         <td class="p-2 text-red-400" colspan="3">
                             No se ha encontrado ninguna muestra
                         </td>
-                        <td class="hidden">
-                            <i id="modalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
+                        <td class="">
+                            <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
 
+                            
                             <!--MODAL MUESTRAS IMAGENES-->
+                            <div id="modalMuestrasImagenes"
+                            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+                                <button id="cerrarModalMuestrasImagenes"
+                                    class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                                    &times;
+                                </button>
+                                <h2 class="mb-5 text-2xl text-blue-400 text-left border-b-2 pb-4">Detalle Muestra</h2>
+
+                                <div class="flex justify-between">
+                                    <div class="mb-5">
+                                        <a href=""><i class="fa-solid fa-qrcode text-blue-300"></i></a>
+                                        <a href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
+
+                                        <!--ELIMINAR MUESTRA-->
+                                        
+
+                                        <a href=""><i class="fa-solid fa-file-pen text-blue-300"></i></a>
+                                    </div>
+                                    <div class="">
+                                        <a href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="flex">
+                                    <div>
+                                        <div class="mb-5">
+                                            <h2 class="text-base font-semibold text-blue-400 text-left">
+                                                Descripción:
+                                            </h2>
+                                            <p>
+        
+                                            </p>
+                                        </div>
+                                            
+                                        <div class="flex-col justify-center mr-1 w-full">
+                                            <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
+                                                Fecha:
+                                            </h2>
+                                            <p>
+                                                
+                                            </p>                                
+                                        </div>
+                                            
+                                        <div class="flex-col justify-center w-full">
+                                            <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
+                                                Tinción:
+                                            </h2>
+                                            <p>
+        
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="">
+                                            <h2 class="text-base font-semibold mb-4 text-blue-400 text-left">
+                                                Observaciones:
+                                            </h2>
+                                        <p>
+        
+                                        </p>
+                                        </div>
+                                    </div>
+                                    <div class="ml-20">
+
+                                        <img class="size-auto" src="../assets/adn.jpg" alt="">
+
+                                    </div>
+
+                                </div>
+                                <div class="border-t-2 mt-10 flex pt-3 items-center">
+                                    <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
+                                    <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
+                                    <a href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>                              </div>
+                            </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
