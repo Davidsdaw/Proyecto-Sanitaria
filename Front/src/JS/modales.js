@@ -1,3 +1,6 @@
+
+    //MODAL ELIMINAR CASSETE
+
 const modal = document.getElementById("modal");
     const abrirModalBasura = document.getElementById("abrirModalBasura");
     const cerrarModalBasura = document.getElementById("cerrarModalBasura");
@@ -17,6 +20,8 @@ const modal = document.getElementById("modal");
         }
     });
 
+
+    //MODAL MODIFICAR CASSETE
 
     const modalModifiCass = document.getElementById("modalModificarCassete");
     const abrirModalModificarCassete = document.getElementById("abrirModificarCassete");
@@ -41,6 +46,8 @@ const modal = document.getElementById("modal");
 
 
 
+    //MODAL NUEVA MUESTRA
+
     const modalNuevaMuestra = document.getElementById("modalNuevaMuestra");
     const abrirModalNuevaMuestra = document.getElementById("abrirModalNuevaMuestra");
     const cerrarModalNuevaMuestra = document.getElementById("cerrarModalNuevaMuestra");
@@ -60,5 +67,32 @@ const modal = document.getElementById("modal");
     window.addEventListener("click", (e) => {
         if (e.target === modalNuevaMuestra) {
             modalNuevaMuestra.classList.add("hidden");
+        }
+    });
+
+
+
+    //MODAL NUEVO CASSETE
+
+
+    const modalNuevoCassete = document.getElementById("modalNuevoCassete");
+    const abrirModalNuevoCassete = document.getElementById("abrirModalNuevoCassete");
+    const cerrarModalNuevoCassete = document.getElementById("cerrarModalNuevoCassete");
+    
+
+
+
+    abrirModalNuevoCassete.addEventListener("click", (e) => {
+        e.preventDefault();
+        modalNuevoCassete.classList.remove("hidden");
+    });
+
+    cerrarModalNuevoCassete.addEventListener("click", () => {
+        modalNuevoCassete.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modalNuevoCassete) {
+            modalNuevoCassete.classList.add("hidden");
         }
     });
