@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const passwordInput2 = document.getElementById('register_password');
   const passwordInput3 = document.getElementById('register_password_repeat');
 
+
   const togglePassword = document.getElementById('togglePassword');
   const togglePassword2 = document.getElementById('togglePassword2');
   const togglePassword3 = document.getElementById('togglePassword3');

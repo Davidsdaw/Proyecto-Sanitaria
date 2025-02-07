@@ -1,13 +1,13 @@
 const { Sequelize } = require('sequelize');
 const sequelize = require('./db');
 
-// Importar modelos
+// inserción de todos los modelos
 const Usuario = require('./models/Usuario');
 const Cassette = require('./models/Cassette');
 const Muestra = require('./models/Muestra');
 const Imagen = require('./models/Imagen');
 
-// Definir relaciones en orden correcto
+// relaciones entre tablas
 Usuario.hasMany(Cassette, { foreignKey: 'usuario_id' });
 Cassette.belongsTo(Usuario, { foreignKey: 'usuario_id' });
 
