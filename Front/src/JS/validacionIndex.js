@@ -40,20 +40,25 @@ const register_password_repeat_error = document.getElementById(
 const login = async (event) => {
   event.preventDefault();
   if (validate_login()) {
-
-    let email = login_email.value.trim();
-    let password = login_password.value.trim();
-
-    const data = {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-         email: email,
-         password: password
-      })
+    validate_user();
   };
+
+};
+
+const validate_user= async()=>{
+  let email = login_email.value.trim();
+  let password = login_password.value.trim();
+
+  const data = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+       email: email,
+       password: password
+    })
+  }
 
   const response = await fetch("http://localhost:3000/sanitaria/users/login", data);
   const data2 = await response.json();
@@ -67,8 +72,7 @@ const login = async (event) => {
     
     
   }
-  }
-};
+}
 
 //Funcion validar login
 const validate_login = () => {
