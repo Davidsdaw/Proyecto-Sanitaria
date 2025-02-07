@@ -9,9 +9,8 @@ const login_session_error = document.getElementById("login_session_error");
 
 // Elementos del Solicitar Contraseña
 const form_password = document.getElementById("form_password");
-const solicitar_email = document.getElementById(
-  "solicitar_email"
-);
+const solicitar_email = document.getElementById( "solicitar_email");
+
 // Mensajes de error Solicitar Contraseña
 const solicitar_email_error = document.getElementById("solicitar_email_error");
 
@@ -22,9 +21,9 @@ const register_apellidos = document.getElementById("register_apellidos");
 const register_centro = document.getElementById("register_centro");
 const register_email = document.getElementById("register_email");
 const register_password = document.getElementById("register_password");
-const register_password_repeat = document.getElementById(
-  "register_password_repeat"
-);
+const register_password_repeat = document.getElementById("register_password_repeat");
+const register_session_error = document.getElementById("register_session_error");
+
 // Mensajes de error Registro
 const register_nombre_error = document.getElementById("register_nombre_error");
 const register_apellidos_error = document.getElementById(
@@ -48,21 +47,21 @@ const login = async (event) => {
     const data = {
       method: "POST",
       headers: {
-          "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-         email: email,
-         password: password
+        email: email,
+        password: password
       })
-  };
+    };
 
-  const response = await fetch("http://localhost:3000/sanitaria/users/login", data);
-  const data2 = await response.json();
+    const response = await fetch("http://localhost:3000/sanitaria/users/login", data);
+    const data2 = await response.json();
 
-  if (data2.success) {
-    console.log(data2.success)
-    localStorage.setItem("token", data2.success);
-    location.href="/Front/src/pages/aplicacion.html"
+    if (data2.success) {
+      console.log(data2.success)
+      localStorage.setItem("token", data2.success);
+      location.href = "/Front/src/pages/aplicacion.html"
 
   }else{
     login_session_error.textContent = "Email o contraseña incorrectos";
@@ -106,9 +105,11 @@ const validate_login = () => {
   if (login_email.validity.valueMissing) {
     login_email_error.textContent = "El campo email es obligatorio.";
     valid = false;
+
   } else if (login_email.validity.typeMismatch) {
     login_email_error.textContent = "El formato del email no es válido.";
     valid = false;
+
   } else {
     login_email_error.textContent = "";
   }
@@ -128,16 +129,50 @@ const validate_login = () => {
   } else {
     login_password_error.textContent = "";
   }
-
   return valid;
 };
 
 // Funcion de registro
-const register = (event) => {
+const register = async (event) => {
   event.preventDefault();
 
-  if (validate_register() == true) {
-    console.log("Te has registrado correctamente.");
+  if (validate_register() == true) {  //no funciona el validar de las contraseñas
+
+    if (register_password.textContent = register_password_repeat.textContent) {
+      console.log("las contraseñas coinciden");
+
+      let nombre = document.getElementById("register_nombre").value.trim();
+      let apellidos = document.getElementById("register_apellidos");
+      let centro = document.getElementById("register_centro").value.trim();
+      let email = document.getElementById("register_email").value.trim();
+      let password = document.getElementById("register_password").value.trim();
+      
+       const data = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+          nombre: nombre,
+          apellidos: apellidos,
+          email: email,
+          password: password,
+          centro: centro,
+          rol: "usuario",
+
+        })
+      };
+      const response = await fetch("http://localhost:3000/sanitaria/users/register", data);
+      const data2 = await response.json();
+      if (data2.success) {
+        console.log(data2.success)
+        localStorage.setItem("token", data2.success);
+        location.href = "/Front/src/index.html"
+      } else {
+        register_session_error.textContent = "Error en la insercion de datos";      
+      }
+    }
   }
 };
 // Funcion validar el registro
