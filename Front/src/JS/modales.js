@@ -96,3 +96,8 @@ const modal = document.getElementById("modal");
             modalNuevoCassete.classList.add("hidden");
         }
     });
+
+
+
+
+    

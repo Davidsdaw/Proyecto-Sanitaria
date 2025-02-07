@@ -226,8 +226,13 @@ const validate_register = () => {
 
   // Validacion de password
   if (register_password.validity.valueMissing) {
+<<<<<<< HEAD
     register_password_repeat_error.textContent =
       "El campo contraseña es obligatorio.";
+=======
+
+    register_password_repeat_error.textContent ="El campo contraseña es obligatorio.";
+>>>>>>> 9ca9f2f0713dc7c84d11fdf8fb1b3b0b3ff4fd7c
     valid = false;
   } else if (register_password.validity.tooShort) {
     register_password_repeat_error.textContent =
