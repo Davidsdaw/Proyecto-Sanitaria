@@ -5,6 +5,7 @@ const login_password = document.getElementById("login_password");
 // Mensajes de error Login
 const login_email_error = document.getElementById("login_email_error");
 const login_password_error = document.getElementById("login_password_error");
+const login_session_error = document.getElementById("login_session_error");
 
 // Elementos del Solicitar Contraseña
 const form_password = document.getElementById("form_password");
@@ -64,7 +65,7 @@ const login = async (event) => {
     location.href="/Front/src/pages/aplicacion.html"
 
   }else{
-    
+    login_session_error.textContent = "Email o contraseña incorrectos";
     
   }
   }
