@@ -10,11 +10,17 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body class="w-full mx-auto flex justify-center">
+
+  <video autoplay muted loop class="fixed top-0 w-full">
+    <source src="./assets/fondo.mp4" type="video/mp4">
+  </video>
+
+  <body class="w-full mx-auto flex-col justify-center">
+
     <header
-      class="w-full max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] m-4 p-4 shadow-md shadow-gray-300"
+      class="relative w-full z-10 max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] mx-auto my-4 p-4 shadow-md shadow-gray-300 flex justify-center"
     >
-      <nav class="md:flex justify-start md:justify-center items-center">
+      <nav class="md:flex justify-start md:justify-center items-center w-full">
         <ul class="flex justify-between items-center text-md gap-5">
           <li class="flex md:hidden">
             <i id="nav_button" class="fa-solid fa-bars md:hidden"></i>
