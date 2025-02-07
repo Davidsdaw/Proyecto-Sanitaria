@@ -41,7 +41,7 @@ const register_password_repeat_error = document.getElementById(
 const login = async (event) => {
   event.preventDefault();
   if (validate_login()) {
-
+    validate_user();
     let email = login_email.value.trim();
     let password = login_password.value.trim();
 
@@ -66,10 +66,37 @@ const login = async (event) => {
 
   }else{
     login_session_error.textContent = "Email o contraseña incorrectos";
-    
   }
   }
 };
+
+const validate_user=async()=>{
+    let email = login_email.value.trim();
+    let password = login_password.value.trim();
+
+    const data = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+         email: email,
+         password: password
+      })
+    }
+
+  const response = await fetch("http://localhost:3000/sanitaria/users/login", data);
+  const data2 = await response.json();
+
+  if (data2.success) {
+    console.log(data2.success)
+    localStorage.setItem("token", data2.success);
+    location.href="/Front/src/pages/aplicacion.html"
+
+  }else{
+    login_session_error.textContent = "Email o contraseña incorrectos";
+  }
+}
 
 //Funcion validar login
 const validate_login = () => {
@@ -104,6 +131,7 @@ const validate_login = () => {
 
   return valid;
 };
+
 // Funcion de registro
 const register = (event) => {
   event.preventDefault();
@@ -153,21 +181,16 @@ const validate_register = () => {
 
   // Validacion de password
   if (register_password.validity.valueMissing) {
-    console.log("hola");
-    register_password_repeat_error.textContent =
-      "El campo contraseña es obligatorio.";
+    register_password_repeat_error.textContent ="El campo contraseña es obligatorio.";
     valid = false;
   } else if (register_password.validity.tooShort) {
-    register_password_repeat_error.textContent =
-      "La longitud de la contraseña debe ser mayor o igual a 8.";
+    register_password_repeat_error.textContent ="La longitud de la contraseña debe ser mayor o igual a 8.";
     valid = false;
   } else if (register_password.validity.patternMismatch) {
-    register_password_repeat_error.textContent =
-      "Formato de la contraseña incorrecto.";
+    register_password_repeat_error.textContent ="Formato de la contraseña incorrecto.";
     valid = false;
   } else if (register_password.value != register_password_repeat.value) {
-    register_password_repeat_error.textContent =
-      "Las contraseñas deben de coincidir.";
+    register_password_repeat_error.textContent ="Las contraseñas deben de coincidir.";
     valid = false;
   } else {
     register_password_repeat_error.textContent = "";
