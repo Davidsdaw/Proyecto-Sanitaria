@@ -42,7 +42,8 @@ const deleteUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const createdUser = await usersService.createUser({nombre: req.body.nombre,
+    const createdUser = await usersService.createUser({
+      nombre: req.body.nombre,
       apellido: req.body.apellido,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 10),
