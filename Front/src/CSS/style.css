@@ -2,6 +2,10 @@
     display: none;
 }
 
+@media screen {
+    
+}
+
 .display_on{
     opacity: 0;
     animation-name: display_on;
