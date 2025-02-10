@@ -15,9 +15,9 @@ Usuario.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: {
-          args: true,
-          msg: 'El nombre solo puede contener letras',
+        is: {
+          args: [/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/],
+          msg: 'El nombre solo puede contener letras y espacios',
         },
         len: {
           args: [3, 50],
@@ -29,9 +29,9 @@ Usuario.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: {
-          args: true,
-          msg: 'El apellido solo puede contener letras',
+        is: {
+          args: [/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/],
+          msg: 'El apellido solo puede contener letras y espacios',
         },
         len: {
           args: [3, 50],
@@ -64,8 +64,14 @@ Usuario.init(
       },
     },
     centro: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('IES Ribera del Tajo', 'IES Gabriel Alonso de Herrera'),
       allowNull: true,
+      validate:{
+        is: {
+          args: [["IES Ribera del Tajo","IES Gabriel Alonso de Herrera"]],
+          msg: 'El centro solo puede ser uno de los indicados',
+        },
+      }
     },
     rol: {
       type: DataTypes.ENUM('administrador', 'alumno'),
