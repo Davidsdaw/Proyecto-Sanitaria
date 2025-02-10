@@ -160,6 +160,7 @@ const register_user = async () => {
   } else {
     //HAY QUE HACER MODAL EN EL INDEX CON UN MENSAJE DE QUE HAS CREADO LA CUENTA CON UN BOTON PARA ACEPTAR
     //Y QUE CUANDO ACEPTES TE MUEVA AL LOGIN 
+    container_register.classList.remove("display_on");
     container_register.classList.add("display_off");
     modal_confirmacion_registro.classList.remove("display_off");
     modal_confirmacion_registro.classList.remove("opacity-0");
