@@ -11,7 +11,7 @@ const new_password_function = (event) => {
     event.preventDefault();
   
     if (validate_new_password() == true) {
-      console.log("Has modificado la contraseña correctamente.");
+      changePassword();
     }
   };
   // Funcion validar la solicitud de contraseña
@@ -44,22 +44,26 @@ const new_password_function = (event) => {
   };
 
   const changePassword = async () => {
-    if(new_password_repeat==new_password){
+    if(new_password_repeat.value==new_password.value){
       const data = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          newPassword: new_password,
+          newPassword: new_password.value,
         }),
       };
-      const response = await fetch(
-        "http://localhost:3000/sanitaria/users/reset-password/:token",
-        data
-      );
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      console.log(token)
+      const response = await fetch(`http://localhost:3000/sanitaria/users/reset-password/${token}`,data);
       const dataFetch = await response.json();
-      console.log(dataFetch)
+      if(dataFetch.message){
+        //ABRIR MODAL DICIENDO QUE SE TE HA CAMBIADO LA PW Y REDIRECCIONAR AL LOGIN
+      }else {
+        //DISPLAYEAR MENSAJE DE ERROR
+      }
     };
     }
 

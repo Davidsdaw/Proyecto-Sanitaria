@@ -225,12 +225,35 @@ const validate_register = () => {
 const password = (event) => {
   event.preventDefault();
 
-  if (validate_password() == true) {
-    console.log("Has solicitado la contraseña correctamente.");
+  if (validateEmail() == true) {
+    sendRecoveryEmail(solicitar_email.value);
   }
 };
+
+const sendRecoveryEmail = async(email) => {
+
+  const data = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  };
+
+  const response = await fetch("http://localhost:3000/sanitaria/users/forgot-password",data);
+  const dataResponse = await response.json();
+  console.log(dataResponse)
+  if(dataResponse.message){
+    //ABRIR MODAL DICIENDO QUE SE TE HA ENVIADO UN CORREO Y REDIRECCIONAR AL LOGIN
+  } else {
+    //DISPLAYEAR MENSAJE DE ERROR
+  }
+}
+
 // Funcion validar la solicitud de contraseña
-const validate_password = () => {
+const validateEmail = () => {
   let valid = true;
 
   // Validacion de Email

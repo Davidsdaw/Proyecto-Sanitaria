@@ -114,7 +114,7 @@ const generateRecoveryToken = (email) => {
 };
 
 const forgotPassword = async (req, res) => {
-  const { email } = req.query;
+  const { email } = req.body;
 
   try {
     const user = await usersService.getUserByEmail(email);
