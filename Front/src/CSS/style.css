@@ -2,8 +2,10 @@
     display: none;
 }
 
-@media screen {
-    
+@media (width<1000px) {
+    .video{
+        display: none;
+    }
 }
 
 .display_on{
