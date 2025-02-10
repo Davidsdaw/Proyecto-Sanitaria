@@ -67,7 +67,7 @@ Usuario.init(
       type: DataTypes.ENUM('IES Ribera del Tajo', 'IES Gabriel Alonso de Herrera'),
       allowNull: true,
       validate:{
-        is: {
+        isIn: {
           args: [["IES Ribera del Tajo","IES Gabriel Alonso de Herrera"]],
           msg: 'El centro solo puede ser uno de los indicados',
         },
