@@ -7,36 +7,58 @@
   <link href="./../output.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/ec5d753fff.js" crossorigin="anonymous"></script>
 </head>
-<body class="w-full mx-auto flex justify-center">
-    <header class="w-full max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] m-4 p-4 shadow-md shadow-gray-300">
-        <nav class="md:flex justify-start md:justify-center items-center">
-            <ul class="flex justify-between items-center text-md gap-5">
-                <li class="flex md:hidden"><i id="nav_button" class="fa-solid fa-bars md:hidden"></i></li>
-                <li class="hidden md:flex text-gray-500"><a href="#">Inicio</a></li>
-                <li class="hidden md:flex"><a href="#">Proyecto</a></li>
-                <li class="hidden md:flex"><a href="#">Laboratorio</a></li>
-                <li class="hidden md:flex"><a href="#">Autopsias</a></li>
-                <li class="hidden md:flex"><a href="#">Microscopio</a></li>
-                <li class="hidden md:flex"><a href="#">Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i></a></li>
-                <li class="hidden md:flex"><a href="#">Ejercicios</a></li>
-                <li class="hidden md:flex"><a href="#">Registro</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <nav id="nav_list" class="absolute z-10 w-full flex justify-center items-center text-md hidden show_off_nav_list bg-blue-300 text-white text-center p-4">
-        <ul>
-            <li><i id="nav_list_button" class="fa-solid fa-bars"></i></li>
-            <li class="text-gray-500"><a href="#">Inicio</a></li>
-            <li><a href="#">Proyecto</a></li>
-            <li><a href="#">Laboratorio</a></li>
-            <li><a href="#">Autopsias</a></li>
-            <li><a href="#">Microscopio</a></li>
-            <li><a href="#">Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i></a></li>
-            <li><a href="#">Ejercicios</a></li>
-            <li><a href="#">Registro</a></li>
-        </ul>
-    </nav>
+
+<video autoplay muted loop class="video fixed -z-10 top-0 w-full object-contain">
+  <source src="./../assets/fondo.mp4" type="video/mp4">
+</video>
+
+<body class="w-full mx-auto flex justify-center">
+  
+  <header
+  class="relative w-full z-10 max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] mx-auto my-4 p-4 shadow-md shadow-gray-300 flex justify-center"
+>
+  <nav class="md:flex justify-start md:justify-center items-center w-full">
+    <ul class="flex justify-between items-center text-md gap-5">
+      <li class="flex md:hidden">
+        <i id="nav_button" class="fa-solid fa-bars md:hidden"></i>
+      </li>
+      <li class="hidden md:flex text-gray-500"><a href="#">Inicio</a></li>
+      <li class="hidden md:flex"><a href="#">Proyecto</a></li>
+      <li class="hidden md:flex"><a href="#">Laboratorio</a></li>
+      <li class="hidden md:flex"><a href="#">Autopsias</a></li>
+      <li class="hidden md:flex"><a href="#">Microscopio</a></li>
+      <li class="hidden md:flex">
+        <a href="#"
+          >Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i
+        ></a>
+      </li>
+      <li class="hidden md:flex"><a href="#">Ejercicios</a></li>
+      <li class="hidden md:flex"><a href="#">Registro</a></li>
+    </ul>
+  </nav>
+</header>
+
+<nav
+  id="nav_list"
+  class="video absolute top-0 z-10 w-full flex justify-center items-center text-md hidden show_off_nav_list bg-blue-300 text-white text-center p-4"
+>
+  <ul>
+    <li><i id="nav_list_button" class="fa-solid fa-bars"></i></li>
+    <li class="text-gray-500"><a href="#">Inicio</a></li>
+    <li><a href="#">Proyecto</a></li>
+    <li><a href="#">Laboratorio</a></li>
+    <li><a href="#">Autopsias</a></li>
+    <li><a href="#">Microscopio</a></li>
+    <li>
+      <a href="#"
+        >Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i
+      ></a>
+    </li>
+    <li><a href="#">Ejercicios</a></li>
+    <li><a href="#">Registro</a></li>
+  </ul>
+</nav>
       
     <!-- MODAL SOLICITAR CONTRASEÑA -->
 

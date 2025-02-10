@@ -41,38 +41,12 @@ const register_password_repeat_error = document.getElementById(
 
 /////////////////////////////////////////////////////////////////////////
 //Funcion Login
-const login = async (event) => {
+const login = (event) => {
   event.preventDefault();
+
   if (validate_login()) {
     validate_user();
-    let email = login_email.value.trim();
-    let password = login_password.value.trim();
-
-    const data = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
     };
-
-    const response = await fetch(
-      "http://localhost:3000/sanitaria/users/login",
-      data
-    );
-    const data2 = await response.json();
-
-    if (data2.success) {
-      console.log(data2.success);
-      localStorage.setItem("token", data2.success);
-      location.href = "/Front/src/pages/aplicacion.html";
-    } else {
-      login_session_error.textContent = "Email o contraseña incorrectos";
-    }
-  }
 };
 
 const validate_user = async () => {
@@ -87,9 +61,8 @@ const validate_user = async () => {
     body: JSON.stringify({
       email: email,
       password: password,
-    }),
-  };
-
+    })
+  }
   const response = await fetch(
     "http://localhost:3000/sanitaria/users/login",
     data
@@ -103,7 +76,9 @@ const validate_user = async () => {
   } else {
     login_session_error.textContent = "Email o contraseña incorrectos";
   }
-};
+
+    
+  };
 
 //Funcion validar login
 const validate_login = () => {
@@ -155,7 +130,7 @@ const register_user = async () => {
   let centro = document.getElementById("register_centro").value.trim();
   let email = document.getElementById("register_email").value.trim();
   let password = document.getElementById("register_password").value.trim();
-  console.log(toString(apellido));
+  
   const data = {
     method: "POST",
     headers: {
@@ -170,14 +145,13 @@ const register_user = async () => {
       rol: "alumno",
     }),
   };
-  const response = await fetch(
-    "http://localhost:3000/sanitaria/users/register",
-    data
-  );
+  const response = await fetch("http://localhost:3000/sanitaria/users/register",data);
+
   const data2 = await response.json();
+
   if (data2.error) {
     // FALTA EL FRONT DE REGISTER_SESSION_ERROR 
-    // register_session_error.textContent = data2.error;
+    register_session_error.textContent = data2.error;
   } else {
     //HAY QUE HACER MODAL EN EL INDEX CON UN MENSAJE DE QUE HAS CREADO LA CUENTA CON UN BOTON PARA ACEPTAR
     //Y QUE CUANDO ACEPTES TE MUEVA AL LOGIN 
