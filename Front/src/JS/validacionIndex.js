@@ -97,7 +97,6 @@ const validate_login = () => {
 
   // Validacion de password
   if (login_password.validity.valueMissing) {
-    console.log("hola");
     login_password_error.textContent = "El campo contraseña es obligatorio.";
     valid = false;
   } else if (login_password.validity.tooShort) {
@@ -125,11 +124,11 @@ const register = async (event) => {
 };
 
 const register_user = async () => {
-  let nombre = document.getElementById("register_nombre").value.trim();
-  let apellido = document.getElementById("register_apellidos").value.trim();
-  let centro = document.getElementById("register_centro").value.trim();
-  let email = document.getElementById("register_email").value.trim();
-  let password = document.getElementById("register_password").value.trim();
+  let nombre = register_nombre.value.trim();
+  let apellido = register_apellidos.value.trim();
+  let centro = register_centro.value.trim();
+  let email = register_email.value.trim();
+  let password = register_password.value.trim();
   
   const data = {
     method: "POST",
@@ -138,13 +137,16 @@ const register_user = async () => {
     },
     body: JSON.stringify({
       nombre: nombre,
-      apellido: toString(apellido),
+      apellido: apellido,
       email: email,
       password: password,
       centro: centro,
       rol: "alumno",
     }),
   };
+
+  console.log(data);
+
   const response = await fetch("http://localhost:3000/sanitaria/users/register",data);
 
   const data2 = await response.json();
