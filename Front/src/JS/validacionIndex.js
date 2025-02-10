@@ -143,8 +143,7 @@ const register = async (event) => {
   event.preventDefault();
 
   if (validate_register() == true) {
-    //no funciona el validar de las contraseñas
-    if ((register_password.textContent = register_password_repeat.textContent)) {
+    if ((register_password.value = register_password_repeat.value)) {
       register_user();
     }
   }
@@ -152,11 +151,10 @@ const register = async (event) => {
 
 const register_user = async () => {
   let nombre = document.getElementById("register_nombre").value.trim();
-  let apellidos = document.getElementById("register_apellidos");
+  let apellido = document.getElementById("register_apellidos").value.trim();
   let centro = document.getElementById("register_centro").value.trim();
   let email = document.getElementById("register_email").value.trim();
   let password = document.getElementById("register_password").value.trim();
-
   const data = {
     method: "POST",
     headers: {
@@ -164,11 +162,11 @@ const register_user = async () => {
     },
     body: JSON.stringify({
       nombre: nombre,
-      apellidos: apellidos,
+      apellido: apellido,
       email: email,
       password: password,
       centro: centro,
-      rol: "usuario",
+      rol: "alumno",
     }),
   };
   const response = await fetch(
@@ -176,12 +174,12 @@ const register_user = async () => {
     data
   );
   const data2 = await response.json();
-  if (data2.success) {
-    console.log(data2.success);
-    localStorage.setItem("token", data2.success);
-    location.href = "/Front/src/index.html";
+  if (data2.error) {
+    // FALTA EL FRONT DE REGISTER_SESSION_ERROR 
+    // register_session_error.textContent = data2.error;
   } else {
-    register_session_error.textContent = "Error en la insercion de datos";
+    //HAY QUE HACER MODAL EN EL INDEX CON UN MENSAJE DE QUE HAS CREADO LA CUENTA CON UN BOTON PARA ACEPTAR
+    //Y QUE CUANDO ACEPTES TE MUEVA AL LOGIN 
   }
 };
 
@@ -226,13 +224,7 @@ const validate_register = () => {
 
   // Validacion de password
   if (register_password.validity.valueMissing) {
-<<<<<<< HEAD
-    register_password_repeat_error.textContent =
-      "El campo contraseña es obligatorio.";
-=======
-
     register_password_repeat_error.textContent ="El campo contraseña es obligatorio.";
->>>>>>> 9ca9f2f0713dc7c84d11fdf8fb1b3b0b3ff4fd7c
     valid = false;
   } else if (register_password.validity.tooShort) {
     register_password_repeat_error.textContent =
