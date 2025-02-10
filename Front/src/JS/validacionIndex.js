@@ -39,6 +39,8 @@ const register_password_repeat_error = document.getElementById(
   "register_password_repeat_error"
 );
 
+const modal_confirmacion_registro=document.getElementById("modal_confirmacion_registro");
+
 /////////////////////////////////////////////////////////////////////////
 //Funcion Login
 const login = (event) => {
@@ -154,9 +156,14 @@ const register_user = async () => {
   if (data2.error) {
     // FALTA EL FRONT DE REGISTER_SESSION_ERROR 
     register_session_error.textContent = data2.error;
+    // register_session_error.textContent = "Registro Fallido";
   } else {
     //HAY QUE HACER MODAL EN EL INDEX CON UN MENSAJE DE QUE HAS CREADO LA CUENTA CON UN BOTON PARA ACEPTAR
     //Y QUE CUANDO ACEPTES TE MUEVA AL LOGIN 
+    container_register.classList.add("display_off");
+    modal_confirmacion_registro.classList.remove("display_off");
+    modal_confirmacion_registro.classList.remove("opacity-0");
+    modal_confirmacion_registro.classList.add("display_on");
   }
 };
 
