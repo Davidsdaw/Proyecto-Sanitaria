@@ -20,7 +20,7 @@ const sendRecoveryEmail = async (email, token) => {
         <p>Hola,</p>
         <p>Recibimos una solicitud para restablecer tu contraseña. Si no realizaste esta solicitud, puedes ignorar este correo.</p>
         <p>Si deseas restablecer tu contraseña, haz clic en el botón de abajo:</p>
-        <a href="${process.env.BASE_URL}/reset-password/token=${token}" 
+        <a href="localhost:5500/Front/src/pages/resetPasword.html?${token}" 
            style="display: inline-block; margin: 20px 0; padding: 10px 20px; font-size: 16px; color: white; background-color: #4CAF50; text-decoration: none; border-radius: 5px;">
           Restablecer Contraseña
         </a>

@@ -43,4 +43,24 @@ const new_password_function = (event) => {
     return valid;
   };
 
+  const changePassword = async () => {
+    if(new_password_repeat==new_password){
+      const data = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newPassword: new_password,
+        }),
+      };
+      const response = await fetch(
+        "http://localhost:3000/sanitaria/users/reset-password/:token",
+        data
+      );
+      const dataFetch = await response.json();
+      console.log(dataFetch)
+    };
+    }
+
 form_new_password.addEventListener("submit", new_password_function);

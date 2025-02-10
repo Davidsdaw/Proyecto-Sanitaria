@@ -155,6 +155,7 @@ const register_user = async () => {
   let centro = document.getElementById("register_centro").value.trim();
   let email = document.getElementById("register_email").value.trim();
   let password = document.getElementById("register_password").value.trim();
+  console.log(toString(apellido));
   const data = {
     method: "POST",
     headers: {
@@ -162,7 +163,7 @@ const register_user = async () => {
     },
     body: JSON.stringify({
       nombre: nombre,
-      apellido: apellido,
+      apellido: toString(apellido),
       email: email,
       password: password,
       centro: centro,
