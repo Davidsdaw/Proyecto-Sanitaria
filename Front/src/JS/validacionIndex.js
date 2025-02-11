@@ -76,6 +76,7 @@ const validate_user = async () => {
   if (data2.success) {
     console.log(data2.success);
     localStorage.setItem("token", data2.success);
+    sessionStorage.setItem("user_id", data2.id);
     location.href = "/Front/src/pages/aplicacion.html";
   } else {
     login_session_error.textContent = "Email o contraseña incorrectos";
