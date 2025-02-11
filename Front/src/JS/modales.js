@@ -98,6 +98,15 @@ const modal = document.getElementById("modal");
     });
 
 
-
-
     
+
+    //AÑADIR CASSETE
+
+
+    const modalAñadirCassete = document.getElementById("modalAñadirCassete");
+    
+    modalAñadirCassete.addEventListener("click", (e) => {
+        if(e.target.id === modalAñadirCassete){
+            
+        }
+    });
