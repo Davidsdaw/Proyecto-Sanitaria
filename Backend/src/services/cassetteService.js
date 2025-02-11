@@ -37,10 +37,24 @@ const createCassette = async (CassetteData) => {
     }
 };
 
+const editCassettes = async (id, cassetteData) => {
+    try {
+      const user = await Cassette.findByPk(id);
+      if (!user) {
+        throw new Error("Cassette no encontrado");
+      }
+      return await Cassette.update(cassetteData,{
+        where: { id: id }
+      });
+    } catch (error) {
+      throw new Error("Error al modificar el cassette: " + error.message);
+    }
+  };
 
 module.exports = {
     getAllCassettes,
     getCassetteById,
     deleteCassette,
     createCassette,
+    editCassettes,
 }
