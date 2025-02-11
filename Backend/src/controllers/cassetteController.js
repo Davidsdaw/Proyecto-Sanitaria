@@ -40,7 +40,7 @@ const createCassettes = async (req, res) => {
   try {
     const createdcassettes = await cassetteService.createCassettes({
         descripcion: req.body.descripcion,
-        fecha: new Date(),
+        fecha: req.body.fecha,
         organo: req.body.organo,
         idOrgano: req.body.idOrgano,
         caracteristicas: req.body.caracteristicas,
