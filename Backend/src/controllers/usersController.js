@@ -90,7 +90,7 @@ const createToken=(user) => {
     if (user) {
       const isCorrectPass = bcrypt.compareSync(password, user.password);
       if (isCorrectPass) {
-        res.json({ success: createToken(user) });
+        res.json({ success: createToken(user),id:user.id });
       } else {
         res.status(401).json({ error: "Contraseña incorrecta" });
       }
