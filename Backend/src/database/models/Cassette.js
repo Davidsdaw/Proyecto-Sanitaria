@@ -40,6 +40,10 @@ Cassette.init(
         }
       }
     },
+    idOrgano: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     caracteristicas: {
       type: DataTypes.STRING,
       allowNull: false,
