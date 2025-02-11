@@ -5,6 +5,8 @@ const new_password_repeat = document.getElementById("new_password_repeat");
 // Mensajes de error Registro
 const new_password_repeat_error = document.getElementById("new_password_repeat_error");
 
+const modal_confirmacion_cambioContrasena=document.getElementById("modal_confirmacion_cambioContrasena");
+
 
 // Funcion para modificar contraseña
 const new_password_function = (event) => {
@@ -59,10 +61,17 @@ const new_password_function = (event) => {
       console.log(token)
       const response = await fetch(`http://localhost:3000/sanitaria/users/reset-password/${token}`,data);
       const dataFetch = await response.json();
+
       if(dataFetch.message){
         //ABRIR MODAL DICIENDO QUE SE TE HA CAMBIADO LA PW Y REDIRECCIONAR AL LOGIN
+        form_new_password.classList.remove("display_on");
+        form_new_password.classList.add("display_off");
+        modal_confirmacion_cambioContrasena.classList.remove("display_off");
+        modal_confirmacion_cambioContrasena.classList.remove("opacity-0");
+        modal_confirmacion_cambioContrasena.classList.add("display_on");
       }else {
         //DISPLAYEAR MENSAJE DE ERROR
+        new_password_repeat_error.textContent="Error al actualizar contraseña";
       }
     };
     }

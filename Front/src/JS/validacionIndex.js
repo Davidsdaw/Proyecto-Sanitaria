@@ -40,6 +40,8 @@ const register_password_repeat_error = document.getElementById(
 );
 
 const modal_confirmacion_registro=document.getElementById("modal_confirmacion_registro");
+const modal_confirmacion_email=document.getElementById("modal_confirmacion_email");
+
 
 /////////////////////////////////////////////////////////////////////////
 //Funcion Login
@@ -255,8 +257,14 @@ const sendRecoveryEmail = async(email) => {
   console.log(dataResponse)
   if(dataResponse.message){
     //ABRIR MODAL DICIENDO QUE SE TE HA ENVIADO UN CORREO Y REDIRECCIONAR AL LOGIN
+    container_password.classList.remove("display_on");
+    container_password.classList.add("display_off");
+    modal_confirmacion_email.classList.remove("display_off");
+    modal_confirmacion_email.classList.remove("opacity-0");
+    modal_confirmacion_email.classList.add("display_on");
   } else {
     //DISPLAYEAR MENSAJE DE ERROR
+    solicitar_email_error.textContent("Error al enviar email.");
   }
 }
 
