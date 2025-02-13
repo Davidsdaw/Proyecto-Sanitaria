@@ -9,7 +9,7 @@ const getAllCassettes = async () => {
     }
 };
 
-const getCassetteById = async (id) => {
+const getCassettesById = async (id) => {
     try {
         return await Cassette.findByPk(id);
     } catch (error) {
@@ -17,7 +17,7 @@ const getCassetteById = async (id) => {
     }
 };
 
-const deleteCassette = async (id) => {
+const deleteCassettes = async (id) => {
     try {
         const cassette = await Cassette.findByPk(id);
         if (!cassette) {
@@ -29,7 +29,7 @@ const deleteCassette = async (id) => {
     }
 };
 
-const createCassette = async (CassetteData) => {
+const createCassettes = async (CassetteData) => {
     try {
         return await Cassette.create(CassetteData);
     } catch (error) {
@@ -53,8 +53,8 @@ const editCassettes = async (id, cassetteData) => {
 
 module.exports = {
     getAllCassettes,
-    getCassetteById,
-    deleteCassette,
-    createCassette,
+    getCassettesById,
+    deleteCassettes,
+    createCassettes,
     editCassettes,
 }
