@@ -173,7 +173,7 @@ const eliminarCassette = async() => {
         "Content-Type": "application/json",
     },
 })
-    
+
 }
 
 
