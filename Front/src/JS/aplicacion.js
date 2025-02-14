@@ -173,9 +173,7 @@ const crearCassete = async() => {
         }),
     })
 }
-const nuevo_cassete = document.getElementById("nuevo_cassete");
-nuevo_cassete.addEventListener("click", crearCassete);
-document.addEventListener("DOMContentLoaded", cargarCassettes);
+
 
 
 const eliminarCassette = async() => {
@@ -213,3 +211,8 @@ const crearMuestra = async() => {
 const nueva_muestra = document.getElementById("nueva_muestra");
 nueva_muestra.addEventListener("click", crearMuestra);
 document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
+
+const nuevo_cassete = document.getElementById("nuevo_cassete");
+nuevo_cassete.addEventListener("click", crearCassete);
+document.addEventListener("DOMContentLoaded", cargarCassettes);
+botonEliminarCassette.addEventListener("click" , eliminarCassette);
