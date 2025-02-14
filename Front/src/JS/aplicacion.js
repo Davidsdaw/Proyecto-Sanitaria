@@ -189,3 +189,4 @@ const eliminarCassette = async() => {
 const nuevo_cassete = document.getElementById("nuevo_cassete");
 nuevo_cassete.addEventListener("click", crearCassete);
 document.addEventListener("DOMContentLoaded", cargarCassettes);
+botonEliminarCassette.addEventListener("click" , eliminarCassette);
