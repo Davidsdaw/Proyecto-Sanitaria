@@ -23,6 +23,12 @@ const observacionesCassete = document.getElementById('id_observacionesCassete');
 const tabla_muestras = document.getElementById("tabla_muestras");
 
 
+//boton eliminar cassette
+const botonEliminarCassette = document.getElementById("botonEliminarCassette");
+
+//cassette actual
+let cassetteActual;
+
 const cargarCassettes = async () => {
     const response = await fetch("http://localhost:3000/sanitaria/cassette");
     const data = await response.json();
@@ -83,13 +89,14 @@ const mostrar_cassettes = (data) => {
 }
 
 const mostrarDetallesCassettes = (cassette) => {
-    
-    // console.log(cassette);
 
-     //editamos la fecha para DD/MM/YYYY
-     const fechaFormateada = new Date(cassette.fecha);
-     const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
-    
+    // console.log(cassette);
+    cassetteActual = cassette;
+
+    //editamos la fecha para DD/MM/YYYY
+    const fechaFormateada = new Date(cassette.fecha);
+    const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
+
     descripcion_cassette.textContent = cassette.descripcion;
     fecha_cassette.textContent = fechaTexto;
     organo_cassette.textContent = cassette.organo;
@@ -102,49 +109,40 @@ const mostrarMuestrasCassette = async(cassette) => {
     const response = await fetch("http://localhost:3000/sanitaria/muestra");
     const data = await response.json();
     tabla_muestras.innerHTML = "";
-    
+
     data.forEach(muestra => {
         if (muestra.cassette_id == cassette.id) {
             console.log(muestra);
-            
-        //    fecha_muestra.textContent = muestra.fecha.split('T')[0];
-        // descripcion_muestra.textContent = muestra.descripcion;
-        // tincion_muestra.textContent = muestra.tincion;
+            //    fecha_muestra.textContent = muestra.fecha.split('T')[0];
+            // descripcion_muestra.textContent = muestra.descripcion;
+            // tincion_muestra.textContent = muestra.tincion;
+            const fila_muestra = document.createElement("tr");
+            fila_muestra.classList.add("rounded", "border-blue-400", "border");
+            const columna_fecha = document.createElement("td");
+            const columna_descripcion = document.createElement("td");
+            const columna_tincion = document.createElement("td");
+            const fechaFormateada = new Date(muestra.fecha);
 
-        const fila_muestra = document.createElement("tr");
-        fila_muestra.classList.add("rounded", "border-blue-400", "border");
+            const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
+            columna_fecha.textContent = fechaTexto;
+            columna_fecha.classList.add("p-2", "text-blue-400");
+            columna_descripcion.textContent = muestra.descripcion;
+            columna_descripcion.classList.add("p-2", "text-blue-400");
+            columna_tincion.textContent = muestra.tincion;
+            columna_tincion.classList.add("p-2", "text-blue-400");
 
-        const columna_fecha = document.createElement("td");
-        const columna_descripcion = document.createElement("td");
-        const columna_tincion = document.createElement("td");
+            fila_muestra.appendChild(columna_fecha);
+            fila_muestra.appendChild(columna_descripcion);
+            fila_muestra.appendChild(columna_tincion);
 
-        const fechaFormateada = new Date(muestra.fecha);
-        const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
-
-        columna_fecha.textContent = fechaTexto;
-        columna_fecha.classList.add("p-2", "text-blue-400");
-        
-
-        columna_descripcion.textContent = muestra.descripcion;
-        columna_descripcion.classList.add("p-2", "text-blue-400");
-        
-
-        columna_tincion.textContent = muestra.tincion;
-        columna_tincion.classList.add("p-2", "text-blue-400");
-        
-
-        fila_muestra.appendChild(columna_fecha);
-        fila_muestra.appendChild(columna_descripcion);
-        fila_muestra.appendChild(columna_tincion);
-
-        tabla_muestras.appendChild(fila_muestra);
+            tabla_muestras.appendChild(fila_muestra);
         }
     });
 }
 
 
 
-function crearCassete() {
+const crearCassete = async() => {
 
     const id_user = sessionStorage.getItem("user_id");
 
@@ -167,6 +165,19 @@ function crearCassete() {
     })
 }
 
+const eliminarCassette = async() => {
+    console.log(cassetteActual)
+   fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json",
+    },
+})
+    
+}
+
+
 const nuevo_cassete = document.getElementById("nuevo_cassete");
 nuevo_cassete.addEventListener("click", crearCassete);
 document.addEventListener("DOMContentLoaded", cargarCassettes);
+botonEliminarCassette.addEventListener("click", eliminarCassette);
