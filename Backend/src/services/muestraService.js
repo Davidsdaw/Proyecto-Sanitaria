@@ -9,7 +9,7 @@ const getAllMuestras = async () => {
     }
 };
 
-const getMuestraById = async (id) => {
+const getMuestrasById = async (id) => {
     try {
         return await Muestra.findByPk(id);
     } catch (error) {
@@ -53,7 +53,7 @@ const editMuestra = async (id, muestraData) => {
 
 module.exports = {
     getAllMuestras,
-    getMuestraById,
+    getMuestrasById,
     deleteMuestra,
     createMuestra,
     editMuestra,
