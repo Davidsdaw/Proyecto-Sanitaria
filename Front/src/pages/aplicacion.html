@@ -228,7 +228,7 @@
                             </div>
                             <div
                                 class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
-                                Descripción
+                                Descripción 
                                 <span class="text-gray-500 hidden">&#x25BE;</span>
                             </div>
                             <div
@@ -237,15 +237,19 @@
                                 <span class="text-gray-500 hidden">&#x25B4;</span>
                             </div>
                         </div>
-                        <div class="divide-y border-blue-400 border">
-                            <div class="flex border-b">
+                        <div id="tabla_cassettes" class="divide-y border-blue-400 border">
+
+
+                            <!-- <div class="flex border-b">
                                 <div class="flex-1 p-2 text-sm"></div>
                                 <div class="flex-1 p-2 text-sm ml-7"></div>
                                 <div class="flex-1 p-2 text-sm ml-8"></div>
                                 <div class="mr-1 p-2 hidden">
                                     <i class="fa-solid fa-file-invoice text-blue-300"></i>
                                 </div>
-                            </div>
+                            </div> -->
+
+
                         </div>
                     </div>
                 </div>
@@ -405,19 +409,37 @@
                 </div>
                 <div class="mt-5 border-b-2">
                     <p><strong class="text-blue-300">Descripción:</strong></p>
+                    <span id="descripcion_cassette">
+                        <!-- descripcion del cassette seleccionado -->
+                    </span>
                 </div>
                 <div class="border-b-2 h-32">
                     <div class="flex justify-between mb-5 mt-2">
-                        <p><strong class="text-blue-300">Órgano:</strong></p>
-                        <p class="mr-5"><strong class="text-blue-300">Fecha:</strong></p>
+                        <p><strong class="text-blue-300">Órgano:</strong>
+                        <span id="organo_cassette">
+                            <!-- organo del cassette seleccionado -->
+                        </span>
+                        </p>
+                        <p class="mr-5"><strong class="text-blue-300">Fecha:</strong>
+                        <span id="fecha_cassette">
+                            <!-- fecha del cassette seleccionado -->
+                        </span>
+                        </p>
                     </div>
                     <p class="mb-5">
                         <strong class="text-blue-300">Características:</strong>
+                        <span id="caracteristicas_cassette">
+                            <!-- caracteristicas del cassette seleccionado -->
+                        </span>
                     </p>
                     <p class="text-sm"></p>
                 </div>
                 <div class="h-20">
-                    <p><strong class="text-blue-300">Observaciones:</strong></p>
+                    <p><strong class="text-blue-300">Observaciones:</strong>
+                    <span id="observaciones_cassette">
+                        <!-- observaciones del cassette seleccionado -->
+                    </span>
+                    </p>
                     <p class="text-sm"></p>
                 </div>
             </div>
@@ -464,6 +486,8 @@
                                 <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
                                     Tinción
                                 </h2>
+
+                                <!-- CARGAR SELECT EN JS -->
                                 <select id="tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
                                     <option value="gram">Gram</option>
                                     <option value="ziehl-neelsen">Ziehl-Neelsen</option>
@@ -503,7 +527,7 @@
                 <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border">
                     <div
                         class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
-                        Fecha
+                        Fecha 
                         <span class="text-gray-500 hidden">&#x25B4;</span>
                     </div>
                     <div
@@ -519,9 +543,12 @@
                 </div>
                 <tbody>
                     <tr class="rounded border-blue-400 border">
-                        <td class="p-2 text-red-400" colspan="3">
+                        <td id="muestras_empty" class="p-2 text-red-400" colspan="3">
                             No se ha encontrado ninguna muestra
                         </td>
+
+
+
                         <td class="">
                             <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
 
@@ -688,6 +715,25 @@
                             </div>
                         </td>
                     </tr>
+
+                    <div id="tabla_muestras">
+
+                    </div>
+                    <!-- <tr class="rounded border-blue-400 border" id="tabla_muestras"> -->
+                        <!-- <td id="fecha_muestra" class="p-2 text-red-400">
+                            hola
+                        </td>
+
+                        <td id="descripcion_muestra" class="p-2 text-red-400">
+                            hola
+                        </td>
+
+                        <td  id="tincion_muestra" class="p-2 text-red-400">
+                            hola
+                        </td> -->
+
+
+                    <!-- </tr> -->
                 </tbody>
             </table>
         </div>
