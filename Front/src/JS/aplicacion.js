@@ -173,6 +173,9 @@ const crearCassete = async() => {
         }),
     })
 }
+const nuevo_cassete = document.getElementById("nuevo_cassete");
+nuevo_cassete.addEventListener("click", crearCassete);
+document.addEventListener("DOMContentLoaded", cargarCassettes);
 
 
 const eliminarCassette = async() => {
@@ -186,6 +189,27 @@ const eliminarCassette = async() => {
 
 }
 
-const nuevo_cassete = document.getElementById("nuevo_cassete");
-nuevo_cassete.addEventListener("click", crearCassete);
-document.addEventListener("DOMContentLoaded", cargarCassettes);
+
+const crearMuestra = async() => {
+
+    const id_user = sessionStorage.getItem("user_id");
+
+    fetch("http://localhost:3000/sanitaria/muestra/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            descripcion: descripcionMuestra.value,
+            fecha: fechaMuestra.value,
+            tincion: tincionMuestra.value,
+            observaciones: observacionesMuestra.value,
+            qr_muestra: "http://localhost:3000/sanitaria/muestra",
+            cassette_id: id_user,
+        }),
+    })
+}
+
+const nueva_muestra = document.getElementById("nueva_muestra");
+nueva_muestra.addEventListener("click", crearMuestra);
+document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
