@@ -470,14 +470,14 @@
                                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                                     Descripción
                                 </h2>
-                                <input type="text" class="border w-full rounded h-8">
+                                <input id="descripcionMuestra" type="text" class="border w-full rounded h-8">
                             </div>
 
                             <div class="flex-col justify-center mr-1 w-full mb-5">
                                 <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
                                     Fecha
                                 </h2>
-                                <input type="date"
+                                <input id="fechaMuestra" type="date"
                                     class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
 
                             </div>
@@ -488,7 +488,7 @@
                                 </h2>
 
                                 <!-- CARGAR SELECT EN JS -->
-                                <select id="tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                                <select id="tincionMuestra" name="tincion" class="w-full h-10 border rounded text-blue-300">
                                     <option value="gram">Gram</option>
                                     <option value="ziehl-neelsen">Ziehl-Neelsen</option>
                                     <option value="giemsa">Giemsa</option>
@@ -506,17 +506,17 @@
                                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                                     Observaciones
                                 </h2>
-                                <input type="text" class="border w-full rounded h-12">
+                                <input id="observacionesMuestra" type="text" class="border w-full rounded h-12">
                             </div>
 
                             <div>
                                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left w-full">
                                     Imagen
                                 </h2>
-                                <input type="file"
+                                <input id="imagenMuestra" type="file"
                                     class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center">
                             </div>
-                            <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                            <button id="nueva_muestra" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                                 Crear Muestra
                             </button>
                         </div>

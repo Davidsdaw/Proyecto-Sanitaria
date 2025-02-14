@@ -16,6 +16,15 @@ const selectCassete = document.getElementById("organosCassete");
 const caracteristicasCassete = document.getElementById('id_caracteristicasCassete');
 const observacionesCassete = document.getElementById('id_observacionesCassete');
 
+
+//Funcion crear muestra
+const descripcionMuestra = document.getElementById('descripcionMuestra');
+const fechaMuestra = document.getElementById('fechaMuestra');
+const tincionMuestra = document.getElementById('tincionMuestra');
+const observacionesMuestra = document.getElementById('observacionesMuestra');
+const imagenMuestra = document.getElementById('imagenMuestra');
+
+
 //mostrar muestras de ese cassette
 // const fecha_muestra = document.getElementById("fecha_muestras");
 // const descripcion_muestra = document.getElementById("descripcion_muestra");
@@ -166,7 +175,32 @@ function crearCassete() {
         }),
     })
 }
-
 const nuevo_cassete = document.getElementById("nuevo_cassete");
 nuevo_cassete.addEventListener("click", crearCassete);
 document.addEventListener("DOMContentLoaded", cargarCassettes);
+
+
+
+
+function nuevaMuestra(){
+    const id_user = sessionStorage.getItem("user_id");
+
+    fetch("http://localhost:3000/sanitaria/muestra/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            descripcion: descripcionMuestra.value,
+            fecha: fechaMuestra.value,
+            tincion: tincionMuestra.value,
+            observaciones: observacionesMuestra.value,
+            imagen: imagenMuestra.value
+        
+        }),
+    })
+}
+const nueva_muestra = document.getElementById("nueva_muestra");
+nueva_muestra.addEventListener("click", nuevaMuestra);
+document.addEventListener("DOMContentLoaded", cargarCassettes);
+document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
