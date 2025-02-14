@@ -16,6 +16,15 @@ const selectCassete = document.getElementById("organosCassete");
 const caracteristicasCassete = document.getElementById('id_caracteristicasCassete');
 const observacionesCassete = document.getElementById('id_observacionesCassete');
 
+
+//Funcion crear muestra
+const descripcionMuestra = document.getElementById('descripcionMuestra');
+const fechaMuestra = document.getElementById('fechaMuestra');
+const tincionMuestra = document.getElementById('tincionMuestra');
+const observacionesMuestra = document.getElementById('observacionesMuestra');
+const imagenMuestra = document.getElementById('imagenMuestra');
+
+
 //mostrar muestras de ese cassette
 // const fecha_muestra = document.getElementById("fecha_muestras");
 // const descripcion_muestra = document.getElementById("descripcion_muestra");
@@ -165,6 +174,7 @@ const crearCassete = async() => {
     })
 }
 
+
 const eliminarCassette = async() => {
     console.log(cassetteActual)
    fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
@@ -176,8 +186,6 @@ const eliminarCassette = async() => {
 
 }
 
-
 const nuevo_cassete = document.getElementById("nuevo_cassete");
 nuevo_cassete.addEventListener("click", crearCassete);
 document.addEventListener("DOMContentLoaded", cargarCassettes);
-botonEliminarCassette.addEventListener("click", eliminarCassette);
