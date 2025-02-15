@@ -23,7 +23,8 @@ const deleteCassettes = async (id) => {
         if (!cassette) {
             throw new Error("El cassette no existe");
         }
-        return await Cassette.destroy();
+        await Cassette.destroy({ where: { id } })
+        return {success:"El cassete ha sido borrado"};
     } catch (error) {
         throw new Error("Error al borrar el cassette: " + error.message);
     }
@@ -31,7 +32,8 @@ const deleteCassettes = async (id) => {
 
 const createCassettes = async (CassetteData) => {
     try {
-        return await Cassette.create(CassetteData);
+        await Cassette.create(CassetteData);
+        return { success : "El cassette ha sido creado"}
     } catch (error) {
         throw new Error("Error al crear el cassette: " + error.message);
     }

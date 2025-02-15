@@ -265,7 +265,7 @@ const sendRecoveryEmail = async(email) => {
     modal_confirmacion_email.classList.add("display_on");
   } else {
     //DISPLAYEAR MENSAJE DE ERROR
-    solicitar_email_error.textContent("Error al enviar email.");
+    solicitar_email_error.textContent="Error al enviar email.";
   }
 }
 

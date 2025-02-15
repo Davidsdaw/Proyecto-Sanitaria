@@ -22,6 +22,7 @@ const observacionesCassete = document.getElementById('id_observacionesCassete');
 // const tincion_muestra = document.getElementById("tincion_muestra");
 const tabla_muestras = document.getElementById("tabla_muestras");
 
+const nueva_muestra = document.getElementById("nueva_muestra");
 
 const cargarCassettes = async () => {
     const response = await fetch("http://localhost:3000/sanitaria/cassette");
@@ -69,7 +70,6 @@ const mostrar_cassettes = (data) => {
             mostrarMuestrasCassette(cassette);
         });
 
-
         div_contenedor.appendChild(div_fecha);
         div_contenedor.appendChild(div_desc);
         div_contenedor.appendChild(div_organo);
@@ -97,6 +97,7 @@ const mostrarDetallesCassettes = (cassette) => {
     organo_cassette.textContent = cassette.organo;
     caracteristicas_cassette.textContent = cassette.caracteristicas;
     observaciones_cassette.textContent = cassette.observaciones;
+
 }
 
 
@@ -146,11 +147,11 @@ const mostrarMuestrasCassette = async(cassette) => {
 
 
 
-function crearCassete() {
+const crearCassete = async() => {
 
     const id_user = sessionStorage.getItem("user_id");
 
-    fetch("http://localhost:3000/sanitaria/cassette/create", {
+   const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -167,6 +168,8 @@ function crearCassete() {
 
         }),
     })
+    const data = await response.json();
+    console.log(data)
 }
 
 const nuevo_cassete = document.getElementById("nuevo_cassete");
@@ -176,22 +179,24 @@ document.addEventListener("DOMContentLoaded", cargarCassettes);
 
 
 const eliminarCassette = async() => {
-   fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
+ const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
     method: "DELETE",
     headers: {
         "Content-Type": "application/json",
     },
 })
+    const data = await response.json()
+    console.log(data.message)
+//FALTA MOSTRAR QUE SE HA ELIMINADO Y RECARGAR CASSETTE
 }
 
 const botonEliminarCassette = document.getElementById("botonEliminarCassette");
 botonEliminarCassette.addEventListener("click", eliminarCassette)
 
-const crearMuestra = async() => {
+const crearMuestra = async(cassette) => {
 
-    const id_user = sessionStorage.getItem("user_id");
 
-    fetch("http://localhost:3000/sanitaria/muestra/create", {
+    const response = await  fetch("http://localhost:3000/sanitaria/muestra/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -202,13 +207,16 @@ const crearMuestra = async() => {
             tincion: tincionMuestra.value,
             observaciones: observacionesMuestra.value,
             qr_muestra: "http://localhost:3000/sanitaria/muestra",
-            cassette_id: id_user,
+            cassette_id: cassette.id,
         }),
     })
+    const data = await response.json()
+    console.log(data.success)
 }
 
-const nueva_muestra = document.getElementById("nueva_muestra");
-nueva_muestra.addEventListener("click", crearMuestra);
+nueva_muestra.addEventListener("click", () => {
+    crearMuestra(cassetteActual)
+})
 document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
 
 
