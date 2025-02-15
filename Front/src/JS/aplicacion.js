@@ -82,10 +82,12 @@ const mostrar_cassettes = (data) => {
     });
 }
 
-const mostrarDetallesCassettes = (cassette) => {
-    
-    // console.log(cassette);
+let cassetteActual = null;
 
+const mostrarDetallesCassettes = (cassette) => {
+    cassetteActual = cassette;
+
+    // console.log(cassette);
      //editamos la fecha para DD/MM/YYYY
      const fechaFormateada = new Date(cassette.fecha);
      const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
@@ -167,19 +169,23 @@ function crearCassete() {
     })
 }
 
+const nuevo_cassete = document.getElementById("nuevo_cassete");
+nuevo_cassete.addEventListener("click", crearCassete);
+document.addEventListener("DOMContentLoaded", cargarCassettes); 
+
 
 
 const eliminarCassette = async() => {
-    console.log(cassetteActual)
    fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
     method: "DELETE",
     headers: {
         "Content-Type": "application/json",
     },
 })
-
 }
 
+const botonEliminarCassette = document.getElementById("botonEliminarCassette");
+botonEliminarCassette.addEventListener("click", eliminarCassette)
 
 const crearMuestra = async() => {
 
@@ -205,7 +211,6 @@ const nueva_muestra = document.getElementById("nueva_muestra");
 nueva_muestra.addEventListener("click", crearMuestra);
 document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
 
-const nuevo_cassete = document.getElementById("nuevo_cassete");
-nuevo_cassete.addEventListener("click", crearCassete);
-document.addEventListener("DOMContentLoaded", cargarCassettes);
-botonEliminarCassette.addEventListener("click" , eliminarCassette);
+
+
+
