@@ -47,7 +47,12 @@ const mostrar_cassettes = (data) => {
 
         let div_fecha = document.createElement("div");
         div_fecha.classList.add("flex-1", "p-2", "text-sm");
-        div_fecha.textContent = cassette.fecha;
+
+        //formateamos la fecha
+        const fechaFormateada = new Date(cassette.fecha);
+        const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
+
+        div_fecha.textContent = fechaTexto;
 
         let div_desc = document.createElement("div");
         div_desc.classList.add("flex-1", "p-2", "text-sm", "ml-7");
@@ -115,11 +120,14 @@ const mostrarMuestrasCassette = async(cassette) => {
         // tincion_muestra.textContent = muestra.tincion;
 
         const fila_muestra = document.createElement("tr");
-        fila_muestra.classList.add("rounded", "border-blue-400", "border");
+        fila_muestra.classList.add("rounded", "border", "border-blue-400");
 
         const columna_fecha = document.createElement("td");
+        columna_fecha.classList.add("p-2", "text-blue-400"); 
         const columna_descripcion = document.createElement("td");
+        columna_descripcion.classList.add("p-2", "text-blue-400" , "border-blue-400"); 
         const columna_tincion = document.createElement("td");
+        columna_tincion.classList.add("p-2", "text-blue-400"); 
 
         const fechaFormateada = new Date(muestra.fecha);
         const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
@@ -229,7 +237,7 @@ const eliminarCassette = async () => {
 
         if (response.ok) {
             mensaje.textContent = "Cassette eliminado con éxito"; 
-            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             if (cerrarModalBasura) {
