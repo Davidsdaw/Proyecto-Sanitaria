@@ -15,7 +15,7 @@ const fechaCassete = document.getElementById('id_fechaCassete');
 const selectCassete = document.getElementById("organosCassete");
 const caracteristicasCassete = document.getElementById('id_caracteristicasCassete');
 const observacionesCassete = document.getElementById('id_observacionesCassete');
-
+const mensaje = document.getElementById("mensaje");
 //mostrar muestras de ese cassette
 // const fecha_muestra = document.getElementById("fecha_muestras");
 // const descripcion_muestra = document.getElementById("descripcion_muestra");
@@ -147,48 +147,121 @@ const mostrarMuestrasCassette = async(cassette) => {
 
 
 
-const crearCassete = async() => {
+const crearCassette = async () => {
+    try {
+        const id_user = sessionStorage.getItem("user_id");
 
-    const id_user = sessionStorage.getItem("user_id");
+        const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descripcion: descripcionCassete.value,
+                fecha: fechaCassete.value,
+                organo: selectCassete.value,
+                idOrgano: "3",
+                caracteristicas: caracteristicasCassete.value,
+                observaciones: observacionesCassete.value,
+                qr_cassette: "http://localhost:3000/sanitaria/cassette",
+                usuario_id: id_user,
+            }),
+        });
 
-   const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            descripcion: descripcionCassete.value,
-            fecha: fechaCassete.value,
-            organo: selectCassete.value,
-            idOrgano: "3",
-            caracteristicas: caracteristicasCassete.value,
-            observaciones: observacionesCassete.value,
-            qr_cassette: "http://localhost:3000/sanitaria/cassette",
-            usuario_id: id_user,
+        const data = await response.json();
+        console.log(data);
 
-        }),
-    })
-    const data = await response.json();
-    console.log(data)
-}
+
+        if (response.ok) {
+
+            if (cerrarModalNuevoCassete) {
+                cerrarModalNuevoCassete.click(); 
+            } 
+
+            mensaje.textContent = "Cassette creado con éxito"; 
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+                location.reload();
+            }, 2000);
+        } else {
+            mensaje.textContent = "Error al crear el cassette: " + data.message;
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+        }
+    } catch (error) {
+        console.error("Error al crear el cassette:", error);
+        const mensaje = document.getElementById("mensaje");
+        mensaje.textContent = "Ocurrió un error al crear el cassette.";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 2000);
+    }
+};
+
 
 const nuevo_cassete = document.getElementById("nuevo_cassete");
-nuevo_cassete.addEventListener("click", crearCassete);
+nuevo_cassete.addEventListener("click", crearCassette);
 document.addEventListener("DOMContentLoaded", cargarCassettes); 
 
 
 
-const eliminarCassette = async() => {
- const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
-    method: "DELETE",
-    headers: {
-        "Content-Type": "application/json",
-    },
-})
-    const data = await response.json()
-    console.log(data.message)
-//FALTA MOSTRAR QUE SE HA ELIMINADO Y RECARGAR CASSETTE
-}
+const eliminarCassette = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const data = await response.json();
+        console.log(data.message);
+
+        if (response.ok) {
+            mensaje.textContent = "Cassette eliminado con éxito"; 
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            if (cerrarModalBasura) {
+                cerrarModalBasura.click();  
+            } 
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+                location.reload();
+            }, 1000);
+        } else {
+            mensaje.textContent = "Error al eliminar el cassette: " + data.message;
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+        }
+    } catch (error) {
+        console.error("Error al eliminar el cassette:", error);
+        mensaje.textContent = "Ocurrió un error al eliminar el cassette.";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 1000);
+    }
+};
+
+
 
 const botonEliminarCassette = document.getElementById("botonEliminarCassette");
 botonEliminarCassette.addEventListener("click", eliminarCassette)
