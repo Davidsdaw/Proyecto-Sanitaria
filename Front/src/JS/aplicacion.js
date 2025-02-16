@@ -93,10 +93,10 @@ const mostrarDetallesCassettes = (cassette) => {
     cassetteActual = cassette;
 
     // console.log(cassette);
-     //editamos la fecha para DD/MM/YYYY
-     const fechaFormateada = new Date(cassette.fecha);
-     const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
-    
+    //editamos la fecha para DD/MM/YYYY
+    const fechaFormateada = new Date(cassette.fecha);
+    const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
+
     descripcion_cassette.textContent = cassette.descripcion;
     fecha_cassette.textContent = fechaTexto;
     organo_cassette.textContent = cassette.organo;
@@ -106,53 +106,51 @@ const mostrarDetallesCassettes = (cassette) => {
 }
 
 
-const mostrarMuestrasCassette = async(cassette) => {
+const mostrarMuestrasCassette = async (cassette) => {
     const response = await fetch("http://localhost:3000/sanitaria/muestra");
     const data = await response.json();
     tabla_muestras.innerHTML = "";
-    
-    data.forEach(muestra => {
-        if (muestra.cassette_id == cassette.id) {
-            console.log(muestra);
-            
-        //    fecha_muestra.textContent = muestra.fecha.split('T')[0];
-        // descripcion_muestra.textContent = muestra.descripcion;
-        // tincion_muestra.textContent = muestra.tincion;
 
-        const fila_muestra = document.createElement("tr");
-        fila_muestra.classList.add("rounded", "border", "border-blue-400");
+    const muestrasFiltradas = data.filter(muestra => muestra.cassette_id == cassette.id);
 
-        const columna_fecha = document.createElement("td");
-        columna_fecha.classList.add("p-2", "text-blue-400"); 
-        const columna_descripcion = document.createElement("td");
-        columna_descripcion.classList.add("p-2", "text-blue-400" , "border-blue-400"); 
-        const columna_tincion = document.createElement("td");
-        columna_tincion.classList.add("p-2", "text-blue-400"); 
+    if (muestrasFiltradas.length > 0) {
+        muestrasFiltradas.forEach(muestra => {
+            const fila_muestra = document.createElement("tr");
+            fila_muestra.classList.add("rounded", "border", "border-blue-400");
 
-        const fechaFormateada = new Date(muestra.fecha);
-        const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
+            const columna_fecha = document.createElement("td");
+            columna_fecha.classList.add("p-2", "text-blue-400");
+            const columna_descripcion = document.createElement("td");
+            columna_descripcion.classList.add("p-2", "text-blue-400", "border-blue-400");
+            const columna_tincion = document.createElement("td");
+            columna_tincion.classList.add("p-2", "text-blue-400");
 
-        columna_fecha.textContent = fechaTexto;
-        columna_fecha.classList.add("p-2", "text-blue-400");
-        
+            const fechaFormateada = new Date(muestra.fecha);
+            const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
 
-        columna_descripcion.textContent = muestra.descripcion;
-        columna_descripcion.classList.add("p-2", "text-blue-400");
-        
+            columna_fecha.textContent = fechaTexto;
+            columna_descripcion.textContent = muestra.descripcion;
+            columna_tincion.textContent = muestra.tincion;
 
-        columna_tincion.textContent = muestra.tincion;
-        columna_tincion.classList.add("p-2", "text-blue-400");
-        
+            fila_muestra.appendChild(columna_fecha);
+            fila_muestra.appendChild(columna_descripcion);
+            fila_muestra.appendChild(columna_tincion);
 
-        fila_muestra.appendChild(columna_fecha);
-        fila_muestra.appendChild(columna_descripcion);
-        fila_muestra.appendChild(columna_tincion);
+            tabla_muestras.appendChild(fila_muestra);
+        });
+    } else {
+        const fila_vacia = document.createElement("tr");
+        fila_vacia.classList.add("rounded", "border", "border-blue-400");
 
-        tabla_muestras.appendChild(fila_muestra);
-        }
-    });
+        const columna_vacia = document.createElement("td");
+        columna_vacia.classList.add("p-2", "text-red-400");
+        columna_vacia.textContent = "No se ha encontrado ninguna muestra";
+        columna_vacia.colSpan = 3;
+
+        fila_vacia.appendChild(columna_vacia);
+        tabla_muestras.appendChild(fila_vacia);
+    }
 }
-
 
 
 const crearCassette = async () => {
@@ -183,10 +181,10 @@ const crearCassette = async () => {
         if (response.ok) {
 
             if (cerrarModalNuevoCassete) {
-                cerrarModalNuevoCassete.click(); 
-            } 
+                cerrarModalNuevoCassete.click();
+            }
 
-            mensaje.textContent = "Cassette creado con éxito"; 
+            mensaje.textContent = "Cassette creado con éxito";
             mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -219,7 +217,7 @@ const crearCassette = async () => {
 
 const nuevo_cassete = document.getElementById("nuevo_cassete");
 nuevo_cassete.addEventListener("click", crearCassette);
-document.addEventListener("DOMContentLoaded", cargarCassettes); 
+document.addEventListener("DOMContentLoaded", cargarCassettes);
 
 
 
@@ -236,13 +234,13 @@ const eliminarCassette = async () => {
         console.log(data.message);
 
         if (response.ok) {
-            mensaje.textContent = "Cassette eliminado con éxito"; 
+            mensaje.textContent = "Cassette eliminado con éxito";
             mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             if (cerrarModalBasura) {
-                cerrarModalBasura.click();  
-            } 
+                cerrarModalBasura.click();
+            }
 
             setTimeout(() => {
                 mensaje.style.display = "none";
@@ -274,10 +272,10 @@ const eliminarCassette = async () => {
 const botonEliminarCassette = document.getElementById("botonEliminarCassette");
 botonEliminarCassette.addEventListener("click", eliminarCassette)
 
-const crearMuestra = async(cassette) => {
+const crearMuestra = async (cassette) => {
 
 
-    const response = await  fetch("http://localhost:3000/sanitaria/muestra/create", {
+    const response = await fetch("http://localhost:3000/sanitaria/muestra/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
