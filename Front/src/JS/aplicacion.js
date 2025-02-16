@@ -16,13 +16,16 @@ const selectCassete = document.getElementById("organosCassete");
 const caracteristicasCassete = document.getElementById('id_caracteristicasCassete');
 const observacionesCassete = document.getElementById('id_observacionesCassete');
 const mensaje = document.getElementById("mensaje");
+
 //mostrar muestras de ese cassette
-// const fecha_muestra = document.getElementById("fecha_muestras");
-// const descripcion_muestra = document.getElementById("descripcion_muestra");
-// const tincion_muestra = document.getElementById("tincion_muestra");
 const tabla_muestras = document.getElementById("tabla_muestras");
 
 const nueva_muestra = document.getElementById("nueva_muestra");
+
+//filtros
+//select organo
+const organoSelect = document.getElementById("organoSelect");
+
 
 const cargarCassettes = async () => {
     const response = await fetch("http://localhost:3000/sanitaria/cassette");
@@ -31,8 +34,8 @@ const cargarCassettes = async () => {
     // data.forEach(cassette => {
     //     console.log(cassette);
     // });
-
     mostrar_cassettes(data);
+    return data;
 }
 
 
@@ -293,10 +296,34 @@ const crearMuestra = async (cassette) => {
     console.log(data.success)
 }
 
+
+
+const filtrarCassettesporOrgano = async () => {
+    const data = await cargarCassettes();
+    let cassttesfilter;
+
+    if (organoSelect.value === 'Todos') {
+        cassttesfilter = data;
+    } else {
+        cassttesfilter = data.filter(cassette => cassette.organo === organoSelect.value);
+    }
+
+    mostrar_cassettes(cassttesfilter);
+}
+
+
+
+organoSelect.addEventListener("change", filtrarCassettesporOrgano);
 nueva_muestra.addEventListener("click", () => {
     crearMuestra(cassetteActual)
 })
 document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
+
+organoSelect.addEventListener("change", () => {
+    // const selectedOrgano = organoSelect.value;
+    // const cassettesFiltrados = data.filter(cassette => cassette.organo === selectedOrgano);
+    // mostrar_cassettes(cassettesFiltrados);
+});
 
 
 
