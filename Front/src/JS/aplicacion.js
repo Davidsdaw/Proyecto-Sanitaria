@@ -191,7 +191,7 @@ const mostrarMuestrasCassette = async (cassette) => {
 const mostrarDetallesMuestra = (muestra) => {
 
 
-    
+
 }
 
 const crearCassette = async () => {
@@ -398,6 +398,58 @@ const filtrarCassettesporOrgano = async () => {
     mostrar_cassettes(cassttesfilter);
 }
 
+const modificarCassette = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/cassette/edit/${cassetteActual.id}`, {
+            method: "PATCH",
+            headers: {
+                'Authorization': `${token}` ,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descripcion: descripcion_cassette.textContent,
+                fecha: fecha_cassette.textContent,
+                organo: organo_cassette.textContent,
+                caracteristicas: caracteristicas_cassette.textContent,
+                observaciones: observaciones_cassette.textContent
+            })
+        });
+
+        // Esperar la respuesta como JSON
+        const data = await response.json(); 
+
+        if (response.ok) {
+            mensaje.textContent = "Cassette modificado con éxito";
+            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            if (cerrarModalModificarCassete) {
+                cerrarModalModificarCassete.click();
+            }
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 3000);
+        } else {
+            mensaje.textContent = "Error al modificar cassette: " + data.message;
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 3000);
+        }
+    } catch (error) {
+        console.error("Error al modificar el cassette:", error);
+        mensaje.textContent = "Ocurrió un error al modificar el cassette.";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 1000);
+    }
+};
 
 
 organoSelect.addEventListener("change", filtrarCassettesporOrgano);
@@ -405,4 +457,6 @@ nueva_muestra.addEventListener("click", () => {
     crearMuestra(cassetteActual)
 })
 document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
+const botonModificarCassette = document.getElementById("botonModificarCassette");
+botonModificarCassette.addEventListener("click", modificarCassette)
 
