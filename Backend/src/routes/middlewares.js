@@ -3,25 +3,31 @@ const moment = require("moment");
 const Usuario = require("./../database/models/Usuario");
 
 const verifyToken = async (req, res, next) => {
-  const token = req.headers['authorization'];
-
-  if (!token) {
-    return res.status(403).json({ error: 'Token no proporcionado' });
-  }
-
   try {
-    const decoded = jwt.decode(token.split(' ')[1], process.env.JWT_SECRET);
-    if (decoded.expiredAt < moment().unix()) {
-      return res.status(401).json({ error: 'El token ha expirado' });
+    const authHeader = req.headers["authorization"];
+
+    if (!authHeader) {
+      return res.status(403).json({ error: "Token no proporcionado" });
+    }
+
+    const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : authHeader;
+
+    const decoded = jwt.decode(token, process.env.JWT_SECRET);
+
+    if (!decoded.expiredAt || decoded.expiredAt < moment().unix()) {
+      return res.status(401).json({ error: "El token ha expirado" });
     }
     const user = await Usuario.findByPk(decoded.usuarioId);
+
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    req.user = user; 
-    next(); 
+
+    req.user = user;
+    next();
   } catch (error) {
-    res.status(500).json({ error: 'Token inválido' });
+    console.error("Error al verificar el token:", error.message);
+    return res.status(500).json({ error: "Token inválido" });
   }
 };
 

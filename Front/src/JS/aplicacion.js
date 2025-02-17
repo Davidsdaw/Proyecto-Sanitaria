@@ -26,11 +26,16 @@ const nueva_muestra = document.getElementById("nueva_muestra");
 //select organo
 const organoSelect = document.getElementById("organoSelect");
 
-
+const token = localStorage.getItem('token')
 const cargarCassettes = async () => {
-    const response = await fetch("http://localhost:3000/sanitaria/cassette");
+    const response = await fetch("http://localhost:3000/sanitaria/cassette",{
+        method: 'GET',
+    headers: {
+        'Authorization': `${token}` ,
+    }
+    });
     const data = await response.json();
-
+    console.log(token)
     // data.forEach(cassette => {
     //     console.log(cassette);
     // });
@@ -110,7 +115,12 @@ const mostrarDetallesCassettes = (cassette) => {
 
 
 const mostrarMuestrasCassette = async (cassette) => {
-    const response = await fetch("http://localhost:3000/sanitaria/muestra");
+    const response = await fetch("http://localhost:3000/sanitaria/muestra",{
+        method: 'GET',
+    headers: {
+        'Authorization': `${token}` ,
+    }
+    });
     const data = await response.json();
     tabla_muestras.innerHTML = "";
 
@@ -163,6 +173,7 @@ const crearCassette = async () => {
         const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
             method: "POST",
             headers: {
+                'Authorization': `${token}` ,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -229,6 +240,7 @@ const eliminarCassette = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
             method: "DELETE",
             headers: {
+                'Authorization': `${token}` ,
                 "Content-Type": "application/json",
             },
         });
@@ -281,6 +293,7 @@ const crearMuestra = async (cassette) => {
     const response = await fetch("http://localhost:3000/sanitaria/muestra/create", {
         method: "POST",
         headers: {
+            'Authorization': `${token}` ,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -324,7 +337,3 @@ organoSelect.addEventListener("change", () => {
     // const cassettesFiltrados = data.filter(cassette => cassette.organo === selectedOrgano);
     // mostrar_cassettes(cassettesFiltrados);
 });
-
-
-
-
