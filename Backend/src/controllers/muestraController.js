@@ -47,7 +47,7 @@ const createMuestras = async (req, res) => {
         cassette_id: req.body.cassette_id,
     });
     if (createdMuestra){
-      return res.status(201).json({ success : "Muestra creada"});
+      return res.status(201).json({ success : "Muestra creada",createdMuestra});
     }
   } catch (error) {
    return res.status(500).json({ error: error.message });

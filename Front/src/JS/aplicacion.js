@@ -21,7 +21,7 @@ const mensaje = document.getElementById("mensaje");
 const tabla_muestras = document.getElementById("tabla_muestras");
 
 const nueva_muestra = document.getElementById("nueva_muestra");
-
+const imagenMuestra =document.getElementById("imagenMuestra")
 //filtros
 //select organo
 const organoSelect = document.getElementById("organoSelect");
@@ -306,8 +306,55 @@ const crearMuestra = async (cassette) => {
         }),
     })
     const data = await response.json()
-    console.log(data.success)
+
+
+    if (imagenMuestra.files[0]) {
+        createImage(imagenMuestra.files[0], data.createdMuestra.id);
+    }
+    console.log(data)
+    
 }
+
+const createImage = async (file, muestraID) => {
+    const formData = new FormData();
+    formData.append('imagen', file);
+    formData.append('muestra_id', muestraID);
+
+    const response = await fetch("http://localhost:3000/sanitaria/imagen/create", {
+        method: "POST",
+        headers: {
+            'Authorization': `${token}` // No agregues 'Content-Type' manualmente
+        },
+        body: formData, // Enviar directamente formData
+    });
+
+    const data = await response.json();
+    console.log(data);
+};
+
+const cargarImagen = async (imagenID) => {
+    console.log("hola")
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/imagen/${imagenID}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al cargar la imagen");
+        }
+
+        const blob = await response.blob(); // Convertir la respuesta en un Blob
+        const imgURL = URL.createObjectURL(blob); // Crear una URL temporal
+
+        //AGREGAR <img> PARA PONER IMG
+
+    } catch (error) {
+        console.error("Error cargando la imagen:", error);
+    }
+};
 
 
 
@@ -320,7 +367,7 @@ const filtrarCassettesporOrgano = async () => {
     } else {
         cassttesfilter = data.filter(cassette => cassette.organo === organoSelect.value);
     }
-
+    cargarImagen("4207217d-cee8-46dc-b98d-c3b68ba94902")
     mostrar_cassettes(cassttesfilter);
 }
 

@@ -31,8 +31,8 @@ const deleteMuestra = async (id) => {
 
 const createMuestra = async (MuestraData) => {
     try {
-        await Muestra.create(MuestraData);
-        return { success : "La muestra se ha creado"}
+        
+        return await Muestra.create(MuestraData);
     } catch (error) {
         throw new Error("Error al crear la muestra: " + error.message);
     }

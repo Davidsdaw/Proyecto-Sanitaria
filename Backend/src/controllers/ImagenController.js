@@ -12,11 +12,15 @@ const getAllImages = async (req, res) => {
 const getImagenById = async (req, res) => {
   try {
     const imagen = await imagenService.getImagenById(req.params.id);
-    if (imagen) {
-      return  res.status(200).json(imagen);
-    } else {
-      return  res.status(404).json({ message: "Imagen no encontrado" });
+    
+    if (!imagen || !imagen.imagen) {
+      return res.status(404).json({ error: "Imagen no encontrada" });
     }
+
+    // Configurar el tipo de contenido de la imagen
+    res.setHeader("Content-Type", "image/jpeg"); // O el formato correcto (image/png, etc.)
+    res.send(imagen.imagen); // Enviar la imagen en la respuesta
+
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -38,15 +42,21 @@ const deleteImagen = async (req, res) => {
 
 const createImagen = async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No se ha subido ninguna imagen" });
+    }
+
     const createdImagen = await imagenService.createImagen({
-        imagen: req.body.imagen,
-        muestra_id: req.body.muestra_id,
+      imagen: req.file.buffer, // Guardar el buffer como BLOB
+      muestra_id: req.body.muestra_id,
     });
-    return  res.status(201).json(createdImagen);
+
+    return res.status(201).json({ success: "Imagen creada", data: createdImagen });
   } catch (error) {
-    return  res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
+
 
 module.exports = {
     getAllImages,

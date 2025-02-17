@@ -12,7 +12,7 @@ Imagen.init(
       primaryKey: true,
     },
     imagen: {
-      type: DataTypes.BLOB,
+      type: DataTypes.BLOB('long'),
       allowNull: false,
     },
     muestra_id: { 

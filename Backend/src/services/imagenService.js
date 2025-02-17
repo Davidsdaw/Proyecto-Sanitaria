@@ -31,12 +31,12 @@ const deleteImagen = async (id) => {
 
 const createImagen = async (imagenData) => {
     try {
-        await Imagen.create(imagenData);
-        return { success : "La imagen ha sido creado"}
+      const nuevaImagen = await Imagen.create(imagenData);
+      return nuevaImagen; // Devolver el objeto creado
     } catch (error) {
-        throw new Error("Error al crear la imagen: " + error.message);
+      throw new Error("Error al crear la imagen: " + error.message);
     }
-};
+  };
 
 module.exports = {
     getAllImages,
