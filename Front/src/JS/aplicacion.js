@@ -367,7 +367,6 @@ const filtrarCassettesporOrgano = async () => {
     } else {
         cassttesfilter = data.filter(cassette => cassette.organo === organoSelect.value);
     }
-    cargarImagen("4207217d-cee8-46dc-b98d-c3b68ba94902")
     mostrar_cassettes(cassttesfilter);
 }
 
