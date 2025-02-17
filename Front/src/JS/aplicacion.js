@@ -187,9 +187,20 @@ const mostrarMuestrasCassette = async (cassette) => {
     }
 }
 
+const descripcion_muestra = document.getElementById("descripcion_muestra");
+const fecha_muestra = document.getElementById("fecha_muestra");
+const tincion_muestra = document.getElementById("tincion_muestra");
+const observaciones_muestra = document.getElementById("observaciones_muestra");
 
 const mostrarDetallesMuestra = (muestra) => {
+    //formateamos la fecha
+    const fechaFormateada = new Date(muestra.fecha);
+    const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
 
+    descripcion_muestra.textContent = muestra.descripcion;
+    fecha_muestra.textContent = fechaTexto;
+    tincion_muestra.textContent = muestra.tincion;
+    observaciones_muestra.textContent = muestra.observaciones;
 
 
 }
