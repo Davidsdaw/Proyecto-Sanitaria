@@ -1,4 +1,5 @@
 // Elementos del form de nueva contraseña
+const container_new_password = document.getElementById("container_new_password");
 const form_new_password = document.getElementById("form_new_password");
 const new_password = document.getElementById("new_password");
 const new_password_repeat = document.getElementById("new_password_repeat");
@@ -64,8 +65,8 @@ const new_password_function = (event) => {
 
       if(dataFetch.message){
         //ABRIR MODAL DICIENDO QUE SE TE HA CAMBIADO LA PW Y REDIRECCIONAR AL LOGIN
-        form_new_password.classList.remove("display_on");
-        form_new_password.classList.add("display_off");
+        container_new_password.classList.remove("display_on");
+        container_new_password.classList.add("display_off");
         modal_confirmacion_cambioContrasena.classList.remove("display_off");
         modal_confirmacion_cambioContrasena.classList.remove("opacity-0");
         modal_confirmacion_cambioContrasena.classList.add("display_on");

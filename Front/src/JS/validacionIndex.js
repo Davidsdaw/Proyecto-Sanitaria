@@ -67,10 +67,7 @@ const validate_user = async () => {
       password: password,
     })
   }
-  const response = await fetch(
-    "http://localhost:3000/sanitaria/users/login",
-    data
-  );
+  const response = await fetch("http://localhost:3000/sanitaria/users/login",data);
   const data2 = await response.json();
 
   if (data2.success) {
