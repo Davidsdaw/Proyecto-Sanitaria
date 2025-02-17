@@ -35,6 +35,9 @@ const imagenMuestra =document.getElementById("imagenMuestra")
 //select organo
 const organoSelect = document.getElementById("organoSelect");
 
+//modal muestra imagenes
+const modalMuestrasImagenes = document.getElementById("modalMuestrasImagenes");
+
 const token = localStorage.getItem('token')
 const cargarCassettes = async () => {
     const response = await fetch("http://localhost:3000/sanitaria/cassette",{
@@ -147,6 +150,23 @@ const mostrarMuestrasCassette = async (cassette) => {
             const columna_tincion = document.createElement("td");
             columna_tincion.classList.add("p-2", "text-blue-400");
 
+            let columna_icono = document.createElement("td");
+            let icono = document.createElement("i");
+            icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-300");
+            columna_icono.appendChild(icono);
+            icono.id = `abrirModalMuestrasImagenes`;
+
+            
+
+        icono.addEventListener("click", (e) => {
+            e.preventDefault();
+            mostrarDetallesMuestra(muestra);
+            // const modalMuestrasImagenes = document.getElementById("modalMuestrasImagenes");
+            modalMuestrasImagenes.classList.remove("hidden"); 
+        });
+
+
+
             const fechaFormateada = new Date(muestra.fecha);
             const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
 
@@ -157,8 +177,10 @@ const mostrarMuestrasCassette = async (cassette) => {
             fila_muestra.appendChild(columna_fecha);
             fila_muestra.appendChild(columna_descripcion);
             fila_muestra.appendChild(columna_tincion);
+            fila_muestra.appendChild(columna_icono);
 
             tabla_muestras.appendChild(fila_muestra);
+
         });
     } else {
         const fila_vacia = document.createElement("tr");
@@ -174,6 +196,23 @@ const mostrarMuestrasCassette = async (cassette) => {
     }
 }
 
+const descripcion_muestra = document.getElementById("descripcion_muestra");
+const fecha_muestra = document.getElementById("fecha_muestra");
+const tincion_muestra = document.getElementById("tincion_muestra");
+const observaciones_muestra = document.getElementById("observaciones_muestra");
+
+const mostrarDetallesMuestra = (muestra) => {
+    //formateamos la fecha
+    const fechaFormateada = new Date(muestra.fecha);
+    const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
+
+    descripcion_muestra.textContent = muestra.descripcion;
+    fecha_muestra.textContent = fechaTexto;
+    tincion_muestra.textContent = muestra.tincion;
+    observaciones_muestra.textContent = muestra.observaciones;
+
+
+}
 
 const crearCassette = async () => {
     try {
@@ -379,22 +418,6 @@ const filtrarCassettesporOrgano = async () => {
     mostrar_cassettes(cassttesfilter);
 }
 
-
-
-organoSelect.addEventListener("change", filtrarCassettesporOrgano);
-nueva_muestra.addEventListener("click", () => {
-    crearMuestra(cassetteActual)
-})
-document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
-
-organoSelect.addEventListener("change", () => {
-    // const selectedOrgano = organoSelect.value;
-    // const cassettesFiltrados = data.filter(cassette => cassette.organo === selectedOrgano);
-    // mostrar_cassettes(cassettesFiltrados);
-});
-
-
-
 const modificarCassette = async () => {
     try {
         console.log(descripcionCassete.value)
@@ -445,6 +468,11 @@ const modificarCassette = async () => {
 };
 
 
-
+organoSelect.addEventListener("change", filtrarCassettesporOrgano);
+nueva_muestra.addEventListener("click", () => {
+    crearMuestra(cassetteActual)
+})
+document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
 const botonModificarCassette = document.getElementById("botonModificarCassette");
 botonModificarCassette.addEventListener("click", modificarCassette)
+
