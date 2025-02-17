@@ -17,6 +17,15 @@ const caracteristicasCassete = document.getElementById('id_caracteristicasCasset
 const observacionesCassete = document.getElementById('id_observacionesCassete');
 const mensaje = document.getElementById("mensaje");
 
+
+//Modificar cassette
+const modificar_descripcion_cassette = document.getElementById("modificar_descripcion_cassette");
+const modificar_fecha_cassette = document.getElementById("modificar_fecha_cassette");
+const modificar_caracteristicas_cassette = document.getElementById("modificar_caracteristicas_cassette");
+const modificar_observaciones_cassette = document.getElementById("modificar_observaciones_cassette");
+
+
+
 //mostrar muestras de ese cassette
 const tabla_muestras = document.getElementById("tabla_muestras");
 
@@ -388,6 +397,7 @@ organoSelect.addEventListener("change", () => {
 
 const modificarCassette = async () => {
     try {
+        console.log(descripcionCassete.value)
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/edit/${cassetteActual.id}`, {
             method: "PATCH",
             headers: {
@@ -395,48 +405,43 @@ const modificarCassette = async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                descripcion: descripcion_cassette.textContent,
-                fecha: fecha_cassette.textContent,
-                organo: organo_cassette.textContent,
-                caracteristicas: caracteristicas_cassette.textContent,
-                observaciones: observaciones_cassette.textContent
+                descripcion: modificar_descripcion_cassette.value,
+                fecha: modificar_fecha_cassette.value,
+                organo: organos.value,
+                caracteristicas: modificar_caracteristicas_cassette.value,
+                observaciones: modificar_observaciones_cassette.value,
+                idOrgano: "3",
             })
         });
 
-        // Esperar la respuesta como JSON
         const data = await response.json(); 
 
-        if (response.ok) {
-            mensaje.textContent = "Cassette modificado con éxito";
-            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
-            mensaje.style.display = "block";
-
-            if (cerrarModalModificarCassete) {
-                cerrarModalModificarCassete.click();
+        if(response.ok){
+            if (cerrarModalNuevoCassete) {
+                cerrarModalNuevoCassete.click();
             }
+
+            mensaje.textContent = "Cassette creado con éxito";
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 3000);
+                location.reload();
+            }, 2000);
         } else {
-            mensaje.textContent = "Error al modificar cassette: " + data.message;
+            mensaje.textContent = "Error al crear el cassette: " + data.message;
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 3000);
+            }, 2000);
         }
+
     } catch (error) {
         console.error("Error al modificar el cassette:", error);
-        mensaje.textContent = "Ocurrió un error al modificar el cassette.";
-        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
-        mensaje.style.display = "block";
-
-        setTimeout(() => {
-            mensaje.style.display = "none";
-        }, 1000);
-    }
+    }       
 };
 
 
