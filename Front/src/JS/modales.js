@@ -113,3 +113,23 @@ modalAñadirCassete.addEventListener("click", (e) => {
 
 
 
+const cerrarModalMuestrasImagenes = document.getElementById("cerrarModalMuestrasImagenes");
+
+cerrarModalMuestrasImagenes.addEventListener("click", () => {
+    modalMuestrasImagenes.classList.add("hidden");
+});
+
+
+//Modal modificar muestra
+
+const abrirModalModificarMuestra= document.getElementById("abrirModalModificarMuestra");
+const modalModificarMuestra = document.getElementById("modalModificarMuestra");
+const cerrarModalModificarMuestra = document.getElementById("cerrarModalModificarMuestra");
+
+abrirModalModificarMuestra.addEventListener("click", () => {
+    e.preventDefault();
+    modalModificarMuestra.classList.remove("hidden");
+});
+cerrarModalModificarMuestra.addEventListener("click", () => {
+    modalModificarMuestra.classList.add("hidden");
+});
