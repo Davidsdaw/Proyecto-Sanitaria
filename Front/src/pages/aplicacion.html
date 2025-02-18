@@ -206,52 +206,47 @@
                 </div>
             </div>
             <table class="w-full text-left border-collapse border border-blue-400">
-                <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border">
-                    <div
-                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border rounded">
+                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Fecha
                         <span class="text-gray-500 hidden">&#x25B4;</span>
                     </div>
-                    <div
-                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Descripción
                         <span class="text-gray-500 hidden">&#x25BE;</span>
                     </div>
-                    <div
-                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Tinción
                         <span class="text-gray-500 hidden">&#x25B4;</span>
                     </div>
                 </div>
                 <tbody>
-                    
-                    <div id="tabla_muestras">
-                    
-                    <!-- <tr class="rounded border-blue-400 border">
-                        <td id="muestras_empty" class="p-2 text-red-400" colspan="3">
-                        No se ha encontrado ninguna muestra
-                        </td>
-
-                        <td class="">
-                            <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
-                        </td>
-                    </tr> -->
-                    
-                    <!-- <tr class="rounded border-blue-400 border" id="tabla_muestras"> -->
-                    <!-- <td id="fecha_muestra" class="p-2 text-red-400">
-                            hola
-                        </td>
-                        <td id="descripcion_muestra" class="p-2 text-red-400">
-                            hola
-                        </td>
-                        <td  id="tincion_muestra" class="p-2 text-red-400">
-                            hola
-                        </td> -->
-                    <!-- </tr> -->
-                    
-                </div>
+                    <div id="tabla_muestras" class="divide-y border border-blue-300 overflow-auto max-h-36">
+                        <!-- <tr class="rounded border-blue-400 border">
+                            <td id="muestras_empty" class="p-2 text-red-400" colspan="3">
+                            No se ha encontrado ninguna muestra
+                            </td>
+            
+                            <td class="">
+                                <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
+                            </td>
+                        </tr> -->
+            
+                        <!-- <tr class="rounded border-blue-400 border" id="tabla_muestras"> -->
+                        <!-- <td id="fecha_muestra" class="p-2 text-red-400">
+                                hola
+                            </td>
+                            <td id="descripcion_muestra" class="p-2 text-red-400">
+                                hola
+                            </td>
+                            <td  id="tincion_muestra" class="p-2 text-red-400">
+                                hola
+                            </td> -->
+                        <!-- </tr> -->
+                    </div>
                 </tbody>
             </table>
+            
         </div>
     </div>
 
@@ -364,7 +359,7 @@
     <!--MODAL MUESTRA DETALLES-->
     <div id="modalMuestrasImagenes"
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-3/5 h-80 relative text-center h-auto">
         <button id="cerrarModalMuestrasImagenes"
             class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
             &times;
@@ -388,7 +383,7 @@
 
             </div>
             <div class="">
-                <a href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
+                <a id="" href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
             </div>
         </div>
 
@@ -474,7 +469,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input type="text" class="border w-full rounded h-8">
+                <input id="modificar_descripcion_cassette" type="text" class="border w-full rounded h-8">
             </div>
 
             <div class="flex mb-5 w-full">
@@ -482,8 +477,8 @@
                     <h2 class="text-lg font-semibold mb-4 text-blue-400">
                         Fecha
                     </h2>
-                    <input type="text"
-                        class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                    <input type="date" id="modificar_fecha_cassette"
+                        class="border rounded  w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
                 </div>
                 <div class="flex-col justify-center w-full">
                     <h2 class="text-lg font-semibold mb-4 text-blue-400">
@@ -561,13 +556,13 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Características
                 </h2>
-                <input type="text" class="border w-full rounded h-12">
+                <input id="modificar_caracteristicas_cassette" type="text" class="border w-full rounded h-12">
             </div>
             <div class="mb-5">
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input type="text" class="border w-full rounded h-12">
+                <input id="modificar_observaciones_cassette" type="text" class="border w-full rounded h-12">
             </div>
             <button id="botonModificarCassette" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Cassete

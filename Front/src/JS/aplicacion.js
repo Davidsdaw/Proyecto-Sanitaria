@@ -17,6 +17,15 @@ const caracteristicasCassete = document.getElementById('id_caracteristicasCasset
 const observacionesCassete = document.getElementById('id_observacionesCassete');
 const mensaje = document.getElementById("mensaje");
 
+
+//Modificar cassette
+const modificar_descripcion_cassette = document.getElementById("modificar_descripcion_cassette");
+const modificar_fecha_cassette = document.getElementById("modificar_fecha_cassette");
+const modificar_caracteristicas_cassette = document.getElementById("modificar_caracteristicas_cassette");
+const modificar_observaciones_cassette = document.getElementById("modificar_observaciones_cassette");
+
+
+
 //mostrar muestras de ese cassette
 const tabla_muestras = document.getElementById("tabla_muestras");
 
@@ -87,7 +96,7 @@ const mostrar_cassettes = (data) => {
         icono.id = `boton_detalles_cassette`;
 
         icono.addEventListener("click", () => {
-            mostrarDetallesCassettes(cassette);  // pasamos el cassette actual
+            mostrarDetallesCassettes(cassette); 
             mostrarMuestrasCassette(cassette);
         });
 
@@ -123,11 +132,11 @@ const mostrarDetallesCassettes = (cassette) => {
 
 
 const mostrarMuestrasCassette = async (cassette) => {
-    const response = await fetch("http://localhost:3000/sanitaria/muestra",{
+    const response = await fetch("http://localhost:3000/sanitaria/muestra", {
         method: 'GET',
-    headers: {
-        'Authorization': `${token}` ,
-    }
+        headers: {
+            'Authorization': `${token}`,
+        }
     });
     const data = await response.json();
     tabla_muestras.innerHTML = "";
@@ -137,31 +146,27 @@ const mostrarMuestrasCassette = async (cassette) => {
     if (muestrasFiltradas.length > 0) {
         muestrasFiltradas.forEach(muestra => {
             const fila_muestra = document.createElement("tr");
-            fila_muestra.classList.add("rounded", "border", "border-blue-400");
+            fila_muestra.classList.add("rounded", "flex", "w-full");
 
             const columna_fecha = document.createElement("td");
-            columna_fecha.classList.add("p-2", "text-blue-400");
+            columna_fecha.classList.add("p-2", "text-blue-400", "border-b", "border-blue-400", "w-1/3");
             const columna_descripcion = document.createElement("td");
-            columna_descripcion.classList.add("p-2", "text-blue-400", "border-blue-400");
+            columna_descripcion.classList.add("p-2", "text-blue-400", "border-b", "border-blue-400", "w-1/3", "pl-7");
             const columna_tincion = document.createElement("td");
-            columna_tincion.classList.add("p-2", "text-blue-400");
+            columna_tincion.classList.add("p-2", "text-blue-400", "border-b", "border-blue-400", "w-1/3", "pl-10");
 
             let columna_icono = document.createElement("td");
+            columna_icono.classList.add("border-b", "border-blue-400", "flex", "justify-center", "items-center", "pl-4"); 
             let icono = document.createElement("i");
-            icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-300");
+            icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-300", "mr-5");
             columna_icono.appendChild(icono);
             icono.id = `abrirModalMuestrasImagenes`;
 
-            
-
-        icono.addEventListener("click", (e) => {
-            e.preventDefault();
-            mostrarDetallesMuestra(muestra);
-            // const modalMuestrasImagenes = document.getElementById("modalMuestrasImagenes");
-            modalMuestrasImagenes.classList.remove("hidden"); 
-        });
-
-
+            icono.addEventListener("click", (e) => {
+                e.preventDefault();
+                mostrarDetallesMuestra(muestra);
+                modalMuestrasImagenes.classList.remove("hidden");
+            });
 
             const fechaFormateada = new Date(muestra.fecha);
             const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
@@ -176,21 +181,25 @@ const mostrarMuestrasCassette = async (cassette) => {
             fila_muestra.appendChild(columna_icono);
 
             tabla_muestras.appendChild(fila_muestra);
-
         });
     } else {
         const fila_vacia = document.createElement("tr");
-        fila_vacia.classList.add("rounded", "border", "border-blue-400");
+        fila_vacia.classList.add("rounded", "border", "border-blue-400", "w-full");
 
         const columna_vacia = document.createElement("td");
         columna_vacia.classList.add("p-2", "text-red-400");
         columna_vacia.textContent = "No se ha encontrado ninguna muestra";
-        columna_vacia.colSpan = 3;
+        columna_vacia.colSpan = 4;
 
         fila_vacia.appendChild(columna_vacia);
         tabla_muestras.appendChild(fila_vacia);
     }
 }
+
+
+
+
+
 
 const descripcion_muestra = document.getElementById("descripcion_muestra");
 const fecha_muestra = document.getElementById("fecha_muestra");
@@ -297,8 +306,8 @@ const eliminarCassette = async () => {
             mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
-            if (cerrarModalBasura) {
-                cerrarModalBasura.click();
+            if (cerrarModalNuevaMuestra) {
+                cerrarModalNuevaMuestra.click();
             }
 
             setTimeout(() => {
@@ -326,38 +335,71 @@ const eliminarCassette = async () => {
     }
 };
 
-
-
 const botonEliminarCassette = document.getElementById("botonEliminarCassette");
 botonEliminarCassette.addEventListener("click", eliminarCassette)
 
+
+
 const crearMuestra = async (cassette) => {
+    try {
+        const response = await fetch("http://localhost:3000/sanitaria/muestra/create", {
+            method: "POST",
+            headers: {
+                'Authorization': `${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descripcion: descripcionMuestra.value,
+                fecha: fechaMuestra.value,
+                tincion: tincionMuestra.value,
+                observaciones: observacionesMuestra.value,
+                qr_muestra: "http://localhost:3000/sanitaria/muestra",
+                cassette_id: cassette.id,
+            }),
+        });
 
+        const data = await response.json();
+        
+        if (cerrarModalNuevaMuestra) {
+            cerrarModalNuevaMuestra.click();
+        }
 
-    const response = await fetch("http://localhost:3000/sanitaria/muestra/create", {
-        method: "POST",
-        headers: {
-            'Authorization': `${token}` ,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            descripcion: descripcionMuestra.value,
-            fecha: fechaMuestra.value,
-            tincion: tincionMuestra.value,
-            observaciones: observacionesMuestra.value,
-            qr_muestra: "http://localhost:3000/sanitaria/muestra",
-            cassette_id: cassette.id,
-        }),
-    })
-    const data = await response.json()
+        if (response.ok) {
+            if (imagenMuestra.files[0]) {
+                await createImage(imagenMuestra.files[0], data.createdMuestra.id);
+            }
 
+            mensaje.textContent = "Muestra creada con éxito";
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
 
-    if (imagenMuestra.files[0]) {
-        createImage(imagenMuestra.files[0], data.createdMuestra.id);
+            setTimeout(() => {
+                mensaje.style.display = "none";
+                location.reload();
+            }, 1000);
+        } else {
+            mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 1000);
+        }
+    } catch (error) {
+        console.error("Error al crear la muestra:", error);
+        mensaje.textContent = "Ocurrió un error al crear la muestra.";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 1000);
     }
-    console.log(data)
-    
-}
+};
+
+
+
 
 const createImage = async (file, muestraID) => {
     const formData = new FormData();
@@ -377,7 +419,6 @@ const createImage = async (file, muestraID) => {
 };
 
 const cargarImagen = async (imagenID) => {
-    console.log("hola")
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/imagen/${imagenID}`, {
             method: "GET",
@@ -416,6 +457,7 @@ const filtrarCassettesporOrgano = async () => {
 
 const modificarCassette = async () => {
     try {
+        console.log(descripcionCassete.value)
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/edit/${cassetteActual.id}`, {
             method: "PATCH",
             headers: {
@@ -423,48 +465,43 @@ const modificarCassette = async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                descripcion: descripcion_cassette.textContent,
-                fecha: fecha_cassette.textContent,
-                organo: organo_cassette.textContent,
-                caracteristicas: caracteristicas_cassette.textContent,
-                observaciones: observaciones_cassette.textContent
+                descripcion: modificar_descripcion_cassette.value,
+                fecha: modificar_fecha_cassette.value,
+                organo: organos.value,
+                caracteristicas: modificar_caracteristicas_cassette.value,
+                observaciones: modificar_observaciones_cassette.value,
+                idOrgano: "3",
             })
         });
 
-        // Esperar la respuesta como JSON
         const data = await response.json(); 
 
-        if (response.ok) {
-            mensaje.textContent = "Cassette modificado con éxito";
-            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
-            mensaje.style.display = "block";
-
-            if (cerrarModalModificarCassete) {
-                cerrarModalModificarCassete.click();
+        if(response.ok){
+            if (cerrarModalNuevoCassete) {
+                cerrarModalNuevoCassete.click();
             }
+
+            mensaje.textContent = "Cassette creado con éxito";
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 3000);
+                location.reload();
+            }, 2000);
         } else {
-            mensaje.textContent = "Error al modificar cassette: " + data.message;
+            mensaje.textContent = "Error al crear el cassette: " + data.message;
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 3000);
+            }, 2000);
         }
+
     } catch (error) {
         console.error("Error al modificar el cassette:", error);
-        mensaje.textContent = "Ocurrió un error al modificar el cassette.";
-        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
-        mensaje.style.display = "block";
-
-        setTimeout(() => {
-            mensaje.style.display = "none";
-        }, 1000);
-    }
+    }       
 };
 
 
