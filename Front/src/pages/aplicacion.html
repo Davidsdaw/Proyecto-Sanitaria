@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +11,20 @@
 
 <body class="">
     <div class="flex justify-center items-center align-middle w-full h-full bg-blue-300">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 w-8/12 mt-3">
-            <select class="p-2 border rounded text-blue-400" id="organoSelect" aria-label="Floating label select example">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 w-9/12 mt-3">
+
+            <!-- SELECT ID_CASSETTE ORGANO-->
+            <select class="p-2 border rounded text-blue-400" id="idOrganoSelect"
+                aria-label="Floating label select example">
+                <option disabled selected>Seleccionar un ID</option>
+                <option value="Todos">Todos</option>
+                <optgroup label="mis ids" id="idsCassette">
+
+                </optgroup>
+            </select>
+
+            <select class="p-2 border rounded text-blue-400" id="organoSelect"
+                aria-label="Floating label select example">
                 <option disabled selected>Seleccionar un Órgano</option>
                 <option value="Todos">Todos</option>
                 <optgroup label="Sistema Nervioso">
@@ -155,13 +168,30 @@
 
                     </div>
                 </div>
-                <div class="mt-5 border-b-2">
-                    <p><strong class="text-blue-300">Descripción:</strong></p>
-                    <span id="descripcion_cassette" class="text-blue-400 text-sm">
-                        <!-- descripcion del cassette seleccionado -->
-                    </span>
+                <div class="mt-5 border-b-2 pb-4">
+                    <div class="flex justify-between items-center mb-5 mt-2">
+                        <!-- Descripción -->
+                        <div>
+                            <p class="font-semibold text-blue-300">Descripción:</p>
+                            <span id="descripcion_cassette" class="text-blue-400 text-sm">
+                                <!-- descripcion del cassette seleccionado -->
+                            </span>
+                        </div>
+                
+                        <!-- ID -->
+                        <div class="px-6 py-2 text-center border-l border-blue-300">
+                            <p class="font-semibold text-blue-300">ID:</p>
+                            <span id="id_cassette" class="text-blue-400 text-sm">
+                                <!-- id del cassette seleccionado -->
+                            </span>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="border-b-2 h-32">
+
+
+
                     <div class="flex justify-between mb-5 mt-2">
                         <p><strong class="text-blue-300">Órgano:</strong>
                             <span id="organo_cassette" class="text-blue-400 text-sm">
@@ -207,15 +237,18 @@
             </div>
             <table class="w-full text-left border-collapse border border-blue-400">
                 <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border rounded">
-                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                    <div
+                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Fecha
                         <span class="text-gray-500 hidden">&#x25B4;</span>
                     </div>
-                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                    <div
+                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Descripción
                         <span class="text-gray-500 hidden">&#x25BE;</span>
                     </div>
-                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                    <div
+                        class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Tinción
                         <span class="text-gray-500 hidden">&#x25B4;</span>
                     </div>
@@ -231,7 +264,7 @@
                                 <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
                             </td>
                         </tr> -->
-            
+
                         <!-- <tr class="rounded border-blue-400 border" id="tabla_muestras"> -->
                         <!-- <td id="fecha_muestra" class="p-2 text-red-400">
                                 hola
@@ -246,7 +279,7 @@
                     </div>
                 </tbody>
             </table>
-            
+
         </div>
     </div>
 
@@ -263,7 +296,15 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input id="id_descripcionCassete" type="text" class="border w-full rounded h-8 border-blue-300 text-blue-300 hover:border-blue-300">
+                <input id="id_descripcionCassete" type="text"
+                    class="border w-full rounded h-8 border-blue-300 text-blue-300 hover:border-blue-300">
+            </div>
+            <div class="mb-2">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Identificador
+                </h2>
+                <input id="id_identificadorCassete" type="text"
+                    class="border w-full rounded h-8 text-blue-300 hover:border-blue-300">
             </div>
             <div class="flex mb-5 w-full">
                 <div class="flex-col justify-center mr-1 w-full">
@@ -358,81 +399,79 @@
 
     <!--MODAL MUESTRA DETALLES-->
     <div id="modalMuestrasImagenes"
-    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-3/5 h-80 relative text-center h-auto">
-        <button id="cerrarModalMuestrasImagenes"
-            class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
-            &times;
-        </button>
-        <h2 class="mb-5 text-2xl text-blue-400 text-left border-b-2 pb-4">Detalle Muestra
-        </h2>
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-3/5 h-80 relative text-center h-auto">
+            <button id="cerrarModalMuestrasImagenes"
+                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
+            <h2 class="mb-5 text-2xl text-blue-400 text-left border-b-2 pb-4">Detalle Muestra
+            </h2>
 
-        <div class="flex justify-between">
-            <div class="mb-5">
-                <a href=""><i class="fa-solid fa-qrcode text-blue-300"></i></a>
-
-
-                <a id="abrirModalBasuraMuestra" href=""><i
-                        class="fa-solid fa-trash text-blue-300"></i></a>
-
-
-
-
-                <a id="abrirModalModificarMuestra" href=""><i
-                        class="fa-solid fa-file-pen text-blue-300"></i></a>
-
-            </div>
-            <div class="">
-                <a id="" href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
-            </div>
-        </div>
-
-        <div class="flex">
-            <div>
+            <div class="flex justify-between">
                 <div class="mb-5">
-                    <h2 class="text-base font-semibold text-blue-400 text-left">
-                        Descripción:
-                        <span id="descripcion_muestra"> <!-- descripcion de la muestra --></span>
-                    </h2>
+                    <a href=""><i class="fa-solid fa-qrcode text-blue-300"></i></a>
+
+
+                    <a id="abrirModalBasuraMuestra" href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
+
+
+
+
+                    <a id="abrirModalModificarMuestra" href=""><i class="fa-solid fa-file-pen text-blue-300"></i></a>
 
                 </div>
-
-                <div class="flex-col justify-center mr-1 w-full">
-                    <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
-                        Fecha:
-                        <span id="fecha_muestra"> <!-- fecha de la muestra --></span>
-                    </h2>
-
-                </div>
-
-                <div class="flex-col justify-center w-full">
-                    <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
-                        Tinción:
-                        <span id="tincion_muestra"> <!-- tincion de la muestra --></span>
-                    </h2>
-                </div>
-
                 <div class="">
-                    <h2 class="text-base font-semibold mb-4 text-blue-400 text-left">
-                        Observaciones:
-                        <span id="observaciones_muestra"> <!-- observaciones de la muestra --></span>
-                    </h2>
+                    <a id="" href=""><i class="fa-solid fa-trash text-blue-300"></i></a>
                 </div>
             </div>
-            <div class="ml-20">
 
-                <img class="size-auto" src="../assets/adn.jpg" alt="">
+            <div class="flex">
+                <div>
+                    <div class="mb-5">
+                        <h2 class="text-base font-semibold text-blue-400 text-left">
+                            Descripción:
+                            <span id="descripcion_muestra"> <!-- descripcion de la muestra --></span>
+                        </h2>
+
+                    </div>
+
+                    <div class="flex-col justify-center mr-1 w-full">
+                        <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
+                            Fecha:
+                            <span id="fecha_muestra"> <!-- fecha de la muestra --></span>
+                        </h2>
+
+                    </div>
+
+                    <div class="flex-col justify-center w-full">
+                        <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
+                            Tinción:
+                            <span id="tincion_muestra"> <!-- tincion de la muestra --></span>
+                        </h2>
+                    </div>
+
+                    <div class="">
+                        <h2 class="text-base font-semibold mb-4 text-blue-400 text-left">
+                            Observaciones:
+                            <span id="observaciones_muestra"> <!-- observaciones de la muestra --></span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="ml-20">
+
+                    <img class="size-auto" src="../assets/adn.jpg" alt="">
+
+                </div>
 
             </div>
-
-        </div>
-        <div class="border-t-2 mt-10 flex pt-3 items-center">
-            <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
-            <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
-            <a href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>
+            <div class="border-t-2 mt-10 flex pt-3 items-center">
+                <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
+                <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
+                <a href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- MODAL ELIMINAR CASSETE-->
     <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
@@ -564,7 +603,8 @@
                 </h2>
                 <input id="modificar_observaciones_cassette" type="text" class="border w-full rounded h-12">
             </div>
-            <button id="botonModificarCassette" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+            <button id="botonModificarCassette"
+                class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Cassete
             </button>
         </div>
@@ -607,9 +647,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input type="text"
-                id="nuevaMuestra_desc"
-                class="border w-full rounded h-8">
+                <input type="text" id="nuevaMuestra_desc" class="border w-full rounded h-8">
             </div>
 
             <div class="mb-5 w-full">
@@ -617,8 +655,7 @@
                     <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
                         Fecha
                     </h2>
-                    <input type="text"
-                        id="nuevaMuestra_fecha"
+                    <input type="text" id="nuevaMuestra_fecha"
                         class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
                 </div>
                 <div class="flex-col justify-center w-full mb-5">
@@ -646,9 +683,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input type="text" 
-                id="nuevaMuestra_observ"
-                class="border w-full rounded h-12">
+                <input type="text" id="nuevaMuestra_observ" class="border w-full rounded h-12">
             </div>
             <button id="botonModificarMuestra" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Muestra
