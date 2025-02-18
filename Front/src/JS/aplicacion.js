@@ -532,15 +532,15 @@ const EliminarMuestra= async () => {
 
         const data = await response.json();
         console.log(data.message);
-
+        if (cerrarModalBasuraMuestra) {
+            cerrarModalBasuraMuestra.click();
+            cerrarModalMuestrasImagenes.click();
+        }
         if (response.ok) {
-            mensaje.textContent = "Muestra eliminado con éxito";
-            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
-            mensaje.style.display = "block";
 
-            if (cerrarModalNuevaMuestra) {
-                cerrarModalNuevaMuestra.click();
-            }
+            mensaje.textContent = "Muestra eliminado con éxito";
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";

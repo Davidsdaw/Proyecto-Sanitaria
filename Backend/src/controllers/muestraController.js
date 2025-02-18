@@ -26,7 +26,7 @@ const deleteMuestras = async (req, res) => {
   try {
     const deleted = await muestraService.deleteMuestra(req.params.id);
     if (deleted) {
-      return  res.status(204).json({ message: "Usuario eliminado" });
+      return  res.status(200).json({ message: "Usuario eliminado" });
     } else {
       return  res.status(404).json({ message: "Usuario no encontrado" });
     }
