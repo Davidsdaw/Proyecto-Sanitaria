@@ -1,136 +1,176 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./../CSS/style.css">
-  <link href="./../output.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/ec5d753fff.js" crossorigin="anonymous"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./../CSS/style.css" />
+    <link href="./../output.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/ec5d753fff.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
+  <!-- Video de background -->
+  <video
+    autoplay
+    muted
+    loop
+    class="video fixed -z-10 top-0 w-full object-contain"
+  >
+    <source src="./../assets/fondo.mp4" type="video/mp4" />
+  </video>
+  <!-- Container general -->
+  <body class="w-full mx-auto flex justify-center">
+    <!-- Container header -->
+    <header
+      class="relative w-full z-10 max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] mx-auto my-4 p-4 shadow-md shadow-gray-300 flex justify-center"
+    >
+      <!-- Navegador Header -->
+      <nav class="md:flex justify-start md:justify-center items-center w-full">
+        <ul class="flex justify-between items-center text-md gap-5">
+          <li class="flex md:hidden">
+            <i id="nav_button" class="fa-solid fa-bars md:hidden"></i>
+          </li>
+          <li class="hidden md:flex text-gray-500"><a href="#">Inicio</a></li>
+          <li class="hidden md:flex"><a href="#">Proyecto</a></li>
+          <li class="hidden md:flex"><a href="#">Laboratorio</a></li>
+          <li class="hidden md:flex"><a href="#">Autopsias</a></li>
+          <li class="hidden md:flex"><a href="#">Microscopio</a></li>
+          <li class="hidden md:flex">
+            <a href="#"
+              >Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i
+            ></a>
+          </li>
+          <li class="hidden md:flex"><a href="#">Ejercicios</a></li>
+          <li class="hidden md:flex"><a href="#">Registro</a></li>
+        </ul>
+      </nav>
+    </header>
+<!-- Navegador Header Desplegable -->
+    <nav
+      id="nav_list"
+      class="video absolute top-0 z-10 w-full flex justify-center items-center text-md hidden show_off_nav_list bg-blue-300 text-white text-center p-4"
+    >
+      <ul>
+        <li><i id="nav_list_button" class="fa-solid fa-bars"></i></li>
+        <li class="text-gray-500"><a href="#">Inicio</a></li>
+        <li><a href="#">Proyecto</a></li>
+        <li><a href="#">Laboratorio</a></li>
+        <li><a href="#">Autopsias</a></li>
+        <li><a href="#">Microscopio</a></li>
+        <li>
+          <a href="#"
+            >Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i
+          ></a>
+        </li>
+        <li><a href="#">Ejercicios</a></li>
+        <li><a href="#">Registro</a></li>
+      </ul>
+    </nav>
 
-<video autoplay muted loop class="video fixed -z-10 top-0 w-full object-contain">
-  <source src="./../assets/fondo.mp4" type="video/mp4">
-</video>
-
-<body class="w-full mx-auto flex justify-center">
-  
-  <header
-  class="relative w-full z-10 max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] mx-auto my-4 p-4 shadow-md shadow-gray-300 flex justify-center"
->
-  <nav class="md:flex justify-start md:justify-center items-center w-full">
-    <ul class="flex justify-between items-center text-md gap-5">
-      <li class="flex md:hidden">
-        <i id="nav_button" class="fa-solid fa-bars md:hidden"></i>
-      </li>
-      <li class="hidden md:flex text-gray-500"><a href="#">Inicio</a></li>
-      <li class="hidden md:flex"><a href="#">Proyecto</a></li>
-      <li class="hidden md:flex"><a href="#">Laboratorio</a></li>
-      <li class="hidden md:flex"><a href="#">Autopsias</a></li>
-      <li class="hidden md:flex"><a href="#">Microscopio</a></li>
-      <li class="hidden md:flex">
-        <a href="#"
-          >Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i
-        ></a>
-      </li>
-      <li class="hidden md:flex"><a href="#">Ejercicios</a></li>
-      <li class="hidden md:flex"><a href="#">Registro</a></li>
-    </ul>
-  </nav>
-</header>
-
-<nav
-  id="nav_list"
-  class="video absolute top-0 z-10 w-full flex justify-center items-center text-md hidden show_off_nav_list bg-blue-300 text-white text-center p-4"
->
-  <ul>
-    <li><i id="nav_list_button" class="fa-solid fa-bars"></i></li>
-    <li class="text-gray-500"><a href="#">Inicio</a></li>
-    <li><a href="#">Proyecto</a></li>
-    <li><a href="#">Laboratorio</a></li>
-    <li><a href="#">Autopsias</a></li>
-    <li><a href="#">Microscopio</a></li>
-    <li>
-      <a href="#"
-        >Jornadas<i class="fa-solid fa-caret-down text-sm mx-1"></i
-      ></a>
-    </li>
-    <li><a href="#">Ejercicios</a></li>
-    <li><a href="#">Registro</a></li>
-  </ul>
-</nav>
-      
-    <!-- MODAL SOLICITAR CONTRASEÑA -->
-
-    <div id="container_new_password" class="display_on absolute left-[50%] top-[100px] max-w-md mx-auto bg-white p-6 rounded-lg shadow-md m-4">
-        <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Nueva Contraseña</h2>
-        <form id="form_new_password" action="#" method="POST" class="space-y-4" novalidate>
-            <div class="relative">
-                <input
-                  id="new_password"
-                  minlength="8"
-                  maxlength="16"
-                  type="password"
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$"
-                  minlength="8"
-                  maxlength="16"
-                  class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
-                  placeholder="Contraseña" required
-                />
-      
-                <span
-                  id="togglePassword"
-                  class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
-                >
-                  
-                </span>
-              </div>
-            <div class="relative">
-                <input
-                  id="new_password_repeat"
-                  minlength="8"
-                  maxlength="16"
-                  type="password"
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$"
-                  minlength="8"
-                  maxlength="16"
-                  class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
-                  placeholder="Contraseña" required
-                />
-      
-                <span
-                  id="togglePassword"
-                  class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
-                >
-                  
-                </span>
-              </div>
-            <p
-            id="new_password_repeat_error"
-            class="text-red-500 text-sm mt-1 font-bold"
-          ></p>
-            <button type="submit" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500 ">Modificar Contraseña</button>
-            <p class="text-center text-blue-400">Volver al<a id="mostrar_login_password" class=" font-extrabold" href="./../index.html"> Login</a></p>
-        </form>
+    <!-- CONTAINER MODAL SOLICITAR CONTRASEÑA -->
+    <div
+      id="container_new_password"
+      class="display_on absolute left-[50%] top-[100px] max-w-md mx-auto bg-white p-6 rounded-lg shadow-md m-4"
+    >
+      <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">
+        Nueva Contraseña
+      </h2>
+      <!-- Formulario New Password -->
+      <form
+        id="form_new_password"
+        action="#"
+        method="POST"
+        class="space-y-4"
+        novalidate
+      >
+        <div class="relative">
+          <!-- Campo para la nueva password -->
+          <input
+            id="new_password"
+            minlength="8"
+            maxlength="16"
+            type="password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$"
+            minlength="8"
+            maxlength="16"
+            class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
+            placeholder="Contraseña"
+            required
+          />
+          <!-- Boton visualizar contraseña -->
+          <span
+            id="togglePassword"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
+          >
+          </span>
+        </div>
+        <div class="relative">
+          <!-- Campo repetir para la nueva password -->
+          <input
+            id="new_password_repeat"
+            minlength="8"
+            maxlength="16"
+            type="password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$"
+            minlength="8"
+            maxlength="16"
+            class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
+            placeholder="Contraseña"
+            required
+          />
+          <!-- Boton visualizar contraseña repetida -->
+          <span
+            id="togglePassword"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
+          >
+          </span>
+        </div>
+        <!-- Campo de texto en caso de error de password -->
+        <p
+          id="new_password_repeat_error"
+          class="text-red-500 text-sm mt-1 font-bold"
+        ></p>
+        <!-- Boton para cambiar la contraseña de usuario -->
+        <button
+          type="submit"
+          class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
+        >
+          Modificar Contraseña
+        </button>
+        Enlace para volver al Login
+        <p class="text-center text-blue-400">
+          Volver al<a
+            id="mostrar_login_password"
+            class="font-extrabold"
+            href="./../index.html"
+          >
+            Login</a
+          >
+        </p>
+      </form>
     </div>
 
-        <!-- Modal de confirmacion de Cambio de Contraseña -->
-        <div
-        id="modal_confirmacion_cambioContrasena"
-        class="display_off opacity-0 text-center w-[400px] h-[180px] shadow-md absolute left-[50%] top-[100px] p-4 rounded-md bg-white flex-col gap-4 justify-center items-center"
-      >
-        <h2 class="italic text-xl font-bold text-blue-300 tracking-[10px]">
-          Contraseña Actualizada Correctamente
-        </h2>
-        <p class="mt-4">
-          <a
+    <!-- Modal de confirmacion de Cambio de Contraseña -->
+    <div
+      id="modal_confirmacion_cambioContrasena"
+      class="display_off opacity-0 text-center w-[400px] h-[180px] shadow-md absolute left-[50%] top-[100px] p-4 rounded-md bg-white flex-col gap-4 justify-center items-center"
+    >
+    <!-- Texto indicativo de confirmacion de cambio de contraseña -->
+      <h2 class="italic text-xl font-bold text-blue-300 tracking-[10px]">
+        Contraseña Actualizada Correctamente
+      </h2>
+      <!-- Boton para volver a iniciar sesion -->
+      <p class="mt-4">
+        <a
           href="./../index.html"
           class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
           >Iniciar Sesión</a
         >
-        </p>
-      </div>
-    
+      </p>
+    </div>
+
     <script src="./../JS/validacion_resetPassword.js"></script>
-</body>
+  </body>
 </html>

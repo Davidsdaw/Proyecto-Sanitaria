@@ -10,7 +10,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
-
+  <!-- Video de background -->
   <video
     autoplay
     muted
@@ -19,11 +19,13 @@
   >
     <source src="./assets/fondo.mp4" type="video/mp4" />
   </video>
-
+  <!-- Container general -->
   <body class="w-full flex-col justify-center">
+    <!-- Container header -->
     <header
       class="relative w-full z-10 max-w-[1000px] min-w-[500px] rounded-[10px] h-[50px] mx-auto my-4 p-4 shadow-md shadow-gray-300 flex justify-center"
     >
+      <!-- Navegador Header -->
       <nav class="md:flex justify-start md:justify-center items-center w-full">
         <ul class="flex justify-between items-center text-md gap-5">
           <li class="flex md:hidden">
@@ -45,6 +47,7 @@
       </nav>
     </header>
 
+    <!-- Navegador Header Desplegable -->
     <nav
       id="nav_list"
       class="video absolute top-0 z-10 w-full flex justify-center items-center text-md hidden show_off_nav_list bg-blue-300 text-white text-center p-4"
@@ -66,25 +69,28 @@
       </ul>
     </nav>
 
-    <!-- MODAL LOGIN -->
-
+    <!-- CONTAINER MODAL LOGIN -->
     <div
       id="container_login"
       class="display_on flex-none absolute left-[50%] top-[100px] max-w-md mx-auto bg-white p-6 rounded-lg shadow-md m-4"
     >
+      <!-- Titulo Login -->
       <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">Login</h2>
+
+      <!-- Formulario Login -->
       <form id="form_login" class="space-y-4" novalidate>
-        <div>
-          <input
-            id="login_email"
-            type="email"
-            class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
-            placeholder="Correo"
-            required
-          />
-        </div>
+        <!-- Campo Email Login -->
+        <input
+          id="login_email"
+          type="email"
+          class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
+          placeholder="Correo"
+          required
+        />
+        <!-- Campo de texto en caso de error de email -->
         <p id="login_email_error" class="text-red-500 text-sm"></p>
 
+        <!-- Campo Password Login -->
         <div class="relative">
           <input
             id="login_password"
@@ -98,7 +104,7 @@
             placeholder="Contraseña"
             required
           />
-
+          <!-- Boton visualizar contraseña -->
           <span
             id="togglePassword"
             class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
@@ -106,12 +112,13 @@
             <i id="icon_eye" class="fa-regular fa-eye"></i>
           </span>
         </div>
+        <!-- Campo de texto en caso de error de password -->
         <p id="login_password_error" class="text-red-500 text-sm"></p>
-
+        <!-- Campo de texto con la guia para la contraseña correcta -->
         <p class="text-xs text-end text-blue-400 mt-1">
           8-16 caracteres, mayúsculas, minúsculas, números y símbolos
         </p>
-
+        <!-- Enlace en caso de haber olvidado contraseña -->
         <div class="text-center">
           <a
             id="mostrar_password_forgotten"
@@ -120,13 +127,16 @@
             >Olvidaste tu contraseña...</a
           >
         </div>
+        <!-- Campo de texto en caso de error de inicio de sesion -->
         <p id="login_session_error" class="text-red-500 text-sm"></p>
+        <!-- Boton de inicio de sesion -->
         <button
           type="submit"
           class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
         >
           Login
         </button>
+        <!-- Enlace para registrar nuevo usuario -->
         <p class="text-center text-blue-300">
           Si no tienes cuenta...
           <a
@@ -140,16 +150,18 @@
     </div>
 
     <!-- MODAL SOLICITAR CONTRASEÑA -->
-
     <div
       id="container_password"
       class="display_off opacity-0 absolute left-[50%] top-[100px] max-w-md mx-auto bg-white p-6 rounded-lg shadow-md m-4"
     >
+    <!-- Titulo -->
       <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">
         Solicitar Contraseña
       </h2>
+      <!-- Formulario de solicitar cambio de contraseña -->
       <form id="form_password" class="space-y-4" novalidate>
         <div>
+          <!-- Campo de correo para cambiar contraseña -->
           <input
             id="solicitar_email"
             type="email"
@@ -157,17 +169,20 @@
             placeholder="Correo"
             required
           />
+          <!-- Campo de texto en caso de error en el email -->
           <p
             id="solicitar_email_error"
             class="text-red-500 text-sm mt-1 font-bold"
           ></p>
         </div>
+        <!-- Boton para solicitar el email para cambiar contraseña -->
         <button
           type="submit"
           class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
         >
           Soliciar Contraseña
         </button>
+        <!-- Enlace para volver al Login -->
         <p class="text-center text-blue-400">
           Volver al<a
             id="mostrar_login_password"
@@ -181,16 +196,18 @@
     </div>
 
     <!-- MODAL REGISTRO -->
-
     <div
       id="container_register"
       class="display_off opacity-0 absolute left-[50%] top-[100px] max-w-md mx-auto bg-white p-6 rounded-lg shadow-md m-4"
     >
+    <!-- Titulo register -->
       <h2 class="text-3xl font-bold text-center mb-4 text-blue-300">
         Registro
       </h2>
+      <!-- Formulario de registro -->
       <form id="form_register" class="space-y-4" novalidate>
         <div>
+          <!-- Campo del nombre del nuevo usuario -->
           <input
             id="register_nombre"
             type="text"
@@ -198,12 +215,14 @@
             placeholder="Nombre"
             required
           />
+          <!-- Campo de texto en caso de error de nombre de usuario -->
           <p
             id="register_nombre_error"
             class="text-red-500 text-sm mt-1 font-bold"
           ></p>
         </div>
         <div>
+          <!-- Campo de los apellidos del nuevo usuario -->
           <input
             id="register_apellidos"
             type="text"
@@ -211,11 +230,13 @@
             placeholder="Apellidos"
             required
           />
+          <!-- Campo de texto en caso de error de apellidos de usuario -->
           <p
             id="register_apellidos_error"
             class="text-red-500 text-sm mt-1 font-bold"
           ></p>
         </div>
+        <!-- Campo para seleccionar el centro del nuevo usuario -->
         <div>
           <select
             id="register_centro"
@@ -228,6 +249,7 @@
               IES Gabriel Alonso de Herrera
             </option>
           </select>
+          <!-- Campo de texto en caso de error de centro de usuario -->
           <p
             id="register_centro_error"
             class="text-red-500 text-sm mt-1 font-bold"
@@ -235,6 +257,7 @@
         </div>
 
         <div>
+          <!-- Campo para el email del nuevo usuario -->
           <input
             id="register_email"
             type="email"
@@ -242,12 +265,14 @@
             placeholder="Correo"
             required
           />
+          <!-- Campo de texto en caso de error de email de usuario -->
           <p
             id="register_email_error"
             class="text-red-500 text-sm mt-1 font-bold"
           ></p>
         </div>
         <div class="relative">
+           <!-- Campo para la password del nuevo usuario -->
           <input
             id="register_password"
             minlength="8"
@@ -260,7 +285,7 @@
             placeholder="Contraseña"
             required
           />
-
+          <!-- Boton para visualizar contraseña -->
           <span
             id="togglePassword2"
             class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
@@ -269,6 +294,7 @@
           </span>
         </div>
         <div class="relative">
+          <!-- Campo para repetir la password del nuevo usuario -->
           <input
             id="register_password_repeat"
             minlength="8"
@@ -281,7 +307,7 @@
             placeholder="Contraseña"
             required
           />
-
+          <!-- Boton para visualizar contraseña -->
           <span
             id="togglePassword3"
             class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-blue-400"
@@ -289,18 +315,19 @@
             <i id="icon_eye3" class="fa-regular fa-eye"></i>
           </span>
         </div>
-
+        <!-- Campo de texto en caso de error de password de usuario -->
         <p
           id="register_password_repeat_error"
           class="text-red-500 text-sm mt-1 font-bold"
         ></p>
-
+        <!-- Boton para enviar registro -->
         <button
           type="submit"
           class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
         >
           Registrarse
         </button>
+        <!-- Enlace para iniciar sesion -->
         <p class="text-center text-blue-400">
           Si ya te has registrado
           <a
@@ -310,26 +337,31 @@
             >Login</a
           >
         </p>
-
-        <p class="text-center text-red-600 text-sm" id="register_session_error" href="./index.html"></p>
+        <!-- Campo de texto en caso de error de registro de usuario -->
+        <p
+          class="text-center text-red-600 text-sm"
+          id="register_session_error"
+          href="./index.html"
+        ></p>
       </form>
     </div>
 
     <!-- Modal de confirmacion de Registro -->
-     <!-- display_off opacity-0 -->
     <div
       id="modal_confirmacion_registro"
       class="display_off opacity-0 text-center w-[400px] h-[150px] shadow-md absolute left-[50%] top-[100px] p-4 rounded-md bg-white flex-col gap-4 justify-center items-center"
     >
+    <!-- Titulo de confirmacion de registro -->
       <h2 class="italic text-xl font-bold text-blue-300 tracking-[10px]">
         Registro Realizado Correctamente
       </h2>
+      <!-- Boton para volver a iniciar sesion -->
       <p class="mt-4">
         <a
-        href="./index.html"
-        class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
-        >Iniciar Sesión</a
-      >
+          href="./index.html"
+          class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
+          >Iniciar Sesión</a
+        >
       </p>
     </div>
 
@@ -338,15 +370,17 @@
       id="modal_confirmacion_email"
       class="display_off opacity-0 text-center w-[400px] h-[150px] shadow-md absolute left-[50%] top-[100px] p-4 rounded-md bg-white flex-col gap-4 justify-center items-center"
     >
+      <!-- Titulo de confirmacion de registro -->
       <h2 class="italic text-xl font-bold text-blue-300 tracking-[10px]">
         Email Enviado Correctamente
       </h2>
+      <!-- Boton para volver a iniciar sesion -->
       <p class="mt-4">
         <a
-        href="./index.html"
-        class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
-        >Iniciar Sesión</a
-      >
+          href="./index.html"
+          class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
+          >Iniciar Sesión</a
+        >
       </p>
     </div>
 
