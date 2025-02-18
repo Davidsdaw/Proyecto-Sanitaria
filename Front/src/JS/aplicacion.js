@@ -304,7 +304,7 @@ const eliminarCassette = async () => {
 
         if (response.ok) {
             mensaje.textContent = "Cassette eliminado con éxito";
-            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             if (cerrarModalNuevaMuestra) {
