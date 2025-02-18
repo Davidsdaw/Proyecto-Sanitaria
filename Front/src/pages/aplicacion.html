@@ -607,7 +607,9 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input type="text" class="border w-full rounded h-8">
+                <input type="text"
+                id="nuevaMuestra_desc"
+                class="border w-full rounded h-8">
             </div>
 
             <div class="mb-5 w-full">
@@ -616,13 +618,14 @@
                         Fecha
                     </h2>
                     <input type="text"
+                        id="nuevaMuestra_fecha"
                         class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
                 </div>
                 <div class="flex-col justify-center w-full mb-5">
                     <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
                         Tinción
                     </h2>
-                    <select id="tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                    <select id="nuevaMuestra_tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
                         <option value="gram">Gram</option>
                         <option value="ziehl-neelsen">Ziehl-Neelsen</option>
                         <option value="giemsa">Giemsa</option>
@@ -643,7 +646,9 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input type="text" class="border w-full rounded h-12">
+                <input type="text" 
+                id="nuevaMuestra_observ"
+                class="border w-full rounded h-12">
             </div>
             <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Muestra

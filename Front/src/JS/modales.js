@@ -97,22 +97,18 @@ const abrirModalModificarMuestra= document.getElementById("abrirModalModificarMu
 const modalModificarMuestra = document.getElementById("modalModificarMuestra");
 const cerrarModalModificarMuestra = document.getElementById("cerrarModalModificarMuestra");
 
-// Funcion para mostrar modal para modificar muestra
-abrirModalModificarMuestra.addEventListener("click", () => {
+abrirModalModificarMuestra.addEventListener("click", (e) => {
     e.preventDefault();
     modalModificarMuestra.classList.remove("hidden");
 });
-// Funcion para cerrar modal para modificar muestra
 cerrarModalModificarMuestra.addEventListener("click", () => {
     modalModificarMuestra.classList.add("hidden");
 });
-// Funcion para cerrar modal para modificar muestra dando click en cualquier zona de la pantalla que no sea el modal
 window.addEventListener("click", (e) => {
     if (e.target === modalModificarMuestra) {
         modalModificarMuestra.classList.add("hidden");
     }
 });
-
 
 
 const cerrarModalMuestrasImagenes = document.getElementById("cerrarModalMuestrasImagenes");

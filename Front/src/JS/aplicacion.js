@@ -17,14 +17,17 @@ const caracteristicasCassete = document.getElementById('id_caracteristicasCasset
 const observacionesCassete = document.getElementById('id_observacionesCassete');
 const mensaje = document.getElementById("mensaje");
 
-
 //Modificar cassette
 const modificar_descripcion_cassette = document.getElementById("modificar_descripcion_cassette");
 const modificar_fecha_cassette = document.getElementById("modificar_fecha_cassette");
 const modificar_caracteristicas_cassette = document.getElementById("modificar_caracteristicas_cassette");
 const modificar_observaciones_cassette = document.getElementById("modificar_observaciones_cassette");
 
-
+//mostrar detalles muestra 
+const descripcion_muestra = document.getElementById("descripcion_muestra");
+const fecha_muestra = document.getElementById("fecha_muestra");
+const tincion_muestra = document.getElementById("tincion_muestra");
+const observaciones_muestra = document.getElementById("observaciones_muestra");
 
 //mostrar muestras de ese cassette
 const tabla_muestras = document.getElementById("tabla_muestras");
@@ -42,6 +45,12 @@ const fecha_fin = document.getElementById("fecha_fin");
 
 //modal muestra imagenes
 const modalMuestrasImagenes = document.getElementById("modalMuestrasImagenes");
+
+//editar muestras
+const nuevaMuestra_desc = document.getElementById("nuevaMuestra_desc");
+const nuevaMuestra_fecha = document.getElementById("nuevaMuestra_fecha");
+const nuevaMuestra_tincion = document.getElementById("nuevaMuestra_tincion");
+const nuevaMuestra_observ = document.getElementById("nuevaMuestra_observ");
 
 const token = localStorage.getItem('token')
 const cargarCassettes = async () => {
@@ -196,15 +205,7 @@ const mostrarMuestrasCassette = async (cassette) => {
     }
 }
 
-
-
-
-
-
-const descripcion_muestra = document.getElementById("descripcion_muestra");
-const fecha_muestra = document.getElementById("fecha_muestra");
-const tincion_muestra = document.getElementById("tincion_muestra");
-const observaciones_muestra = document.getElementById("observaciones_muestra");
+const muestraActual = [];
 
 const mostrarDetallesMuestra = (muestra) => {
     //formateamos la fecha
@@ -216,7 +217,7 @@ const mostrarDetallesMuestra = (muestra) => {
     tincion_muestra.textContent = muestra.tincion;
     observaciones_muestra.textContent = muestra.observaciones;
 
-
+    muestraActual.push(muestra);
 }
 
 const crearCassette = async () => {
