@@ -22,9 +22,14 @@ const tabla_muestras = document.getElementById("tabla_muestras");
 
 const nueva_muestra = document.getElementById("nueva_muestra");
 const imagenMuestra =document.getElementById("imagenMuestra")
+
 //filtros
 //select organo
 const organoSelect = document.getElementById("organoSelect");
+
+//fechas
+const fecha_inicio = document.getElementById("fecha_inicio");
+const fecha_fin = document.getElementById("fecha_fin");
 
 //modal muestra imagenes
 const modalMuestrasImagenes = document.getElementById("modalMuestrasImagenes");
