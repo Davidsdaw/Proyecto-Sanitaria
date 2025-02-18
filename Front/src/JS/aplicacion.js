@@ -549,7 +549,6 @@ nueva_muestra.addEventListener("click", () => {
     crearMuestra(cassetteActual)
 })
 document.addEventListener("DOMContentLoaded", () => {
-    mostrarMuestrasCassette();
     cargarSelectID();
 });
 const botonModificarCassette = document.getElementById("botonModificarCassette");
