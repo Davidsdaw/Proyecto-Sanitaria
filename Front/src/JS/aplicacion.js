@@ -1,3 +1,5 @@
+//mensajes de error/success
+const mensaje = document.getElementById("mensaje");
 
 const tabla_cassettes = document.getElementById("tabla_cassettes");
 const boton_detalles_cassette = document.getElementById("boton_detalles_cassette");
@@ -15,7 +17,7 @@ const fechaCassete = document.getElementById('id_fechaCassete');
 const selectCassete = document.getElementById("organosCassete");
 const caracteristicasCassete = document.getElementById('id_caracteristicasCassete');
 const observacionesCassete = document.getElementById('id_observacionesCassete');
-const mensaje = document.getElementById("mensaje");
+const id_identificadorCassete = document.getElementById('id_identificadorCassete');
 
 //Modificar cassette
 const modificar_descripcion_cassette = document.getElementById("modificar_descripcion_cassette");
@@ -239,7 +241,7 @@ const crearCassette = async () => {
                 descripcion: descripcionCassete.value,
                 fecha: fechaCassete.value,
                 organo: selectCassete.value,
-                idOrgano: "3",
+                idOrgano: id_identificadorCassete.value,
                 caracteristicas: caracteristicasCassete.value,
                 observaciones: observacionesCassete.value,
                 qr_cassette: "http://localhost:3000/sanitaria/cassette",
@@ -265,6 +267,8 @@ const crearCassette = async () => {
                 mensaje.style.display = "none";
                 location.reload();
             }, 2000);
+
+            cargarSelectID(); //recargamos el select de los ids, para que el nuevo entre en el select
         } else {
             mensaje.textContent = "Error al crear el cassette: " + data.message;
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
