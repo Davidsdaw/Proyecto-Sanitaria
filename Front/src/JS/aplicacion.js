@@ -38,7 +38,8 @@ const imagenMuestra =document.getElementById("imagenMuestra")
 //filtros
 //select organo
 const organoSelect = document.getElementById("organoSelect");
-
+//select id
+const idOrganoSelect = document.getElementById("idOrganoSelect");
 //fechas
 const fecha_inicio = document.getElementById("fecha_inicio");
 const fecha_fin = document.getElementById("fecha_fin");
@@ -53,6 +54,10 @@ const nuevaMuestra_tincion = document.getElementById("nuevaMuestra_tincion");
 const nuevaMuestra_observ = document.getElementById("nuevaMuestra_observ");
 
 const token = localStorage.getItem('token')
+
+
+
+
 const cargarCassettes = async () => {
     const response = await fetch("http://localhost:3000/sanitaria/cassette",{
         method: 'GET',
@@ -443,7 +448,7 @@ const cargarImagen = async (imagenID) => {
 };
 
 
-
+//filtros js
 const filtrarCassettesporOrgano = async () => {
     const data = await cargarCassettes();
     let cassttesfilter;
@@ -452,6 +457,32 @@ const filtrarCassettesporOrgano = async () => {
         cassttesfilter = data;
     } else {
         cassttesfilter = data.filter(cassette => cassette.organo === organoSelect.value);
+    }
+    mostrar_cassettes(cassttesfilter);
+}
+
+//cargar select id
+const cargarSelectID = async() => {
+    const data = await cargarCassettes();
+
+    data.forEach (cassette => {
+        const option = document.createElement('option');
+        option.value = cassette.idOrgano;
+        option.textContent = cassette.idOrgano;
+        idOrganoSelect.appendChild (option);
+    });
+
+    
+}
+
+const filtrarCassettesporID = async () => {
+    const data = await cargarCassettes();
+    let cassttesfilter;
+
+    if (idOrganoSelect.value === 'Todos') {
+        cassttesfilter = data;
+    } else {
+        cassttesfilter = data.filter(cassette => cassette.idOrgano === idOrganoSelect.value);
     }
     mostrar_cassettes(cassttesfilter);
 }
@@ -507,10 +538,14 @@ const modificarCassette = async () => {
 
 
 organoSelect.addEventListener("change", filtrarCassettesporOrgano);
+idOrganoSelect.addEventListener("change", filtrarCassettesporID);
 nueva_muestra.addEventListener("click", () => {
     crearMuestra(cassetteActual)
 })
-document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
+document.addEventListener("DOMContentLoaded", () => {
+    mostrarMuestrasCassette();
+    cargarSelectID();
+});
 const botonModificarCassette = document.getElementById("botonModificarCassette");
 botonModificarCassette.addEventListener("click", modificarCassette)
 
