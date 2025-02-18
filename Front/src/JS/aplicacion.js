@@ -206,7 +206,7 @@ const mostrarMuestrasCassette = async (cassette) => {
 }
 
 const muestraActual = [];
-let muestraSeleccionada;
+let muestraSeleccionada = null;
 const mostrarDetallesMuestra = (muestra) => {
     muestraSeleccionada = muestra;
     //formateamos la fecha
@@ -570,3 +570,56 @@ const EliminarMuestra= async () => {
 
 const borrarMuestra = document.getElementById("borrarMuestra");
 borrarMuestra.addEventListener("click", EliminarMuestra);
+
+
+
+
+const modificarMuestra = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/muestra/edit/${muestraSeleccionada.id}`, {
+            method: "PATCH",
+            headers: {
+                'Authorization': `${token}` ,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                descripcion: nuevaMuestra_desc.value,
+                fecha: nuevaMuestra_fecha.value,
+                tincion: nuevaMuestra_tincion.value,
+                observaciones: nuevaMuestra_observ.value,
+                cassette_id: cassetteActual.id,
+            })
+        });
+
+        const data = await response.json(); 
+
+        if(response.ok){
+            if (cerrarModalModificarMuestra) {
+                cerrarModalModificarMuestra.click();
+            }
+
+            mensaje.textContent = "Muestra modificada con éxito";
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+                location.reload();
+            }, 1000);
+        } else {
+            mensaje.textContent = "Error al modificar la muestra: " + data.message;
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 1000);
+        }
+
+    } catch (error) {
+        console.error("Error al modificar la muestra:", error);
+    }       
+};
+
+const botonModificarMuestra = document.getElementById("botonModificarMuestra");
+botonModificarMuestra.addEventListener("click", modificarMuestra)
