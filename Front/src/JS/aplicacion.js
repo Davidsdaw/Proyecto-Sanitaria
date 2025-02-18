@@ -5,6 +5,7 @@ const tabla_cassettes = document.getElementById("tabla_cassettes");
 const boton_detalles_cassette = document.getElementById("boton_detalles_cassette");
 
 //detalle cassette
+const id_cassette = document.getElementById("id_cassette");
 const descripcion_cassette = document.getElementById("descripcion_cassette");
 const fecha_cassette = document.getElementById("fecha_cassette");
 const organo_cassette = document.getElementById("organo_cassette");
@@ -140,6 +141,7 @@ const mostrarDetallesCassettes = (cassette) => {
 
     descripcion_cassette.textContent = cassette.descripcion;
     fecha_cassette.textContent = fechaTexto;
+    id_cassette.textContent = cassette.idOrgano;
     organo_cassette.textContent = cassette.organo;
     caracteristicas_cassette.textContent = cassette.caracteristicas;
     observaciones_cassette.textContent = cassette.observaciones;
