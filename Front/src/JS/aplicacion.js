@@ -210,7 +210,7 @@ const mostrarMuestrasCassette = async (cassette) => {
     }
 }
 
-const muestraActual = [];
+
 let muestraSeleccionada;
 const mostrarDetallesMuestra = (muestra) => {
     muestraSeleccionada = muestra;
@@ -223,7 +223,6 @@ const mostrarDetallesMuestra = (muestra) => {
     tincion_muestra.textContent = muestra.tincion;
     observaciones_muestra.textContent = muestra.observaciones;
 
-    muestraActual.push(muestra);
 }
 
 const crearCassette = async () => {
