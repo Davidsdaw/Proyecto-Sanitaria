@@ -124,7 +124,7 @@ const modalEliminarMuestra = document.getElementById("modalEliminarMuestra");
 const cerrarModalBasuraMuestra = document.getElementById("cerrarModalBasuraMuestra");
 
 
-abrirModalBasuraMuestra.addEventListener("click", () => {
+abrirModalBasuraMuestra.addEventListener("click", (e) => {
     e.preventDefault();
     modalEliminarMuestra.classList.remove("hidden");
 });
