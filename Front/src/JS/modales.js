@@ -108,7 +108,35 @@ cerrarModalModificarMuestra.addEventListener("click", () => {
 });
 // Funcion para cerrar modal para modificar muestra dando click en cualquier zona de la pantalla que no sea el modal
 window.addEventListener("click", (e) => {
-    if (e.target === modalNuevoCassete) {
+    if (e.target === modalModificarMuestra) {
         modalModificarMuestra.classList.add("hidden");
+    }
+});
+
+
+
+const cerrarModalMuestrasImagenes = document.getElementById("cerrarModalMuestrasImagenes");
+
+cerrarModalMuestrasImagenes.addEventListener("click", () => {
+    modalMuestrasImagenes.classList.add("hidden");
+});
+
+
+
+const abrirModalBasuraMuestra = document.getElementById("abrirModalBasuraMuestra");
+const modalEliminarMuestra = document.getElementById("modalEliminarMuestra");
+const cerrarModalBasuraMuestra = document.getElementById("cerrarModalBasuraMuestra");
+
+
+abrirModalBasuraMuestra.addEventListener("click", () => {
+    e.preventDefault();
+    modalEliminarMuestra.classList.remove("hidden");
+});
+cerrarModalBasuraMuestra.addEventListener("click", () => {
+    modalEliminarMuestra.classList.add("hidden");
+});
+window.addEventListener("click", (e) => {
+    if (e.target === modalEliminarMuestra) {
+        modalEliminarMuestra.classList.add("hidden");
     }
 });

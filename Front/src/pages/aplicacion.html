@@ -1,172 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Cassette</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://kit.fontawesome.com/ec5d753fff.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <!-- Container general -->
-  <body class="">
-    <!-- Container Filtros -->
-    <div
-      class="flex justify-center items-center align-middle w-full h-full bg-blue-300"
-    >
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 w-8/12 mt-3">
-        <!-- Filtro Select organo -->
-        <select
-          class="p-2 border rounded text-blue-400"
-          id="organoSelect"
-          aria-label="Floating label select example"
-        >
-          <option disabled selected>Seleccionar un Órgano</option>
-          <option value="Todos">Todos</option>
-          <optgroup label="Sistema Nervioso">
-            <option value="Encéfalo">Encéfalo</option>
-            <option value="Médula Espinal">Médula Espinal</option>
-            <option value="Nervio">Nervio</option>
-            <option value="Ganglio Nervios">Ganglio Nervios</option>
-          </optgroup>
+    <script src="https://kit.fontawesome.com/ec5d753fff.js" crossorigin="anonymous"></script>
+</head>
 
-          <optgroup label="Tegumento">
-            <option value="Piel">Piel</option>
-            <option value="Uña">Uña</option>
-            <option value="Pelo">Pelo</option>
-          </optgroup>
+<body class="">
+    <div class="flex justify-center items-center align-middle w-full h-full bg-blue-300">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 w-8/12 mt-3">
+            <select class="p-2 border rounded text-blue-400" id="organoSelect" aria-label="Floating label select example">
+                <option disabled selected>Seleccionar un Órgano</option>
+                <option value="Todos">Todos</option>
+                <optgroup label="Sistema Nervioso">
+                    <option value="Encéfalo">Encéfalo</option>
+                    <option value="Médula Espinal">Médula Espinal</option>
+                    <option value="Nervio">Nervio</option>
+                    <option value="Ganglio Nervios">Ganglio Nervios</option>
+                </optgroup>
 
-          <optgroup label="Cardiovascular">
-            <option value="Corazón">Corazón</option>
-            <option value="Venas">Venas</option>
-            <option value="Arterias">Arterias</option>
-          </optgroup>
+                <optgroup label="Tegumento">
+                    <option value="Piel">Piel</option>
+                    <option value="Uña">Uña</option>
+                    <option value="Pelo">Pelo</option>
+                </optgroup>
 
-          <optgroup label="Linfático">
-            <option value="Ganglio Linfático">Ganglio Linfático</option>
-            <option value="Timo">Timo</option>
-            <option value="Bazo">Bazo</option>
-          </optgroup>
+                <optgroup label="Cardiovascular">
+                    <option value="Corazón">Corazón</option>
+                    <option value="Venas">Venas</option>
+                    <option value="Arterias">Arterias</option>
+                </optgroup>
 
-          <optgroup label="Sistema Digestivo">
-            <option value="Lengua">Lengua</option>
-            <option value="Esófago">Esófago</option>
-            <option value="Estómago">Estómago</option>
-            <option value="Intestino Delgado">Intestino Delgado</option>
-            <option value="Intestino Grueso">Intestino Grueso</option>
-            <option value="Diente">Diente</option>
-            <option value="Glándula Salivar">Glándula Salivar</option>
-            <option value="Páncreas">Páncreas</option>
-            <option value="Hígado">Hígado</option>
-          </optgroup>
+                <optgroup label="Linfático">
+                    <option value="Ganglio Linfático">Ganglio Linfático</option>
+                    <option value="Timo">Timo</option>
+                    <option value="Bazo">Bazo</option>
+                </optgroup>
 
-          <optgroup label="Aparato Excretor">
-            <option value="Riñón">Riñón</option>
-            <option value="Vejiga">Vejiga</option>
-          </optgroup>
+                <optgroup label="Sistema Digestivo">
+                    <option value="Lengua">Lengua</option>
+                    <option value="Esófago">Esófago</option>
+                    <option value="Estómago">Estómago</option>
+                    <option value="Intestino Delgado">Intestino Delgado</option>
+                    <option value="Intestino Grueso">Intestino Grueso</option>
+                    <option value="Diente">Diente</option>
+                    <option value="Glándula Salivar">Glándula Salivar</option>
+                    <option value="Páncreas">Páncreas</option>
+                    <option value="Hígado">Hígado</option>
+                </optgroup>
 
-          <optgroup label="Respiratorio">
-            <option value="Tránquea">Tránquea</option>
-            <option value="Bronquios">Bronquios</option>
-            <option value="Tejido Respiratorio">Tejido Respiratorio</option>
-          </optgroup>
+                <optgroup label="Aparato Excretor">
+                    <option value="Riñón">Riñón</option>
+                    <option value="Vejiga">Vejiga</option>
+                </optgroup>
 
-          <optgroup label="Endocrino">
-            <option value="Tiroides">Tiroides</option>
-            <option value="Parótidas">Parótidas</option>
-            <option value="Suprarrenales">Suprarrenales</option>
-            <option value="Ovario">Ovario</option>
-            <option value="Testículos">Testículos</option>
-          </optgroup>
+                <optgroup label="Respiratorio">
+                    <option value="Tránquea">Tránquea</option>
+                    <option value="Bronquios">Bronquios</option>
+                    <option value="Tejido Respiratorio">Tejido Respiratorio</option>
+                </optgroup>
 
-          <optgroup label="Locomotor">
-            <option value="Hueso">Hueso</option>
-            <option value="Musculo Esquelético">Musculo Esquelético</option>
-          </optgroup>
-          <option value="Otros">Otros</option>
-        </select>
-        <!-- Filtro Codigo QR -->
-        <input
-          type="text"
-          placeholder="Escanear QR"
-          class="p-2 border rounded text-center placeholder-blue-400"
-        />
-        <!-- Filtro Date para Fecha Minima -->
-        <input
-          id="fecha_inicio"
-          type="date"
-          class="p-2 border rounded text-blue-400"
-        />
-        <!-- Filtro Date para Fecha Máxima -->
-        <input
-          id="fecha_fin"
-          type="date"
-          class="p-2 border rounded text-blue-400"
-        />
-      </div>
+                <optgroup label="Endocrino">
+                    <option value="Tiroides">Tiroides</option>
+                    <option value="Parótidas">Parótidas</option>
+                    <option value="Suprarrenales">Suprarrenales</option>
+                    <option value="Ovario">Ovario</option>
+                    <option value="Testículos">Testículos</option>
+                </optgroup>
+
+                <optgroup label="Locomotor">
+                    <option value="Hueso">Hueso</option>
+                    <option value="Musculo Esquelético">Musculo Esquelético</option>
+                </optgroup>
+                <option value="Otros">Otros</option>
+            </select>
+            <input type="text" placeholder="Escanear QR" class="p-2 border rounded text-center placeholder-blue-400" />
+            <input id="fecha_inicio" type="date" class="p-2 border rounded text-blue-400" />
+            <input id="fecha_fin" type="date" class="p-2 border rounded text-blue-400" />
+        </div>
     </div>
 
     <!-- MENSAJE DE ERROR O SUCCESS -->
     <p id="mensaje"></p>
 
-    <!-- Container cassettes -->
     <div class="max-w-7xl mx-auto bg-white p-4 shadow-lg rounded-lg">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div class="lg:col-span-2 p-4 rounded shadow border-blue-400 border">
-          <div class="flex justify-evenly text-center">
-            <div class="w-9/12">
-              <!-- Title cassettes -->
-              <h2 class="text-xl font-semibold text-center mb-3 text-blue-300">
-                Cassetes
-              </h2>
-            </div>
-            <div>
-              <!-- Icon boton añadir cassette -->
-              <a id="abrirModalNuevoCassete" href=""
-                ><i
-                  class="fa-solid fa-file-circle-plus"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-2 p-4 rounded shadow border-blue-400 border">
+                <div class="flex justify-evenly text-center">
+                    <div class="w-9/12">
+                        <h2 class="text-xl font-semibold text-center mb-3 text-blue-300">
+                            Cassetes
+                        </h2>
+                    </div>
+                    <div>
+                        <a id="abrirModalNuevoCassete" href=""><i class="fa-solid fa-file-circle-plus"
+                                style="color: rgb(147 197 253)"></i></a>
 
-              <a id="modalAñadirCassete" href=""
-                ><i
-                  class="fa-regular fa-file"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
-            </div>
-          </div>
-          <!-- Container datos por cassette -->
-          <div class="overflow-auto max-h-60">
-            <div
-              class="w-full rounded-lg overflow-hidden border-blue-400 border"
-            >
-              <div class="bg-gray-200 text-blue-400 flex h-8">
-                <div
-                  class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-                >
-                  Fecha
-                  <span class="text-gray-500 hidden">&#x25B4;</span>
+                        <a id="modalAñadirCassete" href=""><i class="fa-regular fa-file"
+                                style="color: rgb(147 197 253)"></i></a>
+
+                    </div>
                 </div>
-                <div
-                  class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-                >
-                  Descripción
-                  <span class="text-gray-500 hidden">&#x25BE;</span>
-                </div>
-                <div
-                  class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-                >
-                  Órgano
-                  <span class="text-gray-500 hidden">&#x25B4;</span>
-                </div>
-              </div>
-              <!-- Tabla para insercion de cassetter -->
-              <div id="tabla_cassettes" class="divide-y border-blue-400 border">
-                <!-- <div class="flex border-b">
+                <div class="overflow-auto max-h-60">
+                    <div class="w-full rounded-lg overflow-hidden border-blue-400 border">
+                        <div class="bg-gray-200 text-blue-400 flex h-8">
+                            <div
+                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                Fecha
+                                <span class="text-gray-500 hidden">&#x25B4;</span>
+                            </div>
+                            <div
+                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                Descripción
+                                <span class="text-gray-500 hidden">&#x25BE;</span>
+                            </div>
+                            <div
+                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                Órgano
+                                <span class="text-gray-500 hidden">&#x25B4;</span>
+                            </div>
+                        </div>
+                        <div id="tabla_cassettes" class="divide-y border-blue-400 border">
+
+
+                            <!-- <div class="flex border-b">
                                 <div class="flex-1 p-2 text-sm"></div>
                                 <div class="flex-1 p-2 text-sm ml-7"></div>
                                 <div class="flex-1 p-2 text-sm ml-8"></div>
@@ -174,311 +133,240 @@
                                     <i class="fa-solid fa-file-invoice text-blue-300"></i>
                                 </div>
                             </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Container detalles cassettes -->
-        <div class="p-4 rounded shadow border-blue-400 border">
-          <div class="flex align-middle justify-between">
-            <!-- Title container detalles -->
-            <h2 class="text-xl font-semibold text-blue-300">
-              Detalle Cassette
-            </h2>
-            <div class="">
-              <a href=""
-                ><i
-                  class="fa-solid fa-qrcode"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
-              <!-- Icono para borrar cassette seleccionado -->
-              <a href="#" id="abrirModalBasura"
-                ><i class="fa-solid fa-trash text-blue-300"></i
-              ></a>
-              <!-- Icono para modificar cassette seleccionado -->
-              <a href="#" id="abrirModificarCassete"
-                ><i
-                  class="fa-solid fa-file-pen"
-                  style="color: rgb(147 197 253)"
-                ></i
-              ></a>
-            </div>
-          </div>
-          <!-- DETALLES DEL CASSETTE SELECCIONADO -->
-          <div class="mt-5 border-b-2">
-            <p><strong class="text-blue-300">Descripción:</strong></p>
-            <span id="descripcion_cassette" class="text-blue-400 text-sm">
-              <!-- descripcion del cassette seleccionado -->
-            </span>
-          </div>
-          <div class="border-b-2 h-32">
-            <div class="flex justify-between mb-5 mt-2">
-              <p>
-                <strong class="text-blue-300">Órgano:</strong>
-                <span id="organo_cassette" class="text-blue-400 text-sm">
-                  <!-- organo del cassette seleccionado -->
-                </span>
-              </p>
-              <p class="mr-5">
-                <strong class="text-blue-300">Fecha:</strong>
-                <span id="fecha_cassette" class="text-blue-400 text-sm">
-                  <!-- fecha del cassette seleccionado -->
-                </span>
-              </p>
-            </div>
-            <p class="mb-5">
-              <strong class="text-blue-300">Características:</strong>
-              <span id="caracteristicas_cassette" class="text-blue-400 text-sm">
-                <!-- caracteristicas del cassette seleccionado -->
-              </span>
-            </p>
-          </div>
-          <div class="h-20">
-            <p>
-              <strong class="text-blue-300">Observaciones:</strong>
-              <span id="observaciones_cassette" class="text-blue-400 text-sm">
-                <!-- observaciones del cassette seleccionado -->
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Container de muestras del cassette seleccionado -->
-      <div class="p-4 rounded shadow mt-4 h-60 border-blue-400 border">
-        <div class="flex justify-evenly mb-3">
-          <div class="w-9/12">
-            <!-- Title muestras -->
-            <h2 class="text-xl font-bold text-center text-blue-300">
-              Muestras
-            </h2>
-          </div>
-          <div>
-            <!-- Icon para añadir muestra nueva -->
-            <a href="" id="abrirModalNuevaMuestra"
-              ><i
-                class="fa-solid fa-file-circle-plus"
-                style="color: rgb(147 197 253)"
-              ></i
-            ></a>
-          </div>
-        </div>
-        <!-- Table para datos de muestras -->
-        <table class="w-full text-left border-collapse border border-blue-400">
-          <!-- Cabecera de la tabla -->
-            <div
-            class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border"
-          >
-            <div
-              class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-            >
-              Fecha
-              <span class="text-gray-500 hidden">&#x25B4;</span>
-            </div>
-            <div
-              class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-            >
-              Descripción
-              <span class="text-gray-500 hidden">&#x25BE;</span>
-            </div>
-            <div
-              class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300"
-            >
-              Tinción
-              <span class="text-gray-500 hidden">&#x25B4;</span>
-            </div>
-          </div>
-          <!-- Cuerpo de la tabla -->
-          <tbody>
-            <!-- Carga de las muestras y sus datos segun el cassette seleccionado -->
-            <div id="tabla_muestras">
-            <!-- EJEMPLO DE CUERPO DE UNA MUESTRA -->
 
-              <!-- <tr class="rounded border-blue-400 border">
-                        <td id="muestras_empty" class="p-2 text-red-400" colspan="3">
-                        No se ha encontrado ninguna muestra
-                        </td>
 
-                        <td class="">
-                            <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
-                        </td>
-                    </tr> -->
-
-              <!-- <tr class="rounded border-blue-400 border" id="tabla_muestras"> -->
-              <!-- <td id="fecha_muestra" class="p-2 text-red-400">
-                            hola
-                        </td>
-                        <td id="descripcion_muestra" class="p-2 text-red-400">
-                            hola
-                        </td>
-                        <td  id="tincion_muestra" class="p-2 text-red-400">
-                            hola
-                        </td> -->
-              <!-- </tr> -->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </tbody>
-        </table>
-      </div>
+            <div class="p-4 rounded shadow border-blue-400 border">
+                <div class="flex align-middle justify-between">
+                    <h2 class="text-xl font-semibold text-blue-300">
+                        Detalle Cassette
+                    </h2>
+                    <div class="">
+                        <a href=""><i class="fa-solid fa-qrcode" style="color: rgb(147 197 253)"></i></a>
+                        <a href="#" id="abrirModalBasura"><i class="fa-solid fa-trash text-blue-300"></i></a>
+                        <a href="#" id="abrirModificarCassete"><i class="fa-solid fa-file-pen"
+                                style="color: rgb(147 197 253)"></i></a>
+
+
+
+
+                    </div>
+                </div>
+                <div class="mt-5 border-b-2">
+                    <p><strong class="text-blue-300">Descripción:</strong></p>
+                    <span id="descripcion_cassette" class="text-blue-400 text-sm">
+                        <!-- descripcion del cassette seleccionado -->
+                    </span>
+                </div>
+                <div class="border-b-2 h-32">
+                    <div class="flex justify-between mb-5 mt-2">
+                        <p><strong class="text-blue-300">Órgano:</strong>
+                            <span id="organo_cassette" class="text-blue-400 text-sm">
+                                <!-- organo del cassette seleccionado -->
+                            </span>
+                        </p>
+                        <p class="mr-5"><strong class="text-blue-300">Fecha:</strong>
+                            <span id="fecha_cassette" class="text-blue-400 text-sm">
+                                <!-- fecha del cassette seleccionado -->
+                            </span>
+                        </p>
+                    </div>
+                    <p class="mb-5">
+                        <strong class="text-blue-300">Características:</strong>
+                        <span id="caracteristicas_cassette" class="text-blue-400 text-sm">
+                            <!-- caracteristicas del cassette seleccionado -->
+                        </span>
+                    </p>
+                </div>
+                <div class="h-20">
+                    <p><strong class="text-blue-300">Observaciones:</strong>
+                        <span id="observaciones_cassette" class="text-blue-400 text-sm">
+                            <!-- observaciones del cassette seleccionado -->
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 rounded shadow mt-4 h-60 border-blue-400 border">
+            <div class="flex justify-evenly mb-3">
+                <div class="w-9/12">
+                    <h2 class="text-xl font-bold text-center text-blue-300">
+                        Muestras
+                    </h2>
+                </div>
+                <div>
+                    <a href="" id="abrirModalNuevaMuestra"><i class="fa-solid fa-file-circle-plus"
+                            style="color: rgb(147 197 253)"></i></a>
+
+
+                </div>
+            </div>
+            <table class="w-full text-left border-collapse border border-blue-400">
+                <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border rounded">
+                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                        Fecha
+                        <span class="text-gray-500 hidden">&#x25B4;</span>
+                    </div>
+                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                        Descripción
+                        <span class="text-gray-500 hidden">&#x25BE;</span>
+                    </div>
+                    <div class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                        Tinción
+                        <span class="text-gray-500 hidden">&#x25B4;</span>
+                    </div>
+                </div>
+                <tbody>
+                    <div id="tabla_muestras" class="divide-y border border-blue-300 overflow-auto max-h-36">
+                        <!-- <tr class="rounded border-blue-400 border">
+                            <td id="muestras_empty" class="p-2 text-red-400" colspan="3">
+                            No se ha encontrado ninguna muestra
+                            </td>
+            
+                            <td class="">
+                                <i id="abrirModalMuestrasImagenes" class="fa-solid fa-file-invoice text-blue-300"></i>
+                            </td>
+                        </tr> -->
+            
+                        <!-- <tr class="rounded border-blue-400 border" id="tabla_muestras"> -->
+                        <!-- <td id="fecha_muestra" class="p-2 text-red-400">
+                                hola
+                            </td>
+                            <td id="descripcion_muestra" class="p-2 text-red-400">
+                                hola
+                            </td>
+                            <td  id="tincion_muestra" class="p-2 text-red-400">
+                                hola
+                            </td> -->
+                        <!-- </tr> -->
+                    </div>
+                </tbody>
+            </table>
+            
+        </div>
     </div>
+
 
     <!-- MODAL NUEVO CASSETE-->
-    <div
-      id="modalNuevoCassete"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto"
-      >
-      <!-- BOTON PARA CERRAR MODAL -->
-        <button
-          id="cerrarModalNuevoCassete"
-          class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl"
-        >
-          &times;
-        </button>
-        <!-- Title -->
-        <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">
-          Nuevo Cassete
-        </h2>
-        <!-- Container del form de nuevo cassette -->
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Descripción Corta
-          </h2>
-          <!-- Campo descripcion del nuevo cassette -->
-          <input
-            id="id_descripcionCassete"
-            type="text"
-            class="border w-full rounded h-8 border-blue-300 text-blue-300 hover:border-blue-300"
-          />
+    <div id="modalNuevoCassete" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+            <button id="cerrarModalNuevoCassete"
+                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
+            <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Nuevo Cassete</h2>
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Descripción Corta
+                </h2>
+                <input id="id_descripcionCassete" type="text" class="border w-full rounded h-8 border-blue-300 text-blue-300 hover:border-blue-300">
+            </div>
+            <div class="flex mb-5 w-full">
+                <div class="flex-col justify-center mr-1 w-full">
+                    <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                        Fecha
+                    </h2>
+                    <input id="id_fechaCassete" type="date"
+                        class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                </div>
+                <div class="flex-col justify-center w-full">
+                    <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                        Organo
+                    </h2>
+                    <select class="p-2 border rounded text-blue-400 w-full" id="organosCassete"
+                        aria-label="Floating label select example">
+                        <option disabled selected>Seleccionar un Órgano</option>
+                        <option value="*">Todos</option>
+                        <optgroup label="Sistema Nervioso">
+                            <option>Encéfalo</option>
+                            <option>Médula Espinal</option>
+                            <option>Nervio</option>
+                            <option>Ganglio Nervios</option>
+                        </optgroup>
+                        <optgroup label="Tegumento">
+                            <option>Piel</option>
+                            <option>Uña</option>
+                            <option>Pelo</option>
+                        </optgroup>
+                        <optgroup label="Cardiovascular">
+                            <option>Corazón</option>
+                            <option>Venas</option>
+                            <option>Arteria</option>
+                        </optgroup>
+                        <optgroup label="Linfático">
+                            <option>Ganglio Linfático</option>
+                            <option>Timo</option>
+                            <option>Bazo</option>
+                        </optgroup>
+                        <optgroup label="Sistema Digestivo">
+                            <option>Lengua</option>
+                            <option>Esófago</option>
+                            <option>Estómago</option>
+                            <option>Intestino Delgado</option>
+                            <option>Intestino Grueso</option>
+                            <option>Diente</option>
+                            <option>Glándula Salivar</option>
+                            <option>Páncrea</option>
+                            <option>Hígado</option>
+                        </optgroup>
+                        <optgroup label="Aparato Excretor">
+                            <option>Riñón</option>
+                            <option>Vejiga</option>
+                        </optgroup>
+                        <optgroup label="Respiratorio">
+                            <option>Tránquea</option>
+                            <option>Bronquios</option>
+                            <option>Tejido Respiratorio</option>
+                        </optgroup>
+                        <optgroup label="Endocrino">
+                            <option>Tiroides</option>
+                            <option>Parótidas</option>
+                            <option>Suprarrenales</option>
+                            <option>Ovario</option>
+                            <option>Testículo</option>
+                        </optgroup>
+                        <optgroup label="Locomotor">
+                            <option>Hueso</option>
+                            <option>Musculo Esquelético</option>
+                        </optgroup>
+                        <option>Otros</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Características
+                </h2>
+                <input id="id_caracteristicasCassete" type="text" class="border w-full rounded h-12">
+            </div>
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Observaciones
+                </h2>
+                <input id="id_observacionesCassete" type="text" class="border w-full rounded h-12">
+            </div>
+            <button id="nuevo_cassete" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                Nuevo Cassete
+            </button>
         </div>
-        <div class="flex mb-5 w-full">
-          <div class="flex-col justify-center mr-1 w-full">
-            <h2 class="text-lg font-semibold mb-4 text-blue-400">Fecha</h2>
-            <!-- Campo fecha del nuevo cassette -->
-            <input
-              id="id_fechaCassete"
-              type="date"
-              class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full"
-            />
-          </div>
-          <div class="flex-col justify-center w-full">
-            <h2 class="text-lg font-semibold mb-4 text-blue-400">Organo</h2>
-            <!-- Campo select de centro del nuevo cassette -->
-            <select
-              class="p-2 border rounded text-blue-400 w-full"
-              id="organosCassete"
-              aria-label="Floating label select example"
-            >
-              <option disabled selected>Seleccionar un Órgano</option>
-              <option value="*">Todos</option>
-              <optgroup label="Sistema Nervioso">
-                <option>Encéfalo</option>
-                <option>Médula Espinal</option>
-                <option>Nervio</option>
-                <option>Ganglio Nervios</option>
-              </optgroup>
-              <optgroup label="Tegumento">
-                <option>Piel</option>
-                <option>Uña</option>
-                <option>Pelo</option>
-              </optgroup>
-              <optgroup label="Cardiovascular">
-                <option>Corazón</option>
-                <option>Venas</option>
-                <option>Arteria</option>
-              </optgroup>
-              <optgroup label="Linfático">
-                <option>Ganglio Linfático</option>
-                <option>Timo</option>
-                <option>Bazo</option>
-              </optgroup>
-              <optgroup label="Sistema Digestivo">
-                <option>Lengua</option>
-                <option>Esófago</option>
-                <option>Estómago</option>
-                <option>Intestino Delgado</option>
-                <option>Intestino Grueso</option>
-                <option>Diente</option>
-                <option>Glándula Salivar</option>
-                <option>Páncrea</option>
-                <option>Hígado</option>
-              </optgroup>
-              <optgroup label="Aparato Excretor">
-                <option>Riñón</option>
-                <option>Vejiga</option>
-              </optgroup>
-              <optgroup label="Respiratorio">
-                <option>Tránquea</option>
-                <option>Bronquios</option>
-                <option>Tejido Respiratorio</option>
-              </optgroup>
-              <optgroup label="Endocrino">
-                <option>Tiroides</option>
-                <option>Parótidas</option>
-                <option>Suprarrenales</option>
-                <option>Ovario</option>
-                <option>Testículo</option>
-              </optgroup>
-              <optgroup label="Locomotor">
-                <option>Hueso</option>
-                <option>Musculo Esquelético</option>
-              </optgroup>
-              <option>Otros</option>
-            </select>
-          </div>
-        </div>
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Características
-          </h2>
-          <!-- Campo caracteristicas del nuevo cassette -->
-          <input
-            id="id_caracteristicasCassete"
-            type="text"
-            class="border w-full rounded h-12"
-          />
-        </div>
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Observaciones
-          </h2>
-          <!-- Campo observaciones del nuevo cassette -->
-          <input
-            id="id_observacionesCassete"
-            type="text"
-            class="border w-full rounded h-12"
-          />
-        </div>
-        <!-- Boton para añadir el nuevo cassette -->
-        <button
-          id="nuevo_cassete"
-          class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
-        >
-          Nuevo Cassete
-        </button>
-      </div>
     </div>
 
+
     <!--MODAL MUESTRA DETALLES-->
-    <div
-      id="modalMuestrasImagenes"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto"
-      >
-      <!-- Boton para cerrar el modal -->
-        <button
-          id="cerrarModalMuestrasImagenes"
-          class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl"
-        >
-          &times;
+    <div id="modalMuestrasImagenes"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-3/5 h-80 relative text-center h-auto">
+        <button id="cerrarModalMuestrasImagenes"
+            class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+            &times;
         </button>
-        <h2 class="mb-5 text-2xl text-blue-400 text-left border-b-2 pb-4">
-          Detalle Muestra
+        <h2 class="mb-5 text-2xl text-blue-400 text-left border-b-2 pb-4">Detalle Muestra
         </h2>
-        <!-- Container botones funcion -->
+
         <div class="flex justify-between">
             <div class="mb-5">
                 <a href=""><i class="fa-solid fa-qrcode text-blue-300"></i></a>
@@ -500,111 +388,90 @@
         </div>
 
         <div class="flex">
-          <div>
-            <div class="mb-5">
-              <h2 class="text-base font-semibold text-blue-400 text-left">
-                Descripción:
-                <span id="descripcion_muestra">
-                  <!-- descripcion de la muestra --></span
-                >
-              </h2>
+            <div>
+                <div class="mb-5">
+                    <h2 class="text-base font-semibold text-blue-400 text-left">
+                        Descripción:
+                        <span id="descripcion_muestra"> <!-- descripcion de la muestra --></span>
+                    </h2>
+
+                </div>
+
+                <div class="flex-col justify-center mr-1 w-full">
+                    <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
+                        Fecha:
+                        <span id="fecha_muestra"> <!-- fecha de la muestra --></span>
+                    </h2>
+
+                </div>
+
+                <div class="flex-col justify-center w-full">
+                    <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
+                        Tinción:
+                        <span id="tincion_muestra"> <!-- tincion de la muestra --></span>
+                    </h2>
+                </div>
+
+                <div class="">
+                    <h2 class="text-base font-semibold mb-4 text-blue-400 text-left">
+                        Observaciones:
+                        <span id="observaciones_muestra"> <!-- observaciones de la muestra --></span>
+                    </h2>
+                </div>
+            </div>
+            <div class="ml-20">
+
+                <img class="size-auto" src="../assets/adn.jpg" alt="">
+
             </div>
 
-            <div class="flex-col justify-center mr-1 w-full">
-              <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
-                Fecha:
-                <span id="fecha_muestra"> <!-- fecha de la muestra --></span>
-              </h2>
-            </div>
-
-            <div class="flex-col justify-center w-full">
-              <h2 class="text-base text-left font-semibold mb-4 text-blue-400">
-                Tinción:
-                <span id="tincion_muestra">
-                  <!-- tincion de la muestra --></span
-                >
-              </h2>
-            </div>
-
-            <div class="">
-              <h2 class="text-base font-semibold mb-4 text-blue-400 text-left">
-                Observaciones:
-                <span id="observaciones_muestra">
-                  <!-- observaciones de la muestra --></span
-                >
-              </h2>
-            </div>
-          </div>
-          <div class="ml-20">
-            <img class="size-auto" src="../assets/adn.jpg" alt="" />
-          </div>
         </div>
         <div class="border-t-2 mt-10 flex pt-3 items-center">
-          <img class="w-24 mr-5" src="../assets/adn.jpg" alt="" />
-          <img class="w-24 mr-5" src="../assets/adn.jpg" alt="" />
-          <a href=""
-            ><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i
-          ></a>
+            <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
+            <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
+            <a href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>
         </div>
-      </div>
     </div>
+</div>
 
     <!-- MODAL ELIMINAR CASSETE-->
-    <div
-      id="modal"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
-        <!-- Boton cerrar modal -->
-        <button
-          id="cerrarModalBasura"
-          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
-        >
-          &times;
-        </button>
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
+            <button id="cerrarModalBasura" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
 
-        <h2 class="text-lg font-semibold mb-4 text-blue-400">
-          Desea Eliminar el Cassete.
-        </h2>
-        <p class="text-blue-400 mb-4">
-          Al eliminar el cassete se eliminarán también todas sus muestras.
-        </p>
-        <!-- Boton para verificar eliminar cassette -->
-        <button
-          id="botonEliminarCassette"
-          class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
-        >
-          Eliminar
-        </button>
-      </div>
+            <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                Desea Eliminar el Cassete.
+            </h2>
+            <p class="text-blue-400 mb-4">
+                Al eliminar el cassete se eliminarán también todas sus
+                muestras.
+            </p>
+            <button id="botonEliminarCassette"
+                class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                Eliminar
+            </button>
+        </div>
     </div>
 
     <!--MODAL MODIFICAR CASSETE-->
-    <div
-      id="modalModificarCassete"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto"
-      >
-      <!-- Boton para cerrar el modal -->
-        <button
-          id="cerrarModalModificarCassete"
-          class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl"
-        >
-          &times;
-        </button>
-        <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">
-          Modificar Cassete
-        </h2>
-          <!-- Descripcion a modificar -->
+    <div id="modalModificarCassete"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+            <button id="cerrarModalModificarCassete"
+                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
+            <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Modificar Cassete</h2>
+
             <div class="mb-5">
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
                 <input id="modificar_descripcion_cassette" type="text" class="border w-full rounded h-8">
             </div>
-            <!-- Fecha a modificar -->
+
             <div class="flex mb-5 w-full">
                 <div class="flex-col justify-center mr-1 w-full">
                     <h2 class="text-lg font-semibold mb-4 text-blue-400">
@@ -613,12 +480,10 @@
                     <input type="date" id="modificar_fecha_cassette"
                         class="border rounded  w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
                 </div>
-                <!-- Organo a modificar -->
                 <div class="flex-col justify-center w-full">
                     <h2 class="text-lg font-semibold mb-4 text-blue-400">
                         Organo
                     </h2>
-                    <!-- Centro a modificar -->
                     <select class="p-2 border rounded text-blue-400 w-full" id="organos"
                         aria-label="Floating label select example">
                         <option disabled selected>Seleccionar un Órgano</option>
@@ -630,54 +495,54 @@
                             <option value="Ganglio Nervios">Ganglio Nervios</option>
                         </optgroup>
 
-              <optgroup label="Tegumento">
-                <option value="Piel">Piel</option>
-                <option value="Uña">Uña</option>
-                <option value="Pelo">Pelo</option>
-              </optgroup>
+                        <optgroup label="Tegumento">
+                            <option value="Piel">Piel</option>
+                            <option value="Uña">Uña</option>
+                            <option value="Pelo">Pelo</option>
+                        </optgroup>
 
-              <optgroup label="Cardiovascular">
-                <option value="Corazón">Corazón</option>
-                <option value="Venas">Venas</option>
-                <option value="Arteria">Arteria</option>
-              </optgroup>
+                        <optgroup label="Cardiovascular">
+                            <option value="Corazón">Corazón</option>
+                            <option value="Venas">Venas</option>
+                            <option value="Arteria">Arteria</option>
+                        </optgroup>
 
-              <optgroup label="Linfático">
-                <option value="Ganglio Linfático">Ganglio Linfático</option>
-                <option value="Timo">Timo</option>
-                <option value="Bazo">Bazo</option>
-              </optgroup>
+                        <optgroup label="Linfático">
+                            <option value="Ganglio Linfático">Ganglio Linfático</option>
+                            <option value="Timo">Timo</option>
+                            <option value="Bazo">Bazo</option>
+                        </optgroup>
 
-              <optgroup label="Sistema Digestivo">
-                <option value="Lengua">Lengua</option>
-                <option value="Esófago">Esófago</option>
-                <option value="Estómago">Estómago</option>
-                <option value="ntestino Delgado">Intestino Delgado</option>
-                <option value="Intestino Grueso">Intestino Grueso</option>
-                <option value="Diente">Diente</option>
-                <option value="Glándula Salivar">Glándula Salivar</option>
-                <option value="Páncrea">Páncrea</option>
-                <option value="Hígado">Hígado</option>
-              </optgroup>
+                        <optgroup label="Sistema Digestivo">
+                            <option value="Lengua">Lengua</option>
+                            <option value="Esófago">Esófago</option>
+                            <option value="Estómago">Estómago</option>
+                            <option value="ntestino Delgado">Intestino Delgado</option>
+                            <option value="Intestino Grueso">Intestino Grueso</option>
+                            <option value="Diente">Diente</option>
+                            <option value="Glándula Salivar">Glándula Salivar</option>
+                            <option value="Páncrea">Páncrea</option>
+                            <option value="Hígado">Hígado</option>
+                        </optgroup>
 
-              <optgroup label="Aparato Excretor">
-                <option value="Riñón">Riñón</option>
-                <option value="Vejiga">Vejiga</option>
-              </optgroup>
+                        <optgroup label="Aparato Excretor">
+                            <option value="Riñón">Riñón</option>
+                            <option value="Vejiga">Vejiga</option>
+                        </optgroup>
 
-              <optgroup label="Respiratorio">
-                <option value="Tránquea">Tránquea</option>
-                <option value="Bronquios">Bronquios</option>
-                <option value="Tejido Respiratorio">Tejido Respiratorio</option>
-              </optgroup>
+                        <optgroup label="Respiratorio">
+                            <option value="Tránquea">Tránquea</option>
+                            <option value="Bronquios">Bronquios</option>
+                            <option value="Tejido Respiratorio">Tejido Respiratorio</option>
+                        </optgroup>
 
-              <optgroup label="Endocrino">
-                <option value="Tiroides">Tiroides</option>
-                <option value="Parótidas">Parótidas</option>
-                <option value="Suprarrenales">Suprarrenales</option>
-                <option value="Ovario">Ovario</option>
-                <option value="Testículo">Testículo</option>
-              </optgroup>
+                        <optgroup label="Endocrino">
+                            <option value="Tiroides">Tiroides</option>
+                            <option value="Parótidas">Parótidas</option>
+                            <option value="Suprarrenales">Suprarrenales</option>
+                            <option value="Ovario">Ovario</option>
+                            <option value="Testículo">Testículo</option>
+                        </optgroup>
 
                         <optgroup label="Locomotor">
                             <option value="Hueso">Hueso</option>
@@ -688,236 +553,172 @@
                 </div>
             </div>
             <div class="mb-5">
-              <!-- Caracteristicas a modificar -->
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Características
                 </h2>
                 <input id="modificar_caracteristicas_cassette" type="text" class="border w-full rounded h-12">
             </div>
-            <!-- Observaciones a modificar -->
             <div class="mb-5">
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
                 <input id="modificar_observaciones_cassette" type="text" class="border w-full rounded h-12">
             </div>
-            <!-- Boton para modificar cassette -->
             <button id="botonModificarCassette" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Cassete
             </button>
         </div>
     </div>
 
+
     <!--MODAL ELIMINAR MUESTRA-->
-    <div
-      id="modalEliminarMuestra"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
-        <!-- Boton para cerrar modal -->
-        <button
-          id="cerrarModalBasuraMuestra"
-          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
-        >
-          &times;
-        </button>
-        <!-- Boton para verificar la eliminacion de la muestra -->
-        <h2 class="text-lg font-semibold mb-4 text-blue-400">
-          Desea Eliminar la Muestra.
-        </h2>
-        <!-- Mensaje informativo -->
-        <p class="text-blue-400 mb-4">
-          Al eliminar la muestra se eliminarán también las imagenes de la
-          Muestra.
-        </p>
-        <!-- Boton para eliminar muestra -->
-        <button
-          class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
-        >
-          Eliminar
-        </button>
-      </div>
+    <div id="modalEliminarMuestra" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
+            <button id="cerrarModalBasuraMuestra"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
+
+            <h2 class="text-lg font-semibold mb-4 text-blue-400">
+                Desea Eliminar la Muestra.
+            </h2>
+            <p class="text-blue-400 mb-4">
+                Al eliminar la muestra se eliminarán también las imagenes de la
+                Muestra.
+            </p>
+            <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                Eliminar
+            </button>
+        </div>
     </div>
 
     <!--MODAL MODIFICAR MUESTRA-->
-    <div
-      id="modalModificarMuestra"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto"
-      >
-      <!-- Boton para cerrar el modal -->
-        <button
-          id="cerrarModalModificarMuestra"
-          class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl"
-        >
-          &times;
-        </button>
-        <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">
-          Modificar Muestra
-        </h2>
+    <div id="modalModificarMuestra"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+            <button id="cerrarModalModificarMuestra"
+                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
+            <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">
+                Modificar Muestra</h2>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Descripción Corta
-          </h2>
-          <!-- Descripcion a modificar -->
-          <input type="text" class="border w-full rounded h-8" />
-        </div>
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Descripción Corta
+                </h2>
+                <input type="text" class="border w-full rounded h-8">
+            </div>
 
-        <div class="mb-5 w-full">
-          <div class="flex-col justify-center mr-1 w-full">
-            <!-- Fecha a modificar -->
-            <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
-              Fecha
-            </h2>
-            <input
-              type="text"
-              class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full"
-            />
-          </div>
-          <div class="flex-col justify-center w-full mb-5">
-            <!-- Tinción a modificar -->
-            <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
-              Tinción
-            </h2>
-            <select
-              id="tincion"
-              name="tincion"
-              class="w-full h-10 border rounded text-blue-300"
-            >
-              <option value="gram">Gram</option>
-              <option value="ziehl-neelsen">Ziehl-Neelsen</option>
-              <option value="giemsa">Giemsa</option>
-              <option value="wright">Wright</option>
-              <option value="pas">PAS (Ácido Periódico de Schiff)</option>
-              <option value="tricromico-masson">Tricrómica de Masson</option>
-              <option value="azul-toluidina">Azul de Toluidina</option>
-              <option value="sudan">Sudan</option>
-              <option value="wright-giemsa">Wright-Giemsa</option>
-              <option value="plata">Plata</option>
-            </select>
-          </div>
+            <div class="mb-5 w-full">
+                <div class="flex-col justify-center mr-1 w-full">
+                    <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
+                        Fecha
+                    </h2>
+                    <input type="text"
+                        class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                </div>
+                <div class="flex-col justify-center w-full mb-5">
+                    <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
+                        Tinción
+                    </h2>
+                    <select id="tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                        <option value="gram">Gram</option>
+                        <option value="ziehl-neelsen">Ziehl-Neelsen</option>
+                        <option value="giemsa">Giemsa</option>
+                        <option value="wright">Wright</option>
+                        <option value="pas">PAS (Ácido Periódico de Schiff)
+                        </option>
+                        <option value="tricromico-masson">Tricrómica de Masson
+                        </option>
+                        <option value="azul-toluidina">Azul de Toluidina
+                        </option>
+                        <option value="sudan">Sudan</option>
+                        <option value="wright-giemsa">Wright-Giemsa</option>
+                        <option value="plata">Plata</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Observaciones
+                </h2>
+                <input type="text" class="border w-full rounded h-12">
+            </div>
+            <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                Modificar Muestra
+            </button>
         </div>
-        <div class="mb-5">
-          <!-- Observaciones a modificar -->
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Observaciones
-          </h2>
-          <input type="text" class="border w-full rounded h-12" />
-        </div>
-        <!-- Boton para modificar muestra -->
-        <button
-          class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
-        >
-          Modificar Muestra
-        </button>
-      </div>
     </div>
 
     <!--MODAL NUEVA MUESTRA-->
-    <div
-      id="modalNuevaMuestra"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
-    >
-      <div
-        class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto"
-      >
-      <!-- Boton para cerrar modal -->
-        <button
-          id="cerrarModalNuevaMuestra"
-          class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl"
-        >
-          &times;
-        </button>
-        <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">
-          Nueva Muestra
-        </h2>
+    <div id="modalNuevaMuestra" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+            <button id="cerrarModalNuevaMuestra"
+                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                &times;
+            </button>
+            <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Nueva Muestra</h2>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Descripción
-          </h2>
-          <!-- Descripcion para nueva muestra -->
-          <input
-            id="descripcionMuestra"
-            type="text"
-            class="border w-full rounded h-8"
-          />
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Descripción
+                </h2>
+                <input id="descripcionMuestra" type="text" class="border w-full rounded h-8">
+            </div>
+
+            <div class="flex-col justify-center mr-1 w-full mb-5">
+                <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
+                    Fecha
+                </h2>
+                <input id="fechaMuestra" type="date"
+                    class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+
+            </div>
+
+            <div class="flex-col justify-center w-full mb-5">
+                <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
+                    Tinción
+                </h2>
+
+                <!-- CARGAR SELECT EN JS -->
+                <select id="tincionMuestra" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                    <option value="gram">Gram</option>
+                    <option value="ziehl-neelsen">Ziehl-Neelsen</option>
+                    <option value="giemsa">Giemsa</option>
+                    <option value="wright">Wright</option>
+                    <option value="pas">PAS (Ácido Periódico de Schiff)</option>
+                    <option value="tricromico-masson">Tricrómica de Masson</option>
+                    <option value="azul-toluidina">Azul de Toluidina</option>
+                    <option value="sudan">Sudan</option>
+                    <option value="wright-giemsa">Wright-Giemsa</option>
+                    <option value="plata">Plata</option>
+                </select>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
+                    Observaciones
+                </h2>
+                <input id="observacionesMuestra" type="text" class="border w-full rounded h-12">
+            </div>
+
+            <div>
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left w-full">
+                    Imagen
+                </h2>
+                <input id="imagenMuestra" type="file"
+                    class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center">
+            </div>
+            <button id="nueva_muestra" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                Crear Muestra
+            </button>
         </div>
-
-        <div class="flex-col justify-center mr-1 w-full mb-5">
-          <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
-            Fecha
-          </h2>
-          <!-- Fecha para nueva muestra -->
-          <input
-            id="fechaMuestra"
-            type="date"
-            class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full"
-          />
-        </div>
-
-        <div class="flex-col justify-center w-full mb-5">
-          <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
-            Tinción
-          </h2>
-
-          <!-- CARGAR SELECT EN JS -->
-           <!-- Tincion para nueva muestra -->
-          <select
-            id="tincionMuestra"
-            name="tincion"
-            class="w-full h-10 border rounded text-blue-300"
-          >
-            <option value="gram">Gram</option>
-            <option value="ziehl-neelsen">Ziehl-Neelsen</option>
-            <option value="giemsa">Giemsa</option>
-            <option value="wright">Wright</option>
-            <option value="pas">PAS (Ácido Periódico de Schiff)</option>
-            <option value="tricromico-masson">Tricrómica de Masson</option>
-            <option value="azul-toluidina">Azul de Toluidina</option>
-            <option value="sudan">Sudan</option>
-            <option value="wright-giemsa">Wright-Giemsa</option>
-            <option value="plata">Plata</option>
-          </select>
-        </div>
-
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Observaciones
-          </h2>
-          <!-- Observaciones para nueva muestra -->
-          <input
-            id="observacionesMuestra"
-            type="text"
-            class="border w-full rounded h-12"
-          />
-        </div>
-
-        <div>
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left w-full">
-            Imagen
-          </h2>
-          <!-- Imagen para nueva muestra -->
-          <input
-            id="imagenMuestra"
-            type="file"
-            class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center"
-          />
-        </div>
-        <!-- Boton para crear la nueva muestra -->
-        <button
-          id="nueva_muestra"
-          class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
-        >
-          Crear Muestra
-        </button>
-      </div>
     </div>
+
 
     <script src="../JS/modales.js"></script>
     <script src="../JS/aplicacion.js"></script>
-  </body>
+</body>
+
 </html>
