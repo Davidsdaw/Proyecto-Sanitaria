@@ -1,13 +1,16 @@
+/* Ocultamos la vista del scrollbar para que se vea una pagina limpia */
 ::-webkit-scrollbar {
     display: none;
 }
 
+/* Breakpoint para eliminar video de fondo en aparatos moviles */
 @media (width<1000px) {
     .video{
         display: none;
     }
 }
 
+/* Clase para añadir animacion de vista de modal */
 .display_on{
     opacity: 0;
     animation-name: display_on;
@@ -15,7 +18,7 @@
     animation-fill-mode: forwards;
     animation-delay: 1s;
 }
-
+/* Animacion de añadir vista de modal */
 @keyframes display_on{
     0%{
         transform: translateX(-1000px);
@@ -30,12 +33,13 @@
     }
 }
 
+/* Clase para cerrar animacion de vista de modal */
 .display_off{
     animation-name: display_off;
     animation-duration: 2s;
     animation-fill-mode: forwards;
 }
-
+/* Animacion de cerrar vista de modal */
 @keyframes display_off{
     0%{
         transform: translateX(-50%);
@@ -50,12 +54,13 @@
     }
 }
 
+/* Clase para añadir animacion de vista del nav desplegable */
 .show_nav_list{
     animation-name: show_nav_list;
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
-
+/* Animacion de vista del nav desplegable */
 @keyframes show_nav_list{
     0%{
         transform: translateY(-1000px);
@@ -64,13 +69,13 @@
         transform: translateY(0px);
     }
 }
-
+/* Clase para cerrar animacion de vista del nav desplegable */
 .show_off_nav_list{
     animation-name: show_off_nav_list;
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
-
+/* Animacion de cerrar el nav desplegable */
 @keyframes show_off_nav_list{
     0%{
         transform: translateY(0px);
@@ -80,9 +85,7 @@
     }
 }
 
-
-/*CSS OJO FORMULARIO*/
-
+/* CSS para icono de ojo para visualizar contraseña */
 #togglePassword {
     display: flex;
     align-items: center;

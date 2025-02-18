@@ -38,7 +38,7 @@ const register_email_error = document.getElementById("register_email_error");
 const register_password_repeat_error = document.getElementById(
   "register_password_repeat_error"
 );
-
+// Containers de modales de confirmacion
 const modal_confirmacion_registro=document.getElementById("modal_confirmacion_registro");
 const modal_confirmacion_email=document.getElementById("modal_confirmacion_email");
 
@@ -52,7 +52,7 @@ const login = (event) => {
     validate_user();
     };
 };
-
+// Validacion de user con BD
 const validate_user = async () => {
   let email = login_email.value.trim();
   let password = login_password.value.trim();
@@ -82,7 +82,7 @@ const validate_user = async () => {
     
   };
 
-//Funcion validar login
+//Funcion validar login con validityState
 const validate_login = () => {
   let valid = true;
 
@@ -124,7 +124,7 @@ const register = async (event) => {
     }
   }
 };
-
+// Funcion de registro de usuario a la BD
 const register_user = async () => {
   let nombre = register_nombre.value.trim();
   let apellido = register_apellidos.value.trim();
@@ -147,8 +147,6 @@ const register_user = async () => {
     }),
   };
 
-  console.log(data);
-
   const response = await fetch("http://localhost:3000/sanitaria/users/register",data);
 
   const data2 = await response.json();
@@ -168,7 +166,7 @@ const register_user = async () => {
   }
 };
 
-// Funcion validar el registro
+// Funcion validar el registro con validityState
 const validate_register = () => {
   let valid = true;
 
@@ -229,7 +227,8 @@ const validate_register = () => {
 
   return valid;
 };
-// Funcion de solicitar contraseña
+
+// Funcion de solicitar contraseña al correo
 const password = (event) => {
   event.preventDefault();
 
@@ -237,7 +236,7 @@ const password = (event) => {
     sendRecoveryEmail(solicitar_email.value);
   }
 };
-
+// Funcion para enviar email y resetear la password
 const sendRecoveryEmail = async(email) => {
 
   const data = {
@@ -266,7 +265,7 @@ const sendRecoveryEmail = async(email) => {
   }
 }
 
-// Funcion validar la solicitud de contraseña
+// Funcion validar la solicitud de contraseña con validityState
 const validateEmail = () => {
   let valid = true;
 
@@ -284,6 +283,7 @@ const validateEmail = () => {
   return valid;
 };
 
+// AddEventListeners usados
 form_login.addEventListener("submit", login);
 form_register.addEventListener("submit", register);
 form_password.addEventListener("submit", password);

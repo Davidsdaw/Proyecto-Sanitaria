@@ -5,7 +5,7 @@ const new_password = document.getElementById("new_password");
 const new_password_repeat = document.getElementById("new_password_repeat");
 // Mensajes de error Registro
 const new_password_repeat_error = document.getElementById("new_password_repeat_error");
-
+// Container de modal de confirmacion
 const modal_confirmacion_cambioContrasena=document.getElementById("modal_confirmacion_cambioContrasena");
 
 
@@ -45,7 +45,7 @@ const new_password_function = (event) => {
   
     return valid;
   };
-
+// Funcion para cambiar contraseña en BD
   const changePassword = async () => {
     if(new_password_repeat.value==new_password.value){
       const data = {
@@ -64,17 +64,15 @@ const new_password_function = (event) => {
       const dataFetch = await response.json();
 
       if(dataFetch.message){
-        //ABRIR MODAL DICIENDO QUE SE TE HA CAMBIADO LA PW Y REDIRECCIONAR AL LOGIN
         container_new_password.classList.remove("display_on");
         container_new_password.classList.add("display_off");
         modal_confirmacion_cambioContrasena.classList.remove("display_off");
         modal_confirmacion_cambioContrasena.classList.remove("opacity-0");
         modal_confirmacion_cambioContrasena.classList.add("display_on");
       }else {
-        //DISPLAYEAR MENSAJE DE ERROR
         new_password_repeat_error.textContent="Error al actualizar contraseña";
       }
     };
     }
-
+// Listener para cambiar contraseña
 form_new_password.addEventListener("submit", new_password_function);
