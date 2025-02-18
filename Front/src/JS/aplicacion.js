@@ -206,8 +206,9 @@ const mostrarMuestrasCassette = async (cassette) => {
 }
 
 const muestraActual = [];
-
+let muestraSeleccionada;
 const mostrarDetallesMuestra = (muestra) => {
+    muestraSeleccionada = muestra;
     //formateamos la fecha
     const fechaFormateada = new Date(muestra.fecha);
     const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
@@ -514,3 +515,58 @@ document.addEventListener("DOMContentLoaded", mostrarMuestrasCassette);
 const botonModificarCassette = document.getElementById("botonModificarCassette");
 botonModificarCassette.addEventListener("click", modificarCassette)
 
+
+
+
+const EliminarMuestra= async () => {
+    console.log(muestraSeleccionada.id);
+
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/muestra/delete/${muestraSeleccionada.id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `${token}` ,
+                "Content-Type": "application/json",
+            },
+        });
+
+        const data = await response.json();
+        console.log(data.message);
+
+        if (response.ok) {
+            mensaje.textContent = "Muestra eliminado con éxito";
+            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            if (cerrarModalNuevaMuestra) {
+                cerrarModalNuevaMuestra.click();
+            }
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+                location.reload();
+            }, 1000);
+        } else {
+            mensaje.textContent = "Error al eliminar la muestra: " + data.message;
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 1000);
+        }
+    } catch (error) {
+        console.error("Error al eliminar la muestra:", error);
+        mensaje.textContent = "Ocurrió un error al eliminar la muestra.";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 1000);
+    }
+
+};
+
+const borrarMuestra = document.getElementById("borrarMuestra");
+borrarMuestra.addEventListener("click", EliminarMuestra);
