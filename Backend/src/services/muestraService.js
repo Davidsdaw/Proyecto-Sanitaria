@@ -23,11 +23,13 @@ const deleteMuestra = async (id) => {
         if (!muestra) {
             throw new Error("La muestra no existe");
         }
-        return await Muestra.destroy();
+        await muestra.destroy();
+        return { message: "Muestra eliminada correctamente" };
     } catch (error) {
         throw new Error("Error al borrar la muestra: " + error.message);
     }
 };
+
 
 const createMuestra = async (MuestraData) => {
     try {
@@ -40,7 +42,7 @@ const createMuestra = async (MuestraData) => {
 
 const editMuestra = async (id, muestraData) => {
     try {
-      const user = await Usuario.findByPk(id);
+      const user = await Muestra.findByPk(id);
       if (!user) {
         throw new Error("Cliente no encontrado");
       }
