@@ -136,3 +136,22 @@ window.addEventListener("click", (e) => {
         modalEliminarMuestra.classList.add("hidden");
     }
 });
+
+
+const abrirModalAñadirImagen = document.getElementById("abrirModalAñadirImagen");
+const modalAñadirImagen = document.getElementById("modalAñadirImagen");
+const cerrarModalAñadirImagen = document.getElementById("cerrarModalAñadirImagen");
+
+
+abrirModalAñadirImagen.addEventListener("click", (e) => {
+    e.preventDefault();
+    modalAñadirImagen.classList.remove("hidden");
+});
+cerrarModalAñadirImagen.addEventListener("click", () => {
+    modalAñadirImagen.classList.add("hidden");
+});
+window.addEventListener("click", (e) => {
+    if (e.target === modalAñadirImagen) {
+        modalAñadirImagen.classList.add("hidden");
+    }
+});
