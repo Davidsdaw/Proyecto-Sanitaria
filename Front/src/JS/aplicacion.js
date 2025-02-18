@@ -77,7 +77,7 @@ const mostrar_cassettes = (data) => {
         let fragment = document.createDocumentFragment();
 
         let div_contenedor = document.createElement("div");
-        div_contenedor.classList.add("flex", "border-b", "text-blue-500");
+        div_contenedor.classList.add("flex", "border-b", "text-blue-400");
 
         let div_fecha = document.createElement("div");
         div_fecha.classList.add("flex-1", "p-2", "text-sm");
@@ -100,7 +100,7 @@ const mostrar_cassettes = (data) => {
         let div_icono = document.createElement("div");
         div_icono.classList.add("mr-1", "p-2");
         let icono = document.createElement("i");
-        icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-300");
+        icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-400");
         div_icono.appendChild(icono);
         icono.id = `boton_detalles_cassette`;
 
@@ -167,7 +167,7 @@ const mostrarMuestrasCassette = async (cassette) => {
             let columna_icono = document.createElement("td");
             columna_icono.classList.add("border-b", "border-blue-400", "flex", "justify-center", "items-center", "pl-4"); 
             let icono = document.createElement("i");
-            icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-300", "mr-5");
+            icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-400", "mr-5");
             columna_icono.appendChild(icono);
             icono.id = `abrirModalMuestrasImagenes`;
 
