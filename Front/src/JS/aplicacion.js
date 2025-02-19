@@ -315,7 +315,7 @@ const eliminarCassette = async () => {
 
         if (response.ok) {
             mensaje.textContent = "Cassette eliminado con éxito";
-            mensaje.classList.add("bg-green-00", "text-white", "p-2", "rounded", "text-center");
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             if (cerrarModalNuevaMuestra) {
@@ -639,7 +639,7 @@ const EliminarMuestra= async () => {
             setTimeout(() => {
                 mensaje.style.display = "none";
                 location.reload();
-            }, 1000);
+            }, 2000);
         } else {
             mensaje.textContent = "Error al eliminar la muestra: " + data.message;
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
@@ -647,7 +647,7 @@ const EliminarMuestra= async () => {
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 1000);
+            }, 2000);
         }
     } catch (error) {
         console.error("Error al eliminar la muestra:", error);
@@ -657,7 +657,7 @@ const EliminarMuestra= async () => {
 
         setTimeout(() => {
             mensaje.style.display = "none";
-        }, 1000);
+        }, 2000);
     }
 
 };
@@ -690,6 +690,7 @@ const modificarMuestra = async () => {
         if(response.ok){
             if (cerrarModalModificarMuestra) {
                 cerrarModalModificarMuestra.click();
+                cerrarModalMuestrasImagenes.click();
             }
 
             mensaje.textContent = "Muestra modificada con éxito";
@@ -699,7 +700,7 @@ const modificarMuestra = async () => {
             setTimeout(() => {
                 mensaje.style.display = "none";
                 location.reload();
-            }, 1000);
+            }, 2000);
         } else {
             mensaje.textContent = "Error al modificar la muestra: " + data.message;
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
@@ -707,7 +708,7 @@ const modificarMuestra = async () => {
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 1000);
+            }, 2000);
         }
 
     } catch (error) {

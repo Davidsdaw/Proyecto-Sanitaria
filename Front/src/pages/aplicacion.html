@@ -43,7 +43,7 @@
                 <optgroup label="Cardiovascular">
                     <option value="Corazón">Corazón</option>
                     <option value="Venas">Venas</option>
-                    <option value="Arterias">Arterias</option>
+                    <option value="Arteria">Arteria</option>
                 </optgroup>
 
                 <optgroup label="Linfático">
@@ -288,7 +288,7 @@
     <div id="modalNuevoCassete" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
             <button id="cerrarModalNuevoCassete"
-                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
             <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Nuevo Cassete</h2>
@@ -296,15 +296,15 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input id="id_descripcionCassete" type="text"
-                    class="border w-full rounded h-8 border-blue-300 text-blue-300 hover:border-blue-300">
-            </div>
+                
+            </div><input id="id_descripcionCassete" type="text"
+                    class="border w-full rounded h-8 text-blue-300 hover:border-blue-300 focus:outline-none">
             <div class="mb-2">
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Identificador
                 </h2>
                 <input id="id_identificadorCassete" type="text"
-                    class="border w-full rounded h-8 text-blue-300 hover:border-blue-300">
+                    class="border w-full rounded h-8 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
             <div class="flex mb-5 w-full">
                 <div class="flex-col justify-center mr-1 w-full">
@@ -312,13 +312,13 @@
                         Fecha
                     </h2>
                     <input id="id_fechaCassete" type="date"
-                        class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                        class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full hover:border-blue-300 focus:outline-none">
                 </div>
                 <div class="flex-col justify-center w-full">
                     <h2 class="text-lg font-semibold mb-4 text-blue-400">
                         Organo
                     </h2>
-                    <select class="p-2 border rounded text-blue-400 w-full" id="organosCassete"
+                    <select class="p-2 border rounded text-blue-400 w-full hover:border-blue-300 focus:outline-none" id="organosCassete"
                         aria-label="Floating label select example">
                         <option disabled selected>Seleccionar un Órgano</option>
                         <option value="*">Todos</option>
@@ -382,13 +382,13 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Características
                 </h2>
-                <input id="id_caracteristicasCassete" type="text" class="border w-full rounded h-12">
+                <input id="id_caracteristicasCassete" type="text" class="border w-full rounded h-12 text-blue-300 hover:border-blue-300  focus:outline-none">
             </div>
             <div class="mb-5">
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input id="id_observacionesCassete" type="text" class="border w-full rounded h-12">
+                <input id="id_observacionesCassete" type="text" class="border w-full rounded h-12 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
             <button id="nuevo_cassete" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Nuevo Cassete
@@ -402,7 +402,7 @@
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-3/5 h-80 relative text-center h-auto">
             <button id="cerrarModalMuestrasImagenes"
-                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
             <h2 class="mb-5 text-2xl text-blue-400 text-left border-b-2 pb-4">Detalle Muestra
@@ -468,15 +468,35 @@
             <div class="border-t-2 mt-10 flex pt-3 items-center">
                 <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
                 <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
-                <a href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>
+                <a id="abrirModalAñadirImagen" href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>
             </div>
         </div>
     </div>
 
+
+    <!-- MODAL AÑADIR IMAGEN-->
+    <div id="modalAñadirImagen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
+            <button id="cerrarModalAñadirImagen" class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
+                &times;
+            </button>
+            <div>
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left w-full">
+                    Imagen
+                </h2>
+                <input id="imagenMuestra" type="file"
+                class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center border-blue-300 hover:border-blue-300 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 focus:outline-none file:bg-blue-300 file:text-white file:border-none file:rounded file:px-3 file:py-1 file:cursor-pointer file:hover:bg-blue-500">
+                <button id="botonEliminarAñadirMuestra"
+                    class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                    Subir
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- MODAL ELIMINAR CASSETE-->
     <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
-            <button id="cerrarModalBasura" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">
+            <button id="cerrarModalBasura" class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
 
@@ -499,7 +519,7 @@
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
             <button id="cerrarModalModificarCassete"
-                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
             <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Modificar Cassete</h2>
@@ -508,7 +528,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input id="modificar_descripcion_cassette" type="text" class="border w-full rounded h-8">
+                <input id="modificar_descripcion_cassette" type="text" class="border w-full rounded h-8 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
 
             <div class="flex mb-5 w-full">
@@ -517,13 +537,13 @@
                         Fecha
                     </h2>
                     <input type="date" id="modificar_fecha_cassette"
-                        class="border rounded  w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                        class="border rounded  w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full hover:border-blue-300 focus:outline-none">
                 </div>
                 <div class="flex-col justify-center w-full">
                     <h2 class="text-lg font-semibold mb-4 text-blue-400">
                         Organo
                     </h2>
-                    <select class="p-2 border rounded text-blue-400 w-full" id="organos"
+                    <select class="p-2 border rounded text-blue-400 w-full hover:border-blue-300 focus:outline-none" id="organos"
                         aria-label="Floating label select example">
                         <option disabled selected>Seleccionar un Órgano</option>
                         <option value="*">Todos</option>
@@ -595,13 +615,13 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Características
                 </h2>
-                <input id="modificar_caracteristicas_cassette" type="text" class="border w-full rounded h-12">
+                <input id="modificar_caracteristicas_cassette" type="text" class="border w-full rounded h-12 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
             <div class="mb-5">
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input id="modificar_observaciones_cassette" type="text" class="border w-full rounded h-12">
+                <input id="modificar_observaciones_cassette" type="text" class="border w-full rounded h-12 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
             <button id="botonModificarCassette"
                 class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
@@ -615,7 +635,7 @@
     <div id="modalEliminarMuestra" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative text-center">
             <button id="cerrarModalBasuraMuestra"
-                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">
+                class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
 
@@ -637,7 +657,7 @@
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
             <button id="cerrarModalModificarMuestra"
-                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
             <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">
@@ -647,7 +667,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción Corta
                 </h2>
-                <input type="text" id="nuevaMuestra_desc" class="border w-full rounded h-8">
+                <input type="text" id="nuevaMuestra_desc" class="border w-full rounded h-8 text-blue-400 hover:border-blue-300 focus:outline-none">
             </div>
 
             <div class="mb-5 w-full">
@@ -655,14 +675,14 @@
                     <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
                         Fecha
                     </h2>
-                    <input type="text" id="nuevaMuestra_fecha"
-                        class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                    <input type="date" id="nuevaMuestra_fecha"
+                        class="border rounded w-36 h-10 p-2 placeholder:text-blue-300 w-full text-blue-400 hover:border-blue-300 focus:outline-none">
                 </div>
                 <div class="flex-col justify-center w-full mb-5">
                     <h2 class="text-lg text-left font-semibold mb-4 text-blue-400">
                         Tinción
                     </h2>
-                    <select id="nuevaMuestra_tincion" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                    <select id="nuevaMuestra_tincion" name="tincion" class="w-full h-10 border rounded text-blue-400 hover:border-blue-300 focus:outline-none">
                         <option value="gram">Gram</option>
                         <option value="ziehl-neelsen">Ziehl-Neelsen</option>
                         <option value="giemsa">Giemsa</option>
@@ -683,7 +703,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input type="text" id="nuevaMuestra_observ" class="border w-full rounded h-12">
+                <input type="text" id="nuevaMuestra_observ" class="border w-full rounded h-12 text-blue-400 hover:border-blue-300 focus:outline-none">
             </div>
             <button id="botonModificarMuestra" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Muestra
@@ -695,7 +715,7 @@
     <div id="modalNuevaMuestra" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
             <button id="cerrarModalNuevaMuestra"
-                class="absolute top-2 right-2 text-blue-500 hover:text-gray-700 text-xl">
+                class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
             </button>
             <h2 class="mb-10 text-2xl text-blue-400 text-left border-b-2">Nueva Muestra</h2>
@@ -704,7 +724,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Descripción
                 </h2>
-                <input id="descripcionMuestra" type="text" class="border w-full rounded h-8">
+                <input id="descripcionMuestra" type="text" class="border w-full rounded h-8 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
 
             <div class="flex-col justify-center mr-1 w-full mb-5">
@@ -712,7 +732,7 @@
                     Fecha
                 </h2>
                 <input id="fechaMuestra" type="date"
-                    class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full">
+                class="border rounded w-36 h-10 p-2 text-blue-300 placeholder:text-blue-300 w-full hover:border-blue-300 focus:outline-none appearance-none bg-transparent relative">
 
             </div>
 
@@ -722,7 +742,7 @@
                 </h2>
 
                 <!-- CARGAR SELECT EN JS -->
-                <select id="tincionMuestra" name="tincion" class="w-full h-10 border rounded text-blue-300">
+                <select id="tincionMuestra" name="tincion" class="w-full h-10 border rounded text-blue-300 hover:border-blue-300 focus:outline-none">
                     <option value="gram">Gram</option>
                     <option value="ziehl-neelsen">Ziehl-Neelsen</option>
                     <option value="giemsa">Giemsa</option>
@@ -740,7 +760,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
                     Observaciones
                 </h2>
-                <input id="observacionesMuestra" type="text" class="border w-full rounded h-12">
+                <input id="observacionesMuestra" type="text" class="border w-full rounded h-12 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
 
             <div>
@@ -748,7 +768,8 @@
                     Imagen
                 </h2>
                 <input id="imagenMuestra" type="file"
-                    class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center">
+                class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center border-blue-300 hover:border-blue-300 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 focus:outline-none file:bg-blue-300 file:text-white file:border-none file:rounded file:px-3 file:py-1 file:cursor-pointer file:hover:bg-blue-500">
+
             </div>
             <button id="nueva_muestra" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Crear Muestra
