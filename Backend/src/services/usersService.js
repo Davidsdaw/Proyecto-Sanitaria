@@ -60,7 +60,7 @@ const getAllUsers = async () => {
       if (!user) {
         throw new Error("Cliente no encontrado");
       }
-      if (userData.pass) {
+      if (userData.password) {
         userData.password=bcrypt.hashSync(userData.password, 10)
       }
       return await Usuario.update(userData,{
