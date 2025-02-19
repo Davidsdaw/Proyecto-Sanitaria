@@ -493,6 +493,61 @@ const filtrarCassettesporID = async () => {
     mostrar_cassettes(cassttesfilter);
 }
 
+const filtrarCassettesporFecha = async (event) => {
+    const data = await cargarCassettes();
+    let cassettesfilter = [];
+
+    let fechaInicio = fecha_inicio.value;
+    let fechaFin = fecha_fin.value;
+
+    // convertir las fechas a formato Date si no están vacías
+    if (fechaInicio !== '') {
+        fechaInicio = new Date(fechaInicio);
+    } else {
+        fechaInicio = null;
+    }
+
+    if (fechaFin !== '') {
+        fechaFin = new Date(fechaFin);
+    } else {
+        fechaFin = null;
+    }
+
+    // console.log("Fecha de inicio:", fechaInicio);
+    // console.log("Fecha de fin:", fechaFin);
+
+    data.forEach(cassette => {
+        const fechaCassette = new Date(cassette.fecha);
+
+        if (fechaInicio && !fechaFin) {
+            // solo hay fecha de inicio
+            if (fechaCassette >= fechaInicio) {
+                cassettesfilter.push(cassette);
+            }
+        } else if (!fechaInicio && fechaFin) {
+            // solo hay fecha de fin
+            if (fechaCassette <= fechaFin) {
+                cassettesfilter.push(cassette);
+            }
+        } else if (fechaInicio && fechaFin) {
+            // hay ambas fechas
+            if (fechaCassette >= fechaInicio && fechaCassette <= fechaFin) {
+                cassettesfilter.push(cassette);
+            }
+        }
+    });
+
+    mostrar_cassettes(cassettesfilter);
+};
+
+
+fecha_inicio.addEventListener("change", filtrarCassettesporFecha);
+fecha_fin.addEventListener("change", filtrarCassettesporFecha);
+
+
+fecha_inicio.addEventListener("change", filtrarCassettesporFecha);
+fecha_fin.addEventListener("change", filtrarCassettesporFecha);
+
 const modificarCassette = async () => {
     try {
         console.log(descripcionCassete.value)
