@@ -16,10 +16,12 @@ const modificar_alumno_gmail=document.getElementById("modificar_alumno_gmail");
 const modificar_alumno_password=document.getElementById("modificar_alumno_password");
 const modificar_alumno_centro=document.getElementById("modificar_alumno_centro");
 const modificar_alumno_rol=document.getElementById("modificar_alumno_rol");
+const tabla_usuarios=document.getElementById("tabla_usuarios");
+
 
 btn_modificar.addEventListener("click", (event)=>{
     modalModificarUsuario.classList.remove("hidden");
-    mostrarDatosUsuario();
+    mostrarUsuarios();
 })
 cerrarModalModificarUsuario.addEventListener("click", ()=>{
     modalModificarUsuario.classList.add("hidden");
@@ -38,25 +40,25 @@ volver_inicio.addEventListener("click", ()=>{
 })
 
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem("token");
 
-const mostrarDatosUsuario=async()=>{
-    const response = await fetch(`http://localhost:3000/sanitaria/users/${user.id}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `${token}`,
-            "Content-Type": "application/json",
-        }
-    });
-    const user = await response.json();
-    console.log(user);
+const cargarUsuarios = async () => {
+    try {
+        const response = await fetch("http://localhost:3000/sanitaria/users/", {
+            method: "GET",
+            headers: {
+                Authorization: `${token}`,
+            },
+        });
 
-    modificar_alumno_nombre.value=user.nombre;
-    modificar_alumno_apellidos.value=user.apellido;
-    modificar_alumno_gmail.value=user.email;
-    modificar_alumno_centro.value=user.centro;
-    modificar_alumno_rol.value=user.rol;
-}
+        const usuarios = await response.json();
+        mostrarUsuarios(usuarios);
+        return usuarios;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
 
 const eliminar_usuarios = document.getElementById("eliminar_usuarios");
 

@@ -718,3 +718,133 @@ const modificarMuestra = async () => {
 
 const botonModificarMuestra = document.getElementById("botonModificarMuestra");
 botonModificarMuestra.addEventListener("click", modificarMuestra)
+
+
+//Ordenar por fecha cassettes
+let ordenAscendente = true; 
+
+const ordenarFecha = () => {
+    
+    let cassettes = Array.from(tabla_cassettes.children).map(div => {
+        return {
+            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')), // Convertir fecha a Date
+            descripcion: div.children[1].textContent,
+            organo: div.children[2].textContent
+        };
+    });
+
+  
+    cassettes.sort((a, b) => {
+        return ordenAscendente ? a.fecha - b.fecha : b.fecha - a.fecha;
+    });
+
+    ordenAscendente = !ordenAscendente; 
+    
+    if(ordenAscendente){
+        ascendente.innerHTML = "&#x25B4;";
+    }else{
+        ascendente.innerHTML = "&#x25BE;";
+    }
+
+    mostrar_cassettes(cassettes);
+
+    
+};
+const ascendente = document.getElementById("ascendente");
+const botonOrdenar = document.getElementById("ordenarPorFechaCassette");
+botonOrdenar.addEventListener("click", ordenarFecha);
+
+
+
+//Ordenar por fecha muestras
+let ordenAscendenteM = true;  
+
+const ordenarFechaMuestras = () => {
+    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));  
+
+    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));  
+
+    muestrasFiltradas.sort((a, b) => {
+        const fechaA = new Date(a.querySelector("td:nth-child(1)").textContent.split('/').reverse().join('-'));
+        const fechaB = new Date(b.querySelector("td:nth-child(1)").textContent.split('/').reverse().join('-'));
+
+        return ordenAscendenteM ? fechaA - fechaB : fechaB - fechaA;
+    });
+
+    ordenAscendenteM = !ordenAscendenteM;
+
+    if (ordenAscendenteM) {
+        ascendenteM.innerHTML = "&#x25B4;";  
+    } else {
+        ascendenteM.innerHTML = "&#x25BE;";  
+    }
+
+    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
+};
+const ascendenteM = document.getElementById("ascendenteM");
+const botonOrdenarMuestras = document.getElementById("ordenarPorFechaMuestra");
+botonOrdenarMuestras.addEventListener("click", ordenarFechaMuestras);
+
+
+
+//Ordenar por descripcion cassettes
+let ordenAscendenteDescCassettes = true; 
+const ordenarDescripcionCassettes = () => {
+    let cassettes = Array.from(tabla_cassettes.children).map(div => {
+        return {
+            descripcion: div.children[1].textContent,
+            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')), 
+            organo: div.children[2].textContent
+        };
+    });
+
+    cassettes.sort((a, b) => {
+        return ordenAscendenteDescCassettes ? a.descripcion.localeCompare(b.descripcion) : b.descripcion.localeCompare(a.descripcion);
+    });
+
+    ordenAscendenteDescCassettes = !ordenAscendenteDescCassettes;
+
+    if (ordenAscendenteDescCassettes) {
+        ascendenteDesc.innerHTML = "&#x25B4;";
+    } else {
+        ascendenteDesc.innerHTML = "&#x25BE;"; 
+    }
+
+    mostrar_cassettes(cassettes);
+};
+const ascendenteDesc = document.getElementById("ascendenteDesc");
+const botonOrdenarDescCassettes = document.getElementById("ordenarPorDescripcionCassette");
+botonOrdenarDescCassettes.addEventListener("click", ordenarDescripcionCassettes);
+
+
+
+
+//Ordenar por descripcion muestras
+let ordenAscendenteDescM = true; 
+
+const ordenarDescripcionMuestras = () => {
+    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr")); 
+
+    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));  
+
+    muestrasFiltradas.sort((a, b) => {
+        const descripcionA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();  
+        const descripcionB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
+
+        return ordenAscendenteDescM ? descripcionA.localeCompare(descripcionB) : descripcionB.localeCompare(descripcionA);
+    });
+
+    ordenAscendenteDescM = !ordenAscendenteDescM;
+
+    if (ordenAscendenteDescM) {
+        ascendenteDescM.innerHTML = "&#x25B4;";  
+    } else {
+        ascendenteDescM.innerHTML = "&#x25BE;";  
+    }
+
+    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
+};
+
+const ascendenteDescM = document.getElementById("ascendenteDescM");
+const botonOrdenarDescMuestras = document.getElementById("ordenarPorDescripcionMuestra");
+botonOrdenarDescMuestras.addEventListener("click", ordenarDescripcionMuestras);
