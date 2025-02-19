@@ -13,13 +13,13 @@
 
   <body class="container mx-auto text-center p-4">
     <!-- Botón de volver al inicio -->
-    <button
+    <button id="volver_inicio"
       class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition"
     >
       Volver al inicio
     </button>
 
-    <button
+    <button id="eliminar_usuarios"
     class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition"
   >
     ELIMINAR TODOS
@@ -188,7 +188,7 @@
         </div>
 
         <button
-          type="submit"
+          type="submit" id="modificar_usuario"
           class="border-blue-300 w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500"
         >
           Modificar
@@ -205,12 +205,12 @@
                 </button>
     
                 <h2 class="text-lg font-semibold mb-4 text-blue-400">
-                    Desea Eliminar el Usuario.
+                    Seguro que quiere eliminar este usuario?
                 </h2>
                 <p class="text-blue-400 mb-4">
-                    Al eliminar el usuario se eliminarán no se podrá deshacer la eliminación.
+                    Al eliminar el usuario no se podrá deshacer la eliminación.
                 </p>
-                <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
+                <button id="eliminar_usuario" class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                     Eliminar
                 </button>
             </div>
