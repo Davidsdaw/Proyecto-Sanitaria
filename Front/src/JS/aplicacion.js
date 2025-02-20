@@ -122,7 +122,8 @@ const ordenarCassettes = (campo) => {
             return 0;
         });
 
-        ascendente = !ascendente; 
+        ascendente = !ascendente;
+         
         mostrar_cassettes(dataCassettes);
         mostrarMuestrasCassette(dataCassettes)
     };
@@ -189,7 +190,6 @@ let cassetteActual = null;
 
 const mostrarDetallesCassettes = (cassette) => {
     cassetteActual = cassette;
-
     //Editamos la fecha para DD/MM/YYYY
     const fechaFormateada = new Date(cassette.fecha);
     const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
@@ -203,6 +203,39 @@ const mostrarDetallesCassettes = (cassette) => {
     mostrarMuestrasCassette(cassette);
 }
 
+let ascendenteFecha = true;
+let ascendenteDescripcion = true;
+let ascendenteTincion = true;
+let muestrasFiltradas = []; 
+
+const ordenarMuestras = (campo, tipo) => {
+    return () => {
+        let ascendente = tipo === "fecha" ? ascendenteFecha : tipo === "descripcion" ? ascendenteDescripcion : ascendenteTincion;
+
+        // Ordenamos las muestras según el campo
+        muestrasFiltradas.sort((a, b) => {
+            if (a[campo] < b[campo]) return ascendente ? -1 : 1;
+            if (a[campo] > b[campo]) return ascendente ? 1 : -1;
+            return 0;
+        });
+
+        // Cambiamos el estado de ascendente/descendente
+        if (tipo === "fecha") {
+            ascendenteFecha = !ascendenteFecha;
+        } else if (tipo === "descripcion") {
+            ascendenteDescripcion = !ascendenteDescripcion;
+        } else {
+            ascendenteTincion = !ascendenteTincion;
+        }
+
+        // Actualizamos el ícono de la dirección de la ordenación
+        const icono = document.getElementById(`ascendente${tipo === "fecha" ? "M" : tipo === "descripcion" ? "DescM" : "Tincion"}`);
+        icono.innerHTML = ascendente ? "&#x25B4;" : "&#x25BE;"; 
+
+        // Recargamos la tabla con las muestras ordenadas
+        renderizarMuestras();
+    };
+};
 
 const mostrarMuestrasCassette = async (cassette) => {
     const response = await fetch("http://localhost:3000/sanitaria/muestra", {
@@ -214,7 +247,15 @@ const mostrarMuestrasCassette = async (cassette) => {
     const data = await response.json();
     tabla_muestras.innerHTML = "";
 
-    const muestrasFiltradas = data.filter(muestra => muestra.cassette_id == cassette.id);
+    // Filtrar las muestras por cassette_id
+    muestrasFiltradas = data.filter(muestra => muestra.cassette_id == cassette.id);
+
+    renderizarMuestras(); // Llamamos a la función para mostrar las muestras
+};
+
+// Nueva función para renderizar la tabla con las muestras (se usa en mostrarMuestrasCassette y ordenarMuestras)
+const renderizarMuestras = () => {
+    tabla_muestras.innerHTML = "";
 
     if (muestrasFiltradas.length > 0) {
         muestrasFiltradas.forEach(muestra => {
@@ -267,7 +308,12 @@ const mostrarMuestrasCassette = async (cassette) => {
         fila_vacia.appendChild(columna_vacia);
         tabla_muestras.appendChild(fila_vacia);
     }
-}
+};
+
+// Agregar los event listeners para cada botón
+document.getElementById("ordenarPorFechaMuestra").addEventListener("click", ordenarMuestras("fecha", "fecha"));
+document.getElementById("ordenarPorDescripcionMuestra").addEventListener("click", ordenarMuestras("descripcion", "descripcion"));
+document.getElementById("ordenarPorTincionMuestra").addEventListener("click", ordenarMuestras("tincion", "tincion"));
 
 
 let muestraSeleccionada = null;
@@ -285,7 +331,6 @@ const mostrarDetallesMuestra = (muestra) => {
     mostrarImagenesMuestra(muestra.id);
 
 }
-
 const imgBig = document.getElementById("imgBig")
 const mostrarImagenesMuestra = async (idMuestra) => {
     try {
@@ -356,6 +401,8 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         console.error("Error cargando las imágenes:", error);
     }
 };
+
+
 
 
 const crearCassette = async () => {
@@ -520,7 +567,7 @@ const crearMuestra = async (cassette) => {
                 location.reload();
             }, 1000000);
 
-            window.reload();
+            location.reload()
 
         } else {
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
