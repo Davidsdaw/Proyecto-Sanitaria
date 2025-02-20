@@ -106,77 +106,43 @@
     <!-- ✅ Aquí almacenamos el ID del usuario -->
     <span id="id_usuario_modificar" class="hidden"></span>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Nombre
-          </h2>
-          <input
-            id="modificar_alumno_nombre"
-            type="text"
-            class="border w-full rounded h-8"
-          />
-        </div>
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold mb-2 text-blue-400 text-left">Nombre</h2>
+      <input id="modificar_alumno_nombre" type="text" class="border w-full rounded h-8" />
+    </div>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Apellidos
-          </h2>
-          <input
-            id="modificar_alumno_apellidos"
-            type="text"
-            class="border w-full rounded h-8"
-          />
-        </div>
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold mb-2 text-blue-400 text-left">Apellidos</h2>
+      <input id="modificar_alumno_apellidos" type="text" class="border w-full rounded h-8" />
+    </div>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Gmail
-          </h2>
-          <input
-            id="modificar_alumno_gmail"
-            type="text"
-            class="border w-full rounded h-8"
-          />
-        </div>
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold mb-2 text-blue-400 text-left">Gmail</h2>
+      <input id="modificar_alumno_gmail" type="text" class="border w-full rounded h-8" />
+    </div>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Password
-          </h2>
-          <input
-            id="modificar_alumno_password"
-            type="text"
-            class="border w-full rounded h-8"
-          />
-        </div>
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold mb-2 text-blue-400 text-left">Password</h2>
+      <input id="modificar_alumno_password" type="text" class="border w-full rounded h-8" />
+    </div>
 
-        <div>
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Centro
-          </h2>
-          <select
-            id="modificar_alumno_centro"
-            class="w-full px-4 py-2 rounded-lg border border-blue-300 focus:outline-none focus:border-2 focus:border-blue-400 text-blue-300 placeholder:text-blue-300"
-            required
-          >
-            <option value="">Centro</option>
-            <option value="IES Ribera del Tajo">IES Ribera del Tajo</option>
-            <option value="IES Gabriel Alonso de Herrera">
-              IES Gabriel Alonso de Herrera
-            </option>
-          </select>
-        </div>
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold mb-2 text-blue-400 text-left">Centro</h2>
+      <select id="modificar_alumno_centro" class="w-full px-4 py-2 rounded-lg border border-blue-300">
+        <option value="">Centro</option>
+        <option value="IES Ribera del Tajo">IES Ribera del Tajo</option>
+        <option value="IES Gabriel Alonso de Herrera">IES Gabriel Alonso de Herrera</option>
+      </select>
+    </div>
 
-        <div class="mb-5">
-          <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left">
-            Rol
-          </h2>
-          <input
-            id="modificar_alumno_rol"
-            type="text"
-            class="border w-full rounded h-8"
-          />
-        </div>
+    <div class="mb-5">
+      <h2 class="text-lg font-semibold mb-2 text-blue-400 text-left">Rol</h2>
+      <select id="modificar_alumno_rol" class="w-full px-4 py-2 rounded-lg border border-blue-300" required>
+        <option disabled value="">rol</option>
+        <option value="administrador">Administrador</option>
+        <option value="alumno">Alumno</option>
+      </select>
+    </div>
 
     <button type="submit" id="modificar_usuario" class="w-full bg-blue-300 text-white p-2 rounded-lg hover:bg-blue-500">
       Modificar

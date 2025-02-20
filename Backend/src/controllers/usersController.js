@@ -160,6 +160,21 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const deleteAll = async (req, res) => {
+  try {
+    const deletedUsers = await usersService.deleteAll();
+
+    if (deletedUsers === 0) {
+      return res.status(404).json({ message: "No hay usuarios para eliminar" });
+    }
+
+    res.status(200).json({ message: "Todos los usuarios han sido eliminados" });
+  } catch (error) {
+    console.error("Error al eliminar todos los usuarios:", error);
+    res.status(500).json({ message: "Error al eliminar usuarios", error: error.message });
+  }
+};
+
 
 module.exports = {
     getAllUsers,
@@ -169,6 +184,7 @@ module.exports = {
     editUser,
     loginUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    deleteAll,
   };
   

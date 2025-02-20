@@ -227,7 +227,82 @@ const mostrarDetallesMuestra = (muestra) => {
     tincion_muestra.textContent = muestra.tincion;
     observaciones_muestra.textContent = muestra.observaciones;
 
+    mostrarImagenesMuestra(muestra.id);
+
 }
+const imgBig = document.getElementById("imgBig")
+const mostrarImagenesMuestra = async (idMuestra) => {
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/imagen/all/${idMuestra}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al cargar las imágenes");
+        }
+
+        const imagenes = await response.json(); // Obtener las imágenes en Base64
+        
+        // Seleccionamos el contenedor donde se mostrarán las imágenes
+        const contenedorImagenes = document.querySelector(".border-t-2.mt-10.flex.pt-3.items-center");
+        const imgBig = document.getElementById("imgBig"); // Seleccionar la imagen grande
+
+        // Limpiamos las imágenes anteriores
+        contenedorImagenes.innerHTML = '';
+
+        // Agregar las imágenes retornadas al contenedor
+        imagenes.forEach(img => {
+            const imgElement = document.createElement("img");
+            imgElement.src = img.imagen; // Base64 ya viene en el JSON
+            imgElement.classList.add("w-24", "mr-5", "miniatura");
+            
+            // Evento para cambiar la imagen grande cuando se haga clic en una miniatura
+            imgElement.addEventListener("click", () => {
+                imgBig.src = img.imagen;
+            });
+
+            contenedorImagenes.appendChild(imgElement);
+        });
+
+        // Mostrar la primera imagen como principal
+        if (imagenes.length > 0) {
+            imgBig.src = imagenes[0].imagen;
+        }
+
+        // Agregar el ícono de añadir imagen
+        const iconElement = document.createElement("a");
+        iconElement.id = "abrirModalAñadirImagen";
+        iconElement.href = "#"; // Cambia href a "#" para evitar recargas de página
+        const icon = document.createElement("i");
+        icon.classList.add("fa-solid", "fa-circle-plus", "fa-2xl", "text-blue-300");
+        iconElement.appendChild(icon);
+        contenedorImagenes.appendChild(iconElement);
+
+        // Esperar a que el elemento exista en el DOM antes de agregar el evento
+        setTimeout(() => {
+            const abrirModalAñadirImagen = document.getElementById("abrirModalAñadirImagen");
+            const modalAñadirImagen = document.getElementById("modalAñadirImagen");
+
+            if (abrirModalAñadirImagen && modalAñadirImagen) {
+                abrirModalAñadirImagen.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    modalAñadirImagen.classList.remove("hidden");
+                });
+            } else {
+                console.error("No se encontró el botón o el modal en el DOM.");
+            }
+        }, 100); // Espera un poco para asegurar que el botón está en el DOM
+
+    } catch (error) {
+        console.error("Error cargando las imágenes:", error);
+    }
+};
+
+
+
 
 const crearCassette = async () => {
     try {
@@ -377,6 +452,7 @@ const crearMuestra = async (cassette) => {
         }
 
         if (response.ok) {
+            console.log(imagenMuestra)
             if (imagenMuestra.files[0]) {
                 await createImage(imagenMuestra.files[0], data.createdMuestra.id);
             }
@@ -388,7 +464,7 @@ const crearMuestra = async (cassette) => {
             setTimeout(() => {
                 mensaje.style.display = "none";
                 location.reload();
-            }, 1000);
+            }, 1000000);
         } else {
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");

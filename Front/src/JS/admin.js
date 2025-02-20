@@ -6,6 +6,7 @@ const modalModificarUsuario=document.getElementById("modalModificarUsuario");
 const modalEliminarUsuario=document.getElementById("modalEliminarUsuario");
 const eliminar_usuario=document.getElementById("eliminar_usuario");
 const volver_inicio=document.getElementById("volver_inicio")
+const eliminar_usuarios=document.getElementById("eliminar_usuarios")
 
 cerrarModalModificarUsuario.addEventListener("click", ()=>{
     modalModificarUsuario.classList.add("hidden");
@@ -20,21 +21,21 @@ const id = sessionStorage.getItem("user_id");
 // Función para cargar usuarios y mostrarlos en la tabla
 const cargarUsuarios = async () => {
     
-    // try {
-    //     const response = await fetch(`http://localhost:3000/sanitaria/users/${id}`, {
-    //         method: "GET",
-    //         headers: {
-    //             Authorization: `${token}`,
-    //         },
-    //     });
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/users/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `${token}`,
+            },
+        });
 
-    //     const usuarios = await response.json();
-    //     if(usuarios.rol=="alumno"){
-    //         window.location.href="aplicacion.html";
-    //     }
-    // } catch (error) {
-    //     console.error("Error al cargar usuarios:", error);
-    // }
+        const usuarios = await response.json();
+        if(usuarios.rol=="alumno"){
+            window.location.href="aplicacion.html";
+        }
+    } catch (error) {
+        console.error("Error al cargar usuarios:", error);
+    }
     try {
         const response = await fetch("http://localhost:3000/sanitaria/users/", {
             method: "GET",
@@ -183,6 +184,25 @@ const eliminarUsuario = async (userId) => {
     })
 
 };
+
+const eliminarTodos = async() => {
+    if(confirm("¿ Deseas borrar todos los usuarios ?")){
+        console.log(token)
+        try {
+            await fetch(`http://localhost:3000/sanitaria/users/delete`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `${token}`,
+                },
+            });
+    } catch (error) {
+        console.error("Error al eliminar :", error);
+    }
+    window.location.href="../index.html";
+}
+}
+
+eliminar_usuarios.addEventListener("click",eliminarTodos)
 volver_inicio.addEventListener("click", ()=>{
     window.location.href="aplicacion.html";
 })
