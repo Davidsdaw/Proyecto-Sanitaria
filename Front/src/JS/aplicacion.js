@@ -70,11 +70,11 @@ let sortableInstance = null;
 
 const inicializarSortable = () => {
     if (typeof Sortable === "undefined") {
-        console.error("⚠️ SortableJS no está definido. Asegúrate de incluir la librería.");
+        console.error("SortableJS no está definido.");
         return;
     }
 
-    if (!sortableInstance) { // Evita inicializar múltiples veces
+    if (!sortableInstance) {
         sortableInstance = new Sortable(tabla_cassettes, {
             animation: 150,
             ghostClass: "bg-gray-100",
@@ -99,12 +99,10 @@ const cargarCassettes = async () => {
         });
 
         if (!response.ok) {
-            throw new Error(`Error al obtener datos: ${response.status}`);
+            throw new Error("Error al obtener dato");
         }
 
         dataCassettes = await response.json();
-        console.log("Token:", token);
-        console.log("Datos recibidos:", dataCassettes);
 
         mostrar_cassettes(dataCassettes);
         inicializarSortable(); 
@@ -114,7 +112,6 @@ const cargarCassettes = async () => {
     }
 };
 
-// 🟢 Función para ordenar por cualquier campo
 const ordenarCassettes = (campo) => {
     let ascendente = true;
 
@@ -125,12 +122,12 @@ const ordenarCassettes = (campo) => {
             return 0;
         });
 
-        ascendente = !ascendente; // Alterna ascendente/descendente
+        ascendente = !ascendente; 
         mostrar_cassettes(dataCassettes);
+        mostrarMuestrasCassette(dataCassettes)
     };
 };
 
-// Agregar eventos a los botones de ordenamiento
 ordenarPorFecha.addEventListener("click", ordenarCassettes("fecha"));
 ordenarPorDescripcion.addEventListener("click", ordenarCassettes("descripcion"));
 ordenarPorOrgano.addEventListener("click", ordenarCassettes("organo"));
@@ -193,8 +190,7 @@ let cassetteActual = null;
 const mostrarDetallesCassettes = (cassette) => {
     cassetteActual = cassette;
 
-    // console.log(cassette);
-    //editamos la fecha para DD/MM/YYYY
+    //Editamos la fecha para DD/MM/YYYY
     const fechaFormateada = new Date(cassette.fecha);
     const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
 
@@ -204,7 +200,7 @@ const mostrarDetallesCassettes = (cassette) => {
     organo_cassette.textContent = cassette.organo;
     caracteristicas_cassette.textContent = cassette.caracteristicas;
     observaciones_cassette.textContent = cassette.observaciones;
-
+    mostrarMuestrasCassette(cassette);
 }
 
 
@@ -289,6 +285,7 @@ const mostrarDetallesMuestra = (muestra) => {
     mostrarImagenesMuestra(muestra.id);
 
 }
+
 const imgBig = document.getElementById("imgBig")
 const mostrarImagenesMuestra = async (idMuestra) => {
     try {
@@ -359,8 +356,6 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         console.error("Error cargando las imágenes:", error);
     }
 };
-
-
 
 
 const crearCassette = async () => {
@@ -856,207 +851,6 @@ const modificarMuestra = async () => {
 
 const botonModificarMuestra = document.getElementById("botonModificarMuestra");
 botonModificarMuestra.addEventListener("click", modificarMuestra)
-
-
-
-
-//Ordenar por fecha cassettes
-let ordenAscendente = true; 
-
-const ordenarFecha = () => {
-    let cassettes = Array.from(tabla_cassettes.children).map(div => {
-        return {
-            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')), 
-            descripcion: div.children[1].textContent,
-            organo: div.children[2].textContent
-        };
-    });
-
-    cassettes.sort((a, b) => {
-        return ordenAscendente ? a.fecha - b.fecha : b.fecha - a.fecha;
-    });
-
-    ordenAscendente = !ordenAscendente;
-
-    if (ordenAscendente) {
-        ascendente.innerHTML = "&#x25B4;";
-    } else {
-        ascendente.innerHTML = "&#x25BE;";
-    }
-
-    mostrar_cassettes(cassettes);
-};
-
-const ascendente = document.getElementById("ascendente");
-const botonOrdenar = document.getElementById("ordenarPorFechaCassette");
-botonOrdenar.addEventListener("click", ordenarFecha);
-
-
-
-//Ordenar por fecha muestras
-let ordenAscendenteM = true;  
-
-const ordenarFechaMuestras = () => {
-    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
-
-    muestrasFiltradas.sort((a, b) => {
-        const fechaTextoA = a.querySelector("td:nth-child(1)").textContent;
-        const fechaTextoB = b.querySelector("td:nth-child(1)").textContent;
-
-        const [diaA, mesA, añoA] = fechaTextoA.split('/');
-        const [diaB, mesB, añoB] = fechaTextoB.split('/');
-
-        const fechaA = new Date(`${añoA}-${mesA}-${diaA}`);
-        const fechaB = new Date(`${añoB}-${mesB}-${diaB}`);
-
-        return ordenAscendenteM ? fechaA - fechaB : fechaB - fechaA;
-    });
-
-    ordenAscendenteM = !ordenAscendenteM;
-    ascendenteM.innerHTML = ordenAscendenteM ? "&#x25B4;" : "&#x25BE;";
-
-    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
-};
-
-const ascendenteM = document.getElementById("ascendenteM");
-const botonOrdenarMuestras = document.getElementById("ordenarPorFechaMuestra");
-botonOrdenarMuestras.addEventListener("click", ordenarFechaMuestras);
-
-
-
-//Ordenar por descripcion cassettes
-let ordenAscendenteDescCassettes = true; 
-const ordenarDescripcionCassettes = () => {
-    let cassettes = Array.from(tabla_cassettes.children).map(div => {
-        return {
-            descripcion: div.children[1].textContent,
-            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')),
-            organo: div.children[2].textContent
-        };
-    });
-
-    cassettes.sort((a, b) => {
-        return ordenAscendenteDescCassettes ? a.descripcion.localeCompare(b.descripcion) : b.descripcion.localeCompare(a.descripcion);
-    });
-
-    ordenAscendenteDescCassettes = !ordenAscendenteDescCassettes;
-
-    if (ordenAscendenteDescCassettes) {
-        ascendenteDesc.innerHTML = "&#x25B4;";
-    } else {
-        ascendenteDesc.innerHTML = "&#x25BE;";
-    }
-
-    mostrar_cassettes(cassettes);
-};
-const ascendenteDesc = document.getElementById("ascendenteDesc");
-const botonOrdenarDescCassettes = document.getElementById("ordenarPorDescripcionCassette");
-botonOrdenarDescCassettes.addEventListener("click", ordenarDescripcionCassettes);
-
-
-
-
-//Ordenar por descripcion muestras
-let ordenAscendenteDescM = true; 
-
-const ordenarDescripcionMuestras = () => {
-    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
-
-    muestrasFiltradas.sort((a, b) => {
-        const descripcionA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();
-        const descripcionB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
-
-        return ordenAscendenteDescM 
-            ? descripcionA.localeCompare(descripcionB) 
-            : descripcionB.localeCompare(descripcionA);
-    });
-
-    
-    ordenAscendenteDescM = !ordenAscendenteDescM;
-
-    if (ordenAscendenteDescM) {
-        ascendenteDescM.innerHTML = "&#x25B4;"; 
-    } else {
-        ascendenteDescM.innerHTML = "&#x25BE;";
-    }
-
-    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
-};
-
-const ascendenteDescM = document.getElementById("ascendenteDescM");
-const botonOrdenarDescMuestras = document.getElementById("ordenarPorDescripcionMuestra");
-botonOrdenarDescMuestras.addEventListener("click", ordenarDescripcionMuestras);
-
-
-
-//Ordenar por organo cassettes
-let ordenAscendenteOrg = true;
-
-const ordenarOrganoCassette = () => {
-    let cassettes = Array.from(tabla_cassettes.children).map(row => {
-        return {
-            fecha: row.children[0].textContent,
-            descripcion: row.children[1].textContent,
-            organo: row.children[2].textContent,
-            elemento: row
-        };
-    });
-    
-    cassettes.sort((a, b) => {
-        let letraA = a.organo.charAt(0).toLowerCase();
-        let letraB = b.organo.charAt(0).toLowerCase();
-        return ordenAscendenteOrg ? (letraA > letraB ? 1 : -1) : (letraA < letraB ? 1 : -1);
-    });
-
-    tabla_cassettes.textContent = "";
-
-    ordenAscendenteOrg = !ordenAscendenteOrg;
-
-    if (ordenAscendenteOrg) {
-        ascendenteOrg.innerHTML = "&#x25B4;";  
-    } else {
-        ascendenteOrg.innerHTML = "&#x25BE;";  
-    }
-
-    cassettes.forEach(cassette => tabla_cassettes.appendChild(cassette.elemento));
-
-
-};
-const ascendenteOrg = document.getElementById("ascendenteOrg");
-const botonOrdenarOrganoCassette = document.getElementById("ordenarPorOrganoCassette");
-botonOrdenarOrganoCassette.addEventListener("click", ordenarOrganoCassette);
-
-
-//Ordenar por tincion muestras
-let ordenAscendenteTincion = true;
-const ordenarTincion = () => {
-    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));  
-
-    muestrasFiltradas.sort((a, b) => {
-        const tincionA = a.querySelector("td:nth-child(3)").textContent.toLowerCase();
-        const tincionB = b.querySelector("td:nth-child(3)").textContent.toLowerCase();
-        
-        return ordenAscendenteTincion ? tincionA > tincionB ? 1 : -1 : tincionA < tincionB ? 1 : -1;
-    });
-
-    ordenAscendenteTincion = !ordenAscendenteTincion;
-
-    if (ordenAscendenteTincion) {
-        ascendenteTincion.innerHTML = "&#x25B4;";
-    } else {
-        ascendenteTincion.innerHTML = "&#x25BE;";
-    }
-
-    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
-};
-
-const ascendenteTincion = document.getElementById("ascendenteTincion");
-const botonOrdenarTincion = document.getElementById("ordenarPorTincionMuestra");
-botonOrdenarTincion.addEventListener("click", ordenarTincion);
 
 
 const btn_logout=document.getElementById("btn_logout");
