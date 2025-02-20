@@ -8,7 +8,9 @@ const cerrarModalBasura = document.getElementById("cerrarModalBasura");
 // Funcion para mostrar modal para eliminar cassette
 abrirModalBasura.addEventListener("click", (e) => {
     e.preventDefault();
-    modal.classList.remove("hidden");
+    if(cassetteActual){
+        modal.classList.remove("hidden");
+    }
 });
 // Funcion para cerrar modal para eliminar cassette
 cerrarModalBasura.addEventListener("click", () => {
@@ -31,7 +33,9 @@ const cerrarModalModificarCassete = document.getElementById("cerrarModalModifica
 // Funcion para mostrar modal para modificar cassette
 abrirModalModificarCassete.addEventListener("click", (e) => {
     e.preventDefault();
-    modalModifiCass.classList.remove("hidden");
+    if(cassetteActual){
+        modalModifiCass.classList.remove("hidden");
+    }
 });
 // Funcion para cerrar modal para modificar cassette
 cerrarModalModificarCassete.addEventListener("click", () => {
@@ -56,7 +60,9 @@ const cerrarModalNuevaMuestra = document.getElementById("cerrarModalNuevaMuestra
 // Funcion para mostrar modal para crear muestra
 abrirModalNuevaMuestra.addEventListener("click", (e) => {
     e.preventDefault();
-    modalNuevaMuestra.classList.remove("hidden");
+    if(cassetteActual){
+        modalNuevaMuestra.classList.remove("hidden");
+    }
 });
 // Funcion para cerrar modal para crear muestra
 cerrarModalNuevaMuestra.addEventListener("click", () => {
