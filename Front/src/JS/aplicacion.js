@@ -465,6 +465,9 @@ const crearMuestra = async (cassette) => {
                 mensaje.style.display = "none";
                 location.reload();
             }, 1000000);
+
+            window.reload();
+
         } else {
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
@@ -995,3 +998,15 @@ const ordenarTincion = () => {
 const ascendenteTincion = document.getElementById("ascendenteTincion");
 const botonOrdenarTincion = document.getElementById("ordenarPorTincionMuestra");
 botonOrdenarTincion.addEventListener("click", ordenarTincion);
+
+
+const btn_logout=document.getElementById("btn_logout");
+
+const logout=(event)=>{
+    console.log(event.target);
+    location.href="/Front/src/index.html";
+    sessionStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+}
+
+btn_logout.addEventListener("click", logout);
