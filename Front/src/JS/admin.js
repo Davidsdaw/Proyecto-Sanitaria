@@ -32,16 +32,10 @@ cerrarModalEliminarUsuario.addEventListener("click", ()=>{
     modalEliminarUsuario.classList.add("hidden");
 })
 
-const volver_inicio=document.getElementById("volver_inicio");
-volver_inicio.addEventListener("click", ()=>{
-    window.location.href="aplicacion.html";
-})
-
-
 const token = localStorage.getItem('token')
 
 const mostrarDatosUsuario=async()=>{
-    const response = await fetch(`http://localhost:3000/sanitaria/users/${user.id}`, {
+    const response = await fetch(`http://localhost:3000/sanitaria/users/${id_usuario_modificar.textContent}`, {
         method: 'GET',
         headers: {
             'Authorization': `${token}`,
@@ -56,54 +50,4 @@ const mostrarDatosUsuario=async()=>{
     modificar_alumno_gmail.value=user.email;
     modificar_alumno_centro.value=user.centro;
     modificar_alumno_rol.value=user.rol;
-}
-
-const eliminar_usuarios = document.getElementById("eliminar_usuarios");
-
-const eliminarUsuarios = async()=>{
-    const response = await fetch(`http://localhost:3000/sanitaria/users/delete`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `${token}`,
-            "Content-Type": "application/json",
-        }
-    });
-    const user = await response.json();
-    
-}
-
-
-const modificar_usuario = document.getElementById("modificar_usuario");
-
-const modificarUsuarios = async()=>{
-    const response = await fetch(`http://localhost:3000/sanitaria/users/edit/${usuario.id}`, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': `${token}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nombre: modificar_alumno_nombre.value,
-            apellido: modificar_alumno_apellidos.value,
-            email: modificar_alumno_gmail.value,
-            password: modificar_alumno_password.value,
-            centro: modificar_alumno_centro.value,
-        })
-    });
-    const user = await response.json();
-    
-}
-
-
-const eliminar_usuario = document.getElementById("eliminar_usuario");
-
-const eliminarUsuario = async()=>{
-    const response = await fetch(`http://localhost:3000/sanitaria/users/delete/${usuario.id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `${token}`,
-            "Content-Type": "application/json",
-        }
-    });
-    const user = await response.json();
 }
