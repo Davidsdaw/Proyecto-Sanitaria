@@ -20,6 +20,9 @@ const id = sessionStorage.getItem("user_id");
 
 // Función para cargar usuarios y mostrarlos en la tabla
 const cargarUsuarios = async () => {
+    if(!sessionStorage.getItem("user_id")){
+        location.href="../index.html"
+    }
     
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/users/${id}`, {

@@ -90,6 +90,9 @@ const inicializarSortable = () => {
 };
 
 const cargarCassettes = async () => {
+    if(!sessionStorage.getItem("user_id")){
+        location.href="../index.html"
+    }
     try {
         const response = await fetch("http://localhost:3000/sanitaria/cassette", {
             method: 'GET',
