@@ -120,19 +120,19 @@
                     <div class="w-full rounded-lg overflow-hidden border-blue-400 border">
                         <div class="bg-gray-200 text-blue-400 flex h-8">
                             <div
-                                class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
+                                id="ordenarPorFechaCassette" class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                                 Fecha
-                                <span class="text-gray-500 hidden">&#x25B4;</span>
+                                <span id="ascendente" class="text-gray-500">&#x25B4;</span>
                             </div>
-                            <div
+                            <div id="ordenarPorDescripcionCassette"
                                 class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                                 Descripción
-                                <span class="text-gray-500 hidden">&#x25BE;</span>
+                                <span id="ascendenteDesc" class="text-gray-500">&#x25B4;</span>
                             </div>
-                            <div
+                            <div id="ordenarPorOrganoCassette"
                                 class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                                 Órgano
-                                <span class="text-gray-500 hidden">&#x25B4;</span>
+                                <span id="ascendenteOrg" class="text-gray-500">&#x25B4;</span>
                             </div>
                         </div>
                         <div id="tabla_cassettes" class="divide-y border-blue-400 border">
@@ -237,20 +237,20 @@
             </div>
             <table class="w-full text-left border-collapse border border-blue-400">
                 <div class="bg-gray-200 text-blue-400 flex h-8 border-blue-400 border rounded">
-                    <div
+                    <div id="ordenarPorFechaMuestra"
                         class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Fecha
-                        <span class="text-gray-500 hidden">&#x25B4;</span>
+                        <span id="ascendenteM" class="text-gray-500">&#x25B4;</span>
                     </div>
-                    <div
+                    <div id="ordenarPorDescripcionMuestra"
                         class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Descripción
-                        <span class="text-gray-500 hidden">&#x25BE;</span>
+                        <span id="ascendenteDescM" class="text-gray-500">&#x25B4;</span>
                     </div>
-                    <div
+                    <div id="ordenarPorTincionMuestra"
                         class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                         Tinción
-                        <span class="text-gray-500 hidden">&#x25B4;</span>
+                        <span id="ascendenteTincion" class="text-gray-500">&#x25B4;</span>
                     </div>
                 </div>
                 <tbody>
@@ -460,14 +460,12 @@
                 </div>
                 <div class="ml-20">
 
-                    <img class="size-auto" src="../assets/adn.jpg" alt="">
+                    <img id="imgBig" class="size-auto" src="../assets/adn.jpg" alt="">
 
                 </div>
 
             </div>
             <div class="border-t-2 mt-10 flex pt-3 items-center">
-                <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
-                <img class="w-24 mr-5" src="../assets/adn.jpg" alt="">
                 <a id="abrirModalAñadirImagen" href=""><i class="fa-solid fa-circle-plus fa-2xl text-blue-300"></i></a>
             </div>
         </div>
@@ -484,7 +482,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-blue-400 text-left w-full">
                     Imagen
                 </h2>
-                <input id="imagenMuestra" type="file"
+                <input id="imagenMuestra2" type="file"
                 class="mb-5 border w-full max-w-2xl flex align-middle justify-center text-blue-300 text-center border-blue-300 hover:border-blue-300 focus:border-blue-300 focus:ring-1 focus:ring-blue-300 focus:outline-none file:bg-blue-300 file:text-white file:border-none file:rounded file:px-3 file:py-1 file:cursor-pointer file:hover:bg-blue-500">
                 <button id="botonEliminarAñadirMuestra"
                     class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">

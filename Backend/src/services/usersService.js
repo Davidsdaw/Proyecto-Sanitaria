@@ -60,7 +60,7 @@ const getAllUsers = async () => {
       if (!user) {
         throw new Error("Cliente no encontrado");
       }
-      if (userData.pass) {
+      if (userData.password) {
         userData.password=bcrypt.hashSync(userData.password, 10)
       }
       return await Usuario.update(userData,{
@@ -87,6 +87,17 @@ const getAllUsers = async () => {
     }
   };
   
+  const deleteAll = async () => {
+    try {
+      const deletedCount = await Usuario.destroy({
+        where: {}, // Elimina todos los registros
+      });
+      return deletedCount;
+    } catch (error) {
+      throw new Error("Error al eliminar todos los usuarios: " + error.message);
+    }
+  };
+
 
   module.exports = {
     getAllUsers,
@@ -97,4 +108,5 @@ const getAllUsers = async () => {
     createUser,
     editUser,
     loginUser,
+    deleteAll,
   }

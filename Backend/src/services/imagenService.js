@@ -38,9 +38,21 @@ const createImagen = async (imagenData) => {
     }
   };
 
+  const getAllImagenById = async (muestra_id) => {
+    try {
+        console.log(muestra_id)
+        return await Imagen.findAll({
+            where: { muestra_id }
+        });
+    } catch (error) {
+        throw new Error("Error al obtener las imágenes por muestra_id: " + error.message);
+    }
+};
+
 module.exports = {
     getAllImages,
     getImagenById,
     deleteImagen,
-    createImagen
+    createImagen,
+    getAllImagenById,
 }

@@ -227,7 +227,82 @@ const mostrarDetallesMuestra = (muestra) => {
     tincion_muestra.textContent = muestra.tincion;
     observaciones_muestra.textContent = muestra.observaciones;
 
+    mostrarImagenesMuestra(muestra.id);
+
 }
+const imgBig = document.getElementById("imgBig")
+const mostrarImagenesMuestra = async (idMuestra) => {
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/imagen/all/${idMuestra}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al cargar las imágenes");
+        }
+
+        const imagenes = await response.json(); // Obtener las imágenes en Base64
+        
+        // Seleccionamos el contenedor donde se mostrarán las imágenes
+        const contenedorImagenes = document.querySelector(".border-t-2.mt-10.flex.pt-3.items-center");
+        const imgBig = document.getElementById("imgBig"); // Seleccionar la imagen grande
+
+        // Limpiamos las imágenes anteriores
+        contenedorImagenes.innerHTML = '';
+
+        // Agregar las imágenes retornadas al contenedor
+        imagenes.forEach(img => {
+            const imgElement = document.createElement("img");
+            imgElement.src = img.imagen; // Base64 ya viene en el JSON
+            imgElement.classList.add("w-24", "mr-5", "miniatura");
+            
+            // Evento para cambiar la imagen grande cuando se haga clic en una miniatura
+            imgElement.addEventListener("click", () => {
+                imgBig.src = img.imagen;
+            });
+
+            contenedorImagenes.appendChild(imgElement);
+        });
+
+        // Mostrar la primera imagen como principal
+        if (imagenes.length > 0) {
+            imgBig.src = imagenes[0].imagen;
+        }
+
+        // Agregar el ícono de añadir imagen
+        const iconElement = document.createElement("a");
+        iconElement.id = "abrirModalAñadirImagen";
+        iconElement.href = "#"; // Cambia href a "#" para evitar recargas de página
+        const icon = document.createElement("i");
+        icon.classList.add("fa-solid", "fa-circle-plus", "fa-2xl", "text-blue-300");
+        iconElement.appendChild(icon);
+        contenedorImagenes.appendChild(iconElement);
+
+        // Esperar a que el elemento exista en el DOM antes de agregar el evento
+        setTimeout(() => {
+            const abrirModalAñadirImagen = document.getElementById("abrirModalAñadirImagen");
+            const modalAñadirImagen = document.getElementById("modalAñadirImagen");
+
+            if (abrirModalAñadirImagen && modalAñadirImagen) {
+                abrirModalAñadirImagen.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    modalAñadirImagen.classList.remove("hidden");
+                });
+            } else {
+                console.error("No se encontró el botón o el modal en el DOM.");
+            }
+        }, 100); // Espera un poco para asegurar que el botón está en el DOM
+
+    } catch (error) {
+        console.error("Error cargando las imágenes:", error);
+    }
+};
+
+
+
 
 const crearCassette = async () => {
     try {
@@ -377,6 +452,7 @@ const crearMuestra = async (cassette) => {
         }
 
         if (response.ok) {
+            console.log(imagenMuestra)
             if (imagenMuestra.files[0]) {
                 await createImage(imagenMuestra.files[0], data.createdMuestra.id);
             }
@@ -388,7 +464,7 @@ const crearMuestra = async (cassette) => {
             setTimeout(() => {
                 mensaje.style.display = "none";
                 location.reload();
-            }, 1000);
+            }, 1000000);
         } else {
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
@@ -718,3 +794,204 @@ const modificarMuestra = async () => {
 
 const botonModificarMuestra = document.getElementById("botonModificarMuestra");
 botonModificarMuestra.addEventListener("click", modificarMuestra)
+
+
+
+
+//Ordenar por fecha cassettes
+let ordenAscendente = true; 
+
+const ordenarFecha = () => {
+    let cassettes = Array.from(tabla_cassettes.children).map(div => {
+        return {
+            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')), 
+            descripcion: div.children[1].textContent,
+            organo: div.children[2].textContent
+        };
+    });
+
+    cassettes.sort((a, b) => {
+        return ordenAscendente ? a.fecha - b.fecha : b.fecha - a.fecha;
+    });
+
+    ordenAscendente = !ordenAscendente;
+
+    if (ordenAscendente) {
+        ascendente.innerHTML = "&#x25B4;";
+    } else {
+        ascendente.innerHTML = "&#x25BE;";
+    }
+
+    mostrar_cassettes(cassettes);
+};
+
+const ascendente = document.getElementById("ascendente");
+const botonOrdenar = document.getElementById("ordenarPorFechaCassette");
+botonOrdenar.addEventListener("click", ordenarFecha);
+
+
+
+//Ordenar por fecha muestras
+let ordenAscendenteM = true;  
+
+const ordenarFechaMuestras = () => {
+    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
+    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
+
+    muestrasFiltradas.sort((a, b) => {
+        const fechaTextoA = a.querySelector("td:nth-child(1)").textContent;
+        const fechaTextoB = b.querySelector("td:nth-child(1)").textContent;
+
+        const [diaA, mesA, añoA] = fechaTextoA.split('/');
+        const [diaB, mesB, añoB] = fechaTextoB.split('/');
+
+        const fechaA = new Date(`${añoA}-${mesA}-${diaA}`);
+        const fechaB = new Date(`${añoB}-${mesB}-${diaB}`);
+
+        return ordenAscendenteM ? fechaA - fechaB : fechaB - fechaA;
+    });
+
+    ordenAscendenteM = !ordenAscendenteM;
+    ascendenteM.innerHTML = ordenAscendenteM ? "&#x25B4;" : "&#x25BE;";
+
+    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
+};
+
+const ascendenteM = document.getElementById("ascendenteM");
+const botonOrdenarMuestras = document.getElementById("ordenarPorFechaMuestra");
+botonOrdenarMuestras.addEventListener("click", ordenarFechaMuestras);
+
+
+
+//Ordenar por descripcion cassettes
+let ordenAscendenteDescCassettes = true; 
+const ordenarDescripcionCassettes = () => {
+    let cassettes = Array.from(tabla_cassettes.children).map(div => {
+        return {
+            descripcion: div.children[1].textContent,
+            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')),
+            organo: div.children[2].textContent
+        };
+    });
+
+    cassettes.sort((a, b) => {
+        return ordenAscendenteDescCassettes ? a.descripcion.localeCompare(b.descripcion) : b.descripcion.localeCompare(a.descripcion);
+    });
+
+    ordenAscendenteDescCassettes = !ordenAscendenteDescCassettes;
+
+    if (ordenAscendenteDescCassettes) {
+        ascendenteDesc.innerHTML = "&#x25B4;";
+    } else {
+        ascendenteDesc.innerHTML = "&#x25BE;";
+    }
+
+    mostrar_cassettes(cassettes);
+};
+const ascendenteDesc = document.getElementById("ascendenteDesc");
+const botonOrdenarDescCassettes = document.getElementById("ordenarPorDescripcionCassette");
+botonOrdenarDescCassettes.addEventListener("click", ordenarDescripcionCassettes);
+
+
+
+
+//Ordenar por descripcion muestras
+let ordenAscendenteDescM = true; 
+
+const ordenarDescripcionMuestras = () => {
+    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
+
+    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
+
+    muestrasFiltradas.sort((a, b) => {
+        const descripcionA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();
+        const descripcionB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
+
+        return ordenAscendenteDescM 
+            ? descripcionA.localeCompare(descripcionB) 
+            : descripcionB.localeCompare(descripcionA);
+    });
+
+    
+    ordenAscendenteDescM = !ordenAscendenteDescM;
+
+    if (ordenAscendenteDescM) {
+        ascendenteDescM.innerHTML = "&#x25B4;"; 
+    } else {
+        ascendenteDescM.innerHTML = "&#x25BE;";
+    }
+
+    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
+};
+
+const ascendenteDescM = document.getElementById("ascendenteDescM");
+const botonOrdenarDescMuestras = document.getElementById("ordenarPorDescripcionMuestra");
+botonOrdenarDescMuestras.addEventListener("click", ordenarDescripcionMuestras);
+
+
+
+//Ordenar por organo cassettes
+let ordenAscendenteOrg = true;
+
+const ordenarOrganoCassette = () => {
+    let cassettes = Array.from(tabla_cassettes.children).map(row => {
+        return {
+            fecha: row.children[0].textContent,
+            descripcion: row.children[1].textContent,
+            organo: row.children[2].textContent,
+            elemento: row
+        };
+    });
+    
+    cassettes.sort((a, b) => {
+        let letraA = a.organo.charAt(0).toLowerCase();
+        let letraB = b.organo.charAt(0).toLowerCase();
+        return ordenAscendenteOrg ? (letraA > letraB ? 1 : -1) : (letraA < letraB ? 1 : -1);
+    });
+
+    tabla_cassettes.textContent = "";
+
+    ordenAscendenteOrg = !ordenAscendenteOrg;
+
+    if (ordenAscendenteOrg) {
+        ascendenteOrg.innerHTML = "&#x25B4;";  
+    } else {
+        ascendenteOrg.innerHTML = "&#x25BE;";  
+    }
+
+    cassettes.forEach(cassette => tabla_cassettes.appendChild(cassette.elemento));
+
+
+};
+const ascendenteOrg = document.getElementById("ascendenteOrg");
+const botonOrdenarOrganoCassette = document.getElementById("ordenarPorOrganoCassette");
+botonOrdenarOrganoCassette.addEventListener("click", ordenarOrganoCassette);
+
+
+//Ordenar por tincion muestras
+let ordenAscendenteTincion = true;
+const ordenarTincion = () => {
+    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
+    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));  
+
+    muestrasFiltradas.sort((a, b) => {
+        const tincionA = a.querySelector("td:nth-child(3)").textContent.toLowerCase();
+        const tincionB = b.querySelector("td:nth-child(3)").textContent.toLowerCase();
+        
+        return ordenAscendenteTincion ? tincionA > tincionB ? 1 : -1 : tincionA < tincionB ? 1 : -1;
+    });
+
+    ordenAscendenteTincion = !ordenAscendenteTincion;
+
+    if (ordenAscendenteTincion) {
+        ascendenteTincion.innerHTML = "&#x25B4;";
+    } else {
+        ascendenteTincion.innerHTML = "&#x25BE;";
+    }
+
+    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
+};
+
+const ascendenteTincion = document.getElementById("ascendenteTincion");
+const botonOrdenarTincion = document.getElementById("ordenarPorTincionMuestra");
+botonOrdenarTincion.addEventListener("click", ordenarTincion);

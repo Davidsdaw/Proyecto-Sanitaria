@@ -7,6 +7,7 @@ const upload = multer({ storage });
 
 imagenrouter.get("/",verifyToken, imagenController.getImagenById);
 imagenrouter.get("/:id",verifyToken, imagenController.getImagenById);
+imagenrouter.get("/all/:id",verifyToken, imagenController.getAllImagenById);
 imagenrouter.delete("/delete/:id",verifyToken, imagenController.deleteImagen);
 imagenrouter.post("/create", verifyToken, upload.single("imagen"), imagenController.createImagen);
 

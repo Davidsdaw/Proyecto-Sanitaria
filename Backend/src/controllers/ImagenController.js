@@ -57,10 +57,32 @@ const createImagen = async (req, res) => {
   }
 };
 
+const getAllImagenById = async (req, res) => {
+  try {
+      const imagenes = await imagenService.getAllImagenById(req.params.id);
+
+      if (!imagenes || imagenes.length === 0) {
+          return res.status(404).json({ error: "Imagen no encontrada" });
+      }
+
+      // Si hay varias imágenes, devuelve un array de imágenes como blobs
+      res.setHeader("Content-Type", "application/json");
+      res.json(imagenes.map(imagen => ({
+          id: imagen.id,
+          imagen: `data:image/jpeg;base64,${imagen.imagen.toString("base64")}`,  // Convertir BLOB a Base64
+          muestra_id: imagen.muestra_id
+      })));
+
+  } catch (error) {
+      return res.status(500).json({ error: error.message });
+  }
+};
+
 
 module.exports = {
     getAllImages,
     getImagenById,
     deleteImagen,
-    createImagen
+    createImagen,
+    getAllImagenById,
 }
