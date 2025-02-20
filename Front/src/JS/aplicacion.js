@@ -61,21 +61,80 @@ const token = localStorage.getItem('token')
 
 
 
-const cargarCassettes = async () => {
-    const response = await fetch("http://localhost:3000/sanitaria/cassette",{
-        method: 'GET',
-    headers: {
-        'Authorization': `${token}` ,
+const ordenarPorFecha = document.getElementById("ordenarPorFechaCassette");
+const ordenarPorDescripcion = document.getElementById("ordenarPorDescripcionCassette");
+const ordenarPorOrgano = document.getElementById("ordenarPorOrganoCassette");
+
+let dataCassettes = [];
+let sortableInstance = null; 
+
+const inicializarSortable = () => {
+    if (typeof Sortable === "undefined") {
+        console.error("⚠️ SortableJS no está definido. Asegúrate de incluir la librería.");
+        return;
     }
-    });
-    const data = await response.json();
-    console.log(token)
-    // data.forEach(cassette => {
-    //     console.log(cassette);
-    // });
-    mostrar_cassettes(data);
-    return data;
-}
+
+    if (!sortableInstance) { // Evita inicializar múltiples veces
+        sortableInstance = new Sortable(tabla_cassettes, {
+            animation: 150,
+            ghostClass: "bg-gray-100",
+            onEnd: function (evt) {
+                const newOrder = [...tabla_cassettes.children].map(child => 
+                    dataCassettes.find(c => c.id == child.dataset.id)
+                );
+                dataCassettes = newOrder;
+                console.log("Nuevo orden manual:", dataCassettes);
+            }
+        });
+    }
+};
+
+const cargarCassettes = async () => {
+    try {
+        const response = await fetch("http://localhost:3000/sanitaria/cassette", {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al obtener datos: ${response.status}`);
+        }
+
+        dataCassettes = await response.json();
+        console.log("Token:", token);
+        console.log("Datos recibidos:", dataCassettes);
+
+        mostrar_cassettes(dataCassettes);
+        inicializarSortable(); 
+        return dataCassettes;
+    } catch (error) {
+        console.error("Error al cargar cassettes:", error);
+    }
+};
+
+// 🟢 Función para ordenar por cualquier campo
+const ordenarCassettes = (campo) => {
+    let ascendente = true;
+
+    return () => {
+        dataCassettes.sort((a, b) => {
+            if (a[campo] < b[campo]) return ascendente ? -1 : 1;
+            if (a[campo] > b[campo]) return ascendente ? 1 : -1;
+            return 0;
+        });
+
+        ascendente = !ascendente; // Alterna ascendente/descendente
+        mostrar_cassettes(dataCassettes);
+    };
+};
+
+// Agregar eventos a los botones de ordenamiento
+ordenarPorFecha.addEventListener("click", ordenarCassettes("fecha"));
+ordenarPorDescripcion.addEventListener("click", ordenarCassettes("descripcion"));
+ordenarPorOrgano.addEventListener("click", ordenarCassettes("organo"));
+
 
 
 const mostrar_cassettes = (data) => {
