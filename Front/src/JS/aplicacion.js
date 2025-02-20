@@ -37,6 +37,7 @@ const tabla_muestras = document.getElementById("tabla_muestras");
 
 const nueva_muestra = document.getElementById("nueva_muestra");
 const imagenMuestra =document.getElementById("imagenMuestra")
+const eliminarImagenGrande=document.getElementById("eliminarImagenGrande")
 
 //filtros
 //select organo
@@ -336,6 +337,7 @@ const mostrarDetallesMuestra = (muestra) => {
 }
 const imgBig = document.getElementById("imgBig")
 const mostrarImagenesMuestra = async (idMuestra) => {
+    sessionStorage.setItem("idMuestra",idMuestra)
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/imagen/all/${idMuestra}`, {
             method: "GET",
@@ -362,10 +364,12 @@ const mostrarImagenesMuestra = async (idMuestra) => {
             const imgElement = document.createElement("img");
             imgElement.src = img.imagen; // Base64 ya viene en el JSON
             imgElement.classList.add("w-24", "mr-5", "miniatura");
-            
+            imgElement.dataset.id = img.id; // Guardamos el ID en un atributo dataset
+
             // Evento para cambiar la imagen grande cuando se haga clic en una miniatura
             imgElement.addEventListener("click", () => {
                 imgBig.src = img.imagen;
+                imgBig.alt = img.id; // Guardar el ID en el alt de la imagen grande
             });
 
             contenedorImagenes.appendChild(imgElement);
@@ -374,6 +378,7 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         // Mostrar la primera imagen como principal
         if (imagenes.length > 0) {
             imgBig.src = imagenes[0].imagen;
+            imgBig.alt = imagenes[0].id; // Guardar el ID de la primera imagen en el alt
         }
 
         // Agregar el ícono de añadir imagen
@@ -404,7 +409,79 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         console.error("Error cargando las imágenes:", error);
     }
 };
+const eliminarImagenActual = async () => {
+    try {
+        const imgBig = document.getElementById("imgBig");
+        const idImagen = imgBig.alt; // Obtener el ID desde el alt
+        if (!idImagen) {
+            console.error("No se encontró un ID en la imagen.");
+            return;
+        }
 
+        // Obtener el ID de la muestra (puedes pasarlo como parámetro o extraerlo de otro elemento)
+        const idMuestra = imgBig.muestraId;
+
+        // Hacer la petición DELETE al servidor
+        const response = await fetch(`http://localhost:3000/sanitaria/imagen/delete/${idImagen}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `${token}`,
+                "Content-Type": "application/json",
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar la imagen");
+        }
+
+        console.log("Imagen eliminada correctamente.");
+
+
+        // 🔄 Volver a cargar las imágenes después de la eliminación
+        mostrarImagenesMuestra(sessionStorage.getItem("idMuestra"));
+
+    } catch (error) {
+        console.error("Error al eliminar la imagen:", error);
+    }
+};
+
+// Asociar la función al botón de la papelera
+document.getElementById("abrirModalBasuraMuestra").addEventListener("click", (e) => {
+    e.preventDefault();
+    eliminarImagenActual();
+});
+
+
+
+document.getElementById("botonEliminarAñadirMuestra").addEventListener("click", async () => {
+    const inputImagen = document.getElementById("imagenMuestra2");
+    const file = inputImagen.files[0]; // Obtener el archivo seleccionado
+    const modalAñadirImagen = document.getElementById("modalAñadirImagen");
+
+    if (!file) {
+        alert("Por favor, selecciona una imagen.");
+        return;
+    }
+
+    // Obtener el ID de la muestra desde sessionStorage
+    const idMuestra = sessionStorage.getItem("idMuestra");
+
+    if (!idMuestra) {
+        console.error("No se encontró un ID de muestra.");
+        return;
+    }
+
+    await createImage(file, idMuestra);
+
+    // Cerrar el modal
+    modalAñadirImagen.classList.add("hidden");
+
+    // Limpiar el input
+    inputImagen.value = "";
+
+    // Recargar imágenes para mostrar la nueva
+    mostrarImagenesMuestra(idMuestra);
+});
 
 
 
@@ -912,4 +989,6 @@ const logout=(event)=>{
     localStorage.removeItem("token");
 }
 
+
+eliminarImagenGrande.addEventListener("click",eliminarImagenActual)
 btn_logout.addEventListener("click", logout);
