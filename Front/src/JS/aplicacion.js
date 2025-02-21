@@ -71,6 +71,7 @@ const ordenarPorDescripcion = document.getElementById("ordenarPorDescripcionCass
 const ordenarPorOrgano = document.getElementById("ordenarPorOrganoCassette");
 const modificar_identificador_cassette = document.getElementById("modificar_identificador_cassette");
 
+
 //funcion para cargar cassettes al cargar la página
 const cargarCassettes = async () => {
     if(!sessionStorage.getItem("user_id")){
@@ -524,30 +525,8 @@ const verificarIdOrgano = async (idOrgano) => {
 //funcion para crear cassette
 const crearCassette = async () => {
     try {
-        const id_user = sessionStorage.getItem("user_id") || "";
-        const organoSeleccionado = selectCassete.value || "";
-        const identificador = id_identificadorCassete.value || "";
-        const descripcion = descripcionCassete.value || "";
-        const fecha = fechaCassete.value || "";
-        const caracteristicas = caracteristicasCassete.value || "";
-        const observaciones = observacionesCassete.value || "";
-        const idOrganoGenerado = organoSeleccionado.slice(0, 3) + "-" + identificador;
-
-        // Verificar si todos los campos están llenos
-        if (!id_user || !organoSeleccionado || !identificador || !descripcion || !fecha || !caracteristicas || !observaciones) {
-            if (cerrarModalNuevoCassete) {
-                cerrarModalNuevoCassete.click();
-            }
-            mensaje.textContent = "Todos los campos son obligatorios.";
-            mensaje.className = ""; // Limpiar clases previas
-            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
-            mensaje.style.display = "block";
-
-            setTimeout(() => {
-                mensaje.style.display = "none";
-            }, 2000);
-            return;
-        }
+        const id_user = sessionStorage.getItem("user_id");
+        const idOrganoGenerado = selectCassete.value.slice(0, 3) + "-" + id_identificadorCassete.value;
 
         // Verificar si idOrgano ya existe
         const existe = await verificarIdOrgano(idOrganoGenerado);
@@ -563,7 +542,7 @@ const crearCassette = async () => {
             setTimeout(() => {
                 mensaje.style.display = "none";
             }, 2000);
-            return;
+            return; // No continuar con la creación
         }
 
         // Si el idOrgano no existe, procedemos con la creación
@@ -574,12 +553,12 @@ const crearCassette = async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                descripcion,
-                fecha,
-                organo: organoSeleccionado,
+                descripcion: descripcionCassete.value,
+                fecha: fechaCassete.value,
+                organo: selectCassete.value,
                 idOrgano: idOrganoGenerado,
-                caracteristicas,
-                observaciones,
+                caracteristicas: caracteristicasCassete.value,
+                observaciones: observacionesCassete.value,
                 qr_cassette: "http://localhost:3000/sanitaria/cassette",
                 usuario_id: id_user,
             }),
@@ -630,7 +609,6 @@ const crearCassette = async () => {
 
 
 
-
 const nuevo_cassete = document.getElementById("nuevo_cassete");
 nuevo_cassete.addEventListener("click", crearCassette);
 document.addEventListener("DOMContentLoaded", cargarCassettes);
@@ -655,8 +633,8 @@ const eliminarCassette = async () => {
             mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
-            if (modal) {
-                modal.click();
+            if (cerrarModalNuevaMuestra) {
+                cerrarModalNuevaMuestra.click();
             }
 
             setTimeout(() => {
@@ -894,7 +872,25 @@ fecha_fin.addEventListener("change", filtrarCassettesporFecha);
 //funcion para modificar cassette
 const modificarCassette = async () => {
     try {
-        console.log(descripcionCassete.value)
+        // Validar que todos los campos tengan valor
+        if (
+            !modificar_descripcion_cassette.value ||
+            !modificar_fecha_cassette.value ||
+            !organos.value ||
+            !modificar_caracteristicas_cassette.value ||
+            !modificar_observaciones_cassette.value ||
+            !modificar_identificador_cassette.value
+        ) {
+            mensaje.textContent = "Todos los campos son obligatorios.";
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return; // Detener la ejecución si hay campos vacíos
+        }
+
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/edit/${cassetteActual.id}`, {
             method: "PATCH",
             headers: {
@@ -913,12 +909,12 @@ const modificarCassette = async () => {
 
         const data = await response.json();
 
-        if (response.ok) {
+        if (data.ok) {
             if (cerrarModalNuevoCassete) {
                 cerrarModalNuevoCassete.click();
             }
 
-            mensaje.textContent = "Cassette creado con éxito";
+            mensaje.textContent = "Cassette modificado con éxito";
             mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -927,7 +923,7 @@ const modificarCassette = async () => {
                 location.reload();
             }, 2000);
         } else {
-            mensaje.textContent = "Error al crear el cassette: " + data.message;
+            mensaje.textContent = "Error al modificar el cassette: " + data.message;
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -940,6 +936,7 @@ const modificarCassette = async () => {
         console.error("Error al modificar el cassette:", error);
     }
 };
+
 
 //funcion para mostrar el boton admin a los admins
 cargarBotonAdmin = async () => {

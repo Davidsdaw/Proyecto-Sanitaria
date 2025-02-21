@@ -37,6 +37,7 @@ abrirModalModificarCassete.addEventListener("click", (e) => {
         modificar_descripcion_cassette.value = cassetteActual.descripcion;
         modificar_fecha_cassette.value = cassetteActual.fecha;
         organos.value = cassetteActual.organo;
+        modificar_identificador_cassette.value=id_cassette.textContent;
         modificar_caracteristicas_cassette.value = cassetteActual.caracteristicas;
         modificar_observaciones_cassette.value = cassetteActual.observaciones;
     }
