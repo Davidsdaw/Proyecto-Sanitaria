@@ -36,9 +36,10 @@ const observaciones_muestra = document.getElementById("observaciones_muestra");
 const tabla_muestras = document.getElementById("tabla_muestras");
 
 const nueva_muestra = document.getElementById("nueva_muestra");
-const imagenMuestra =document.getElementById("imagenMuestra")
+const imagenMuestra = document.getElementById("imagenMuestra")
 
 //filtros
+const BoxFilters = document.getElementById("Boxfilters");
 //select organo
 const organoSelect = document.getElementById("organoSelect");
 //select id
@@ -62,11 +63,11 @@ const token = localStorage.getItem('token')
 
 
 const cargarCassettes = async () => {
-    const response = await fetch("http://localhost:3000/sanitaria/cassette",{
+    const response = await fetch("http://localhost:3000/sanitaria/cassette", {
         method: 'GET',
-    headers: {
-        'Authorization': `${token}` ,
-    }
+        headers: {
+            'Authorization': `${token}`,
+        }
     });
     const data = await response.json();
     console.log(token)
@@ -113,7 +114,7 @@ const mostrar_cassettes = (data) => {
         icono.id = `boton_detalles_cassette`;
 
         icono.addEventListener("click", () => {
-            mostrarDetallesCassettes(cassette); 
+            mostrarDetallesCassettes(cassette);
             mostrarMuestrasCassette(cassette);
         });
 
@@ -174,7 +175,7 @@ const mostrarMuestrasCassette = async (cassette) => {
             columna_tincion.classList.add("p-2", "text-blue-400", "border-b", "border-blue-400", "w-1/3", "pl-10");
 
             let columna_icono = document.createElement("td");
-            columna_icono.classList.add("border-b", "border-blue-400", "flex", "justify-center", "items-center", "pl-4"); 
+            columna_icono.classList.add("border-b", "border-blue-400", "flex", "justify-center", "items-center", "pl-4");
             let icono = document.createElement("i");
             icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-400", "mr-5");
             columna_icono.appendChild(icono);
@@ -245,7 +246,7 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         }
 
         const imagenes = await response.json(); // Obtener las imágenes en Base64
-        
+
         // Seleccionamos el contenedor donde se mostrarán las imágenes
         const contenedorImagenes = document.querySelector(".border-t-2.mt-10.flex.pt-3.items-center");
         const imgBig = document.getElementById("imgBig"); // Seleccionar la imagen grande
@@ -258,7 +259,7 @@ const mostrarImagenesMuestra = async (idMuestra) => {
             const imgElement = document.createElement("img");
             imgElement.src = img.imagen; // Base64 ya viene en el JSON
             imgElement.classList.add("w-24", "mr-5", "miniatura");
-            
+
             // Evento para cambiar la imagen grande cuando se haga clic en una miniatura
             imgElement.addEventListener("click", () => {
                 imgBig.src = img.imagen;
@@ -311,7 +312,7 @@ const crearCassette = async () => {
         const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
             method: "POST",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -380,7 +381,7 @@ const eliminarCassette = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
             method: "DELETE",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
         });
@@ -446,7 +447,7 @@ const crearMuestra = async (cassette) => {
         });
 
         const data = await response.json();
-        
+
         if (cerrarModalNuevaMuestra) {
             cerrarModalNuevaMuestra.click();
         }
@@ -544,17 +545,17 @@ const filtrarCassettesporOrgano = async () => {
 }
 
 //cargar select id
-const cargarSelectID = async() => {
+const cargarSelectID = async () => {
     const data = await cargarCassettes();
 
-    data.forEach (cassette => {
+    data.forEach(cassette => {
         const option = document.createElement('option');
         option.value = cassette.idOrgano;
         option.textContent = cassette.idOrgano;
-        idOrganoSelect.appendChild (option);
+        idOrganoSelect.appendChild(option);
     });
 
-    
+
 }
 
 const filtrarCassettesporID = async () => {
@@ -630,7 +631,7 @@ const modificarCassette = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/edit/${cassetteActual.id}`, {
             method: "PATCH",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -643,9 +644,9 @@ const modificarCassette = async () => {
             })
         });
 
-        const data = await response.json(); 
+        const data = await response.json();
 
-        if(response.ok){
+        if (response.ok) {
             if (cerrarModalNuevoCassete) {
                 cerrarModalNuevoCassete.click();
             }
@@ -670,17 +671,47 @@ const modificarCassette = async () => {
 
     } catch (error) {
         console.error("Error al modificar el cassette:", error);
-    }       
+    }
+};
+
+cargarBotonAdmin = async () => {
+    const id_user = sessionStorage.getItem("user_id");
+
+    const response = await fetch("http://localhost:3000/sanitaria/users", {
+        method: 'GET',
+        headers: {
+            'Authorization': `${token}`,
+        }
+    });
+
+    const data = await response.json();
+    data.forEach(user => {
+        if (id_user == user.id) {
+            if (user.rol == "administrador") {
+                console.log("es admin");
+                let button = document.createElement("a");
+                button.textContent = "Ir al panel de control";
+                button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded" , "text-center");
+
+                button.href = "./admin.html";
+                BoxFilters.appendChild(button);
+                BoxFilters.classList.remove("md:grid-cols-5");
+                BoxFilters.classList.add("md:grid-cols-6");
+                
+            }
+        }
+    });
 };
 
 
 organoSelect.addEventListener("change", filtrarCassettesporOrgano);
 idOrganoSelect.addEventListener("change", filtrarCassettesporID);
 nueva_muestra.addEventListener("click", () => {
-    crearMuestra(cassetteActual)
+crearMuestra(cassetteActual)
 })
 document.addEventListener("DOMContentLoaded", () => {
     cargarSelectID();
+    cargarBotonAdmin();
 });
 const botonModificarCassette = document.getElementById("botonModificarCassette");
 botonModificarCassette.addEventListener("click", modificarCassette)
@@ -688,14 +719,14 @@ botonModificarCassette.addEventListener("click", modificarCassette)
 
 
 
-const EliminarMuestra= async () => {
+const EliminarMuestra = async () => {
     console.log(muestraSeleccionada.id);
 
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/muestra/delete/${muestraSeleccionada.id}`, {
             method: "DELETE",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
         });
@@ -749,7 +780,7 @@ const modificarMuestra = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/muestra/edit/${muestraSeleccionada.id}`, {
             method: "PATCH",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -761,9 +792,9 @@ const modificarMuestra = async () => {
             })
         });
 
-        const data = await response.json(); 
+        const data = await response.json();
 
-        if(response.ok){
+        if (response.ok) {
             if (cerrarModalModificarMuestra) {
                 cerrarModalModificarMuestra.click();
                 cerrarModalMuestrasImagenes.click();
@@ -789,7 +820,7 @@ const modificarMuestra = async () => {
 
     } catch (error) {
         console.error("Error al modificar la muestra:", error);
-    }       
+    }
 };
 
 const botonModificarMuestra = document.getElementById("botonModificarMuestra");
@@ -799,12 +830,12 @@ botonModificarMuestra.addEventListener("click", modificarMuestra)
 
 
 //Ordenar por fecha cassettes
-let ordenAscendente = true; 
+let ordenAscendente = true;
 
 const ordenarFecha = () => {
     let cassettes = Array.from(tabla_cassettes.children).map(div => {
         return {
-            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')), 
+            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')),
             descripcion: div.children[1].textContent,
             organo: div.children[2].textContent
         };
@@ -832,7 +863,7 @@ botonOrdenar.addEventListener("click", ordenarFecha);
 
 
 //Ordenar por fecha muestras
-let ordenAscendenteM = true;  
+let ordenAscendenteM = true;
 
 const ordenarFechaMuestras = () => {
     const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
@@ -864,7 +895,7 @@ botonOrdenarMuestras.addEventListener("click", ordenarFechaMuestras);
 
 
 //Ordenar por descripcion cassettes
-let ordenAscendenteDescCassettes = true; 
+let ordenAscendenteDescCassettes = true;
 const ordenarDescripcionCassettes = () => {
     let cassettes = Array.from(tabla_cassettes.children).map(div => {
         return {
@@ -896,7 +927,7 @@ botonOrdenarDescCassettes.addEventListener("click", ordenarDescripcionCassettes)
 
 
 //Ordenar por descripcion muestras
-let ordenAscendenteDescM = true; 
+let ordenAscendenteDescM = true;
 
 const ordenarDescripcionMuestras = () => {
     const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
@@ -907,16 +938,16 @@ const ordenarDescripcionMuestras = () => {
         const descripcionA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();
         const descripcionB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
 
-        return ordenAscendenteDescM 
-            ? descripcionA.localeCompare(descripcionB) 
+        return ordenAscendenteDescM
+            ? descripcionA.localeCompare(descripcionB)
             : descripcionB.localeCompare(descripcionA);
     });
 
-    
+
     ordenAscendenteDescM = !ordenAscendenteDescM;
 
     if (ordenAscendenteDescM) {
-        ascendenteDescM.innerHTML = "&#x25B4;"; 
+        ascendenteDescM.innerHTML = "&#x25B4;";
     } else {
         ascendenteDescM.innerHTML = "&#x25BE;";
     }
@@ -942,7 +973,7 @@ const ordenarOrganoCassette = () => {
             elemento: row
         };
     });
-    
+
     cassettes.sort((a, b) => {
         let letraA = a.organo.charAt(0).toLowerCase();
         let letraB = b.organo.charAt(0).toLowerCase();
@@ -954,9 +985,9 @@ const ordenarOrganoCassette = () => {
     ordenAscendenteOrg = !ordenAscendenteOrg;
 
     if (ordenAscendenteOrg) {
-        ascendenteOrg.innerHTML = "&#x25B4;";  
+        ascendenteOrg.innerHTML = "&#x25B4;";
     } else {
-        ascendenteOrg.innerHTML = "&#x25BE;";  
+        ascendenteOrg.innerHTML = "&#x25BE;";
     }
 
     cassettes.forEach(cassette => tabla_cassettes.appendChild(cassette.elemento));
@@ -972,12 +1003,12 @@ botonOrdenarOrganoCassette.addEventListener("click", ordenarOrganoCassette);
 let ordenAscendenteTincion = true;
 const ordenarTincion = () => {
     const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));  
+    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
 
     muestrasFiltradas.sort((a, b) => {
         const tincionA = a.querySelector("td:nth-child(3)").textContent.toLowerCase();
         const tincionB = b.querySelector("td:nth-child(3)").textContent.toLowerCase();
-        
+
         return ordenAscendenteTincion ? tincionA > tincionB ? 1 : -1 : tincionA < tincionB ? 1 : -1;
     });
 
