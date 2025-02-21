@@ -703,9 +703,8 @@ const crearMuestra = async (cassette) => {
             setTimeout(() => {
                 mensaje.style.display = "none";
                 location.reload();
-            }, 1000000);
+            }, 1000);
 
-            location.reload()
 
         } else {
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
