@@ -69,7 +69,7 @@ const token = localStorage.getItem('token')
 const ordenarPorFecha = document.getElementById("ordenarPorFechaCassette");
 const ordenarPorDescripcion = document.getElementById("ordenarPorDescripcionCassette");
 const ordenarPorOrgano = document.getElementById("ordenarPorOrganoCassette");
-
+const modificar_identificador_cassette = document.getElementById("modificar_identificador_cassette");
 
 //funcion para cargar cassettes al cargar la página
 const cargarCassettes = async () => {
@@ -907,7 +907,7 @@ const modificarCassette = async () => {
                 organo: organos.value,
                 caracteristicas: modificar_caracteristicas_cassette.value,
                 observaciones: modificar_observaciones_cassette.value,
-                idOrgano: "3",
+                idOrgano: modificar_identificador_cassette.value,
             })
         });
 
