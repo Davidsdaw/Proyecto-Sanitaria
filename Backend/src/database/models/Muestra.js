@@ -14,12 +14,21 @@ Muestra.init(
     descripcion: {
       type: DataTypes.STRING,
       allowNull: false,
-      //no puede ser superior a 255 caracterres
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: "El campo 'descripcion' no puede superar los 255 caracteres."
+        }
+      }
     },
     fecha: {
       type: DataTypes.DATE,
       allowNull: false,
-      //hoy o de la semana siguiente
+      validate: {
+        isDate: {
+          msg: "El campo 'fecha' debe ser una fecha válida."
+        }
+      }
     },
     tincion: {
       type: DataTypes.STRING,
@@ -28,7 +37,12 @@ Muestra.init(
     observaciones: {
       type: DataTypes.STRING,
       allowNull: false,
-      //no puede ser superior a 255 caracteres
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: "El campo 'observaciones' no puede superar los 255 caracteres."
+        }
+      }
     },
     qr_muestra: {
       type: DataTypes.TEXT,
