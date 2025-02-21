@@ -107,6 +107,10 @@ const cerrarModalModificarMuestra = document.getElementById("cerrarModalModifica
 abrirModalModificarMuestra.addEventListener("click", (e) => {
     e.preventDefault();
     modalModificarMuestra.classList.remove("hidden");
+    nuevaMuestra_desc.value=descripcion_muestra.textContent
+    nuevaMuestra_tincion.value = tincion_muestra.textContent
+    nuevaMuestra_observ.value = observaciones_muestra.textContent
+
 });
 cerrarModalModificarMuestra.addEventListener("click", () => {
     modalModificarMuestra.classList.add("hidden");

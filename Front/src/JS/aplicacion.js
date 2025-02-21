@@ -632,8 +632,8 @@ const eliminarCassette = async () => {
             mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
-            if (cerrarModalNuevaMuestra) {
-                cerrarModalNuevaMuestra.click();
+            if (modal) {
+                modal.click();
             }
 
             setTimeout(() => {
