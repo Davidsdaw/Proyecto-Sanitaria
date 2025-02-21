@@ -669,6 +669,29 @@ botonEliminarCassette.addEventListener("click", eliminarCassette)
 //funcion para crear muestra
 const crearMuestra = async (cassette) => {
     try {
+        // Validar que todos los campos tengan valores
+        if (
+            !descripcionMuestra.value ||
+            !fechaMuestra.value ||
+            !tincionMuestra.value ||
+            !observacionesMuestra.value ||
+            !cassette?.id // Verificar que el cassette tenga ID válido
+        ) {
+            if (cerrarModalNuevaMuestra) {
+                cerrarModalNuevaMuestra.click();
+            }
+            mensaje.textContent = "Todos los campos son obligatorios.";
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return; // Detener ejecución si hay valores vacíos
+        }
+
+        console.log("Enviando datos al servidor...");
+
         const response = await fetch("http://localhost:3000/sanitaria/muestra/create", {
             method: "POST",
             headers: {
@@ -685,15 +708,21 @@ const crearMuestra = async (cassette) => {
             }),
         });
 
+        console.log("Respuesta recibida:", response);
+
         const data = await response.json();
+
+        console.log("Datos del servidor:", data);
 
         if (cerrarModalNuevaMuestra) {
             cerrarModalNuevaMuestra.click();
         }
 
         if (response.ok) {
-            console.log(imagenMuestra)
+            console.log("Muestra creada con éxito:", data);
+
             if (imagenMuestra.files[0]) {
+                console.log("Subiendo imagen de la muestra...");
                 await createImage(imagenMuestra.files[0], data.createdMuestra.id);
             }
 
@@ -704,17 +733,16 @@ const crearMuestra = async (cassette) => {
             setTimeout(() => {
                 mensaje.style.display = "none";
                 location.reload();
-            }, 1000);
-
-
+            }, 2000);
         } else {
+            console.error("Error en la respuesta del servidor:", data.message);
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";
-            }, 1000);
+            }, 2000);
         }
     } catch (error) {
         console.error("Error al crear la muestra:", error);
@@ -724,9 +752,10 @@ const crearMuestra = async (cassette) => {
 
         setTimeout(() => {
             mensaje.style.display = "none";
-        }, 1000);
+        }, 2000);
     }
 };
+
 
 
 
