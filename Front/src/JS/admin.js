@@ -160,6 +160,9 @@ const modificarUsuarios = async () => {
 
     // Validar que los campos obligatorios no estén vacíos
     if (!nombre || !apellido || !email || !centro || !rol) {
+        if(cerrarModalModificarUsuario){
+            cerrarModalModificarUsuario.click()
+        }
         const mensaje = document.getElementById("mensaje");
         mensaje.textContent = "Por favor, completa todos los campos obligatorios.";
         mensaje.className = "";
@@ -204,7 +207,9 @@ const modificarUsuarios = async () => {
             }, 2000);
             throw new Error(`Error ${response.status}: ${errorData.message || "Error desconocido"}`);
         }
-
+        if(cerrarModalModificarUsuario){
+            cerrarModalModificarUsuario.click()
+        }
         // Éxito al modificar
         mensaje.textContent = "Usuario modificado con éxito.";
         mensaje.className = "";
