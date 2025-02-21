@@ -44,16 +44,13 @@ Cassette.init(
         notEmpty: {
           msg: "El campo 'organo' no puede estar vacío."
         },
-        isAlpha: {
-          msg: "El campo 'organo' solo puede contener letras."
-        },
         len: {
           args: [3, 50],
           msg: "El campo 'organo' debe tener entre 3 y 50 caracteres."
         },
         isIn: {
           args: [organos],
-          msg: "El 'organo' debe ser uno de los valores permitidos."
+          msg: "El 'organo' debe ser uno de los organos permitidos."
         },
         is: {
           args: [/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/],
