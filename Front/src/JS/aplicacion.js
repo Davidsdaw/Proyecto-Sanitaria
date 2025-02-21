@@ -528,13 +528,19 @@ const crearCassette = async () => {
         const id_user = sessionStorage.getItem("user_id");
         const idOrganoGenerado = selectCassete.value.slice(0, 3) + "-" + id_identificadorCassete.value;
 
-        // Verificar si idOrgano ya existe
-        const existe = await verificarIdOrgano(idOrganoGenerado);
-        if (existe) {
+        // Validar campos requeridos
+        if (
+            !descripcionCassete.value.trim() ||
+            !fechaCassete.value.trim() ||
+            !selectCassete.value.trim() ||
+            !id_identificadorCassete.value.trim() ||
+            !caracteristicasCassete.value.trim() ||
+            !observacionesCassete.value.trim()
+        ) {
             if (cerrarModalNuevoCassete) {
                 cerrarModalNuevoCassete.click();
             }
-            mensaje.textContent = "Error: El ID del órgano ya existe.";
+            mensaje.textContent = "Por favor, completa todos los campos.";
             mensaje.className = ""; // Limpiar clases previas
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
@@ -542,10 +548,27 @@ const crearCassette = async () => {
             setTimeout(() => {
                 mensaje.style.display = "none";
             }, 2000);
-            return; // No continuar con la creación
+            return; // No continuar si hay campos vacíos
         }
 
-        // Si el idOrgano no existe, procedemos con la creación
+        // Verificar si idOrgano ya existe
+        const existe = await verificarIdOrgano(idOrganoGenerado);
+        if (existe) {
+            if (cerrarModalNuevoCassete) {
+                cerrarModalNuevoCassete.click();
+            }
+            mensaje.textContent = "Error: El ID del órgano ya existe.";
+            mensaje.className = "";
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return;
+        }
+
+        // Crear cassette si pasa todas las validaciones
         const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
             method: "POST",
             headers: {
@@ -573,7 +596,7 @@ const crearCassette = async () => {
             }
 
             mensaje.textContent = "Cassette creado con éxito";
-            mensaje.className = ""; // Limpiar clases previas
+            mensaje.className = "";
             mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -582,10 +605,10 @@ const crearCassette = async () => {
                 location.reload();
             }, 2000);
 
-            cargarSelectID(); // Recargar el select de los IDs
+            cargarSelectID();
         } else {
             mensaje.textContent = "Error al crear el cassette: " + data.message;
-            mensaje.className = ""; // Limpiar clases previas
+            mensaje.className = "";
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -596,7 +619,7 @@ const crearCassette = async () => {
     } catch (error) {
         console.error("Error al crear el cassette:", error);
         mensaje.textContent = "Ocurrió un error al crear el cassette.";
-        mensaje.className = ""; // Limpiar clases previas
+        mensaje.className = "";
         mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
         mensaje.style.display = "block";
 
@@ -605,6 +628,7 @@ const crearCassette = async () => {
         }, 2000);
     }
 };
+
 
 
 
@@ -965,6 +989,7 @@ const modificarCassette = async () => {
 
             setTimeout(() => {
                 mensaje.style.display = "none";
+                location.reload();
             }, 2000);
         }
 

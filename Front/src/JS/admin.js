@@ -150,18 +150,34 @@ const modificarUsuarios = async () => {
     const userId = document.getElementById("id_usuario_modificar").textContent;
     const token = localStorage.getItem("token"); // Asegúrate de tener un token válido
 
-    // Crear el objeto de actualización sin incluir la contraseña si el input está vacío
-    const datosActualizar = {
-        nombre: modificar_alumno_nombre?.value || "",
-        apellido: modificar_alumno_apellidos?.value || "",
-        email: modificar_alumno_gmail?.value || "",
-        centro: modificar_alumno_centro?.value || "",
-        rol: modificar_alumno_rol?.value || ""
-    };
+    // Obtener los valores de los campos
+    const nombre = modificar_alumno_nombre?.value.trim();
+    const apellido = modificar_alumno_apellidos?.value.trim();
+    const email = modificar_alumno_gmail?.value.trim();
+    const centro = modificar_alumno_centro?.value.trim();
+    const rol = modificar_alumno_rol?.value.trim();
+    const password = modificar_alumno_password?.value.trim();
 
-    // Solo agregar la contraseña si el input tiene un valor
-    if (modificar_alumno_password?.value) {
-        datosActualizar.password = modificar_alumno_password.value;
+    // Validar que los campos obligatorios no estén vacíos
+    if (!nombre || !apellido || !email || !centro || !rol) {
+        const mensaje = document.getElementById("mensaje");
+        mensaje.textContent = "Por favor, completa todos los campos obligatorios.";
+        mensaje.className = "";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 2000);
+        return;
+    }
+
+    // Crear el objeto de actualización
+    const datosActualizar = { nombre, apellido, email, centro, rol };
+
+    // Agregar contraseña solo si se proporciona
+    if (password) {
+        datosActualizar.password = password;
     }
 
     try {
@@ -174,21 +190,38 @@ const modificarUsuarios = async () => {
             body: JSON.stringify(datosActualizar),
         });
 
+        const mensaje = document.getElementById("mensaje");
+
         if (!response.ok) {
             const errorData = await response.json();
+            mensaje.textContent = `Error al modificar usuario: ${errorData.message || "Error desconocido"}`;
+            mensaje.className = "";
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
             throw new Error(`Error ${response.status}: ${errorData.message || "Error desconocido"}`);
         }
 
-        console.log("Usuario modificado correctamente");
-        
-        // Cerrar modal y recargar tabla
-        document.getElementById("modalModificarUsuario").classList.add("hidden");
-        cargarUsuarios();
+        // Éxito al modificar
+        mensaje.textContent = "Usuario modificado con éxito.";
+        mensaje.className = "";
+        mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+            document.getElementById("modalModificarUsuario").classList.add("hidden");
+            cargarUsuarios();
+        }, 2000);
+
     } catch (error) {
         console.error("Error al modificar usuario:", error);
-        alert(`Error al modificar usuario: ${error.message}`);
     }
 };
+
 
 
 // Función para eliminar usuario
