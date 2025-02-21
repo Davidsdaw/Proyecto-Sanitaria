@@ -472,10 +472,51 @@ document.getElementById("botonEliminarAñadirMuestra").addEventListener("click",
 
 
 
+const verificarIdOrgano = async (idOrgano) => {
+    try {
+        const response = await fetch(`http://localhost:3000/sanitaria/cassette/idOrgano/${idOrgano}`, {
+            method: "GET",
+            headers: {
+                'Authorization': `${token}`,
+                "Content-Type": "application/json",
+            }
+        });
+
+        if (response.ok) {
+            return true; // Si encuentra el cassette, significa que ya existe
+        } else if (response.status === 404) {
+            return false; // Si el cassette no existe, podemos crearlo
+        }
+    } catch (error) {
+        console.error("Error al verificar idOrgano:", error);
+    }
+    return true; // En caso de error asumimos que existe
+};
+
+
 const crearCassette = async () => {
     try {
         const id_user = sessionStorage.getItem("user_id");
+        const idOrganoGenerado = selectCassete.value.slice(0, 3) + "-" + id_identificadorCassete.value;
 
+        // Verificar si idOrgano ya existe
+        const existe = await verificarIdOrgano(idOrganoGenerado);
+        if (existe) {
+            if (cerrarModalNuevoCassete) {
+                cerrarModalNuevoCassete.click();
+            }
+            mensaje.textContent = "Error: El ID del órgano ya existe.";
+            mensaje.className = ""; // Limpiar clases previas
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return; // No continuar con la creación
+        }
+
+        // Si el idOrgano no existe, procedemos con la creación
         const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
             method: "POST",
             headers: {
@@ -486,7 +527,7 @@ const crearCassette = async () => {
                 descripcion: descripcionCassete.value,
                 fecha: fechaCassete.value,
                 organo: selectCassete.value,
-                idOrgano: id_identificadorCassete.value,
+                idOrgano: idOrganoGenerado,
                 caracteristicas: caracteristicasCassete.value,
                 observaciones: observacionesCassete.value,
                 qr_cassette: "http://localhost:3000/sanitaria/cassette",
@@ -497,14 +538,13 @@ const crearCassette = async () => {
         const data = await response.json();
         console.log(data);
 
-
         if (response.ok) {
-
             if (cerrarModalNuevoCassete) {
                 cerrarModalNuevoCassete.click();
             }
 
             mensaje.textContent = "Cassette creado con éxito";
+            mensaje.className = ""; // Limpiar clases previas
             mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -513,9 +553,10 @@ const crearCassette = async () => {
                 location.reload();
             }, 2000);
 
-            cargarSelectID(); //recargamos el select de los ids, para que el nuevo entre en el select
+            cargarSelectID(); // Recargar el select de los IDs
         } else {
             mensaje.textContent = "Error al crear el cassette: " + data.message;
+            mensaje.className = ""; // Limpiar clases previas
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -525,8 +566,8 @@ const crearCassette = async () => {
         }
     } catch (error) {
         console.error("Error al crear el cassette:", error);
-        const mensaje = document.getElementById("mensaje");
         mensaje.textContent = "Ocurrió un error al crear el cassette.";
+        mensaje.className = ""; // Limpiar clases previas
         mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
         mensaje.style.display = "block";
 
@@ -535,6 +576,8 @@ const crearCassette = async () => {
         }, 2000);
     }
 };
+
+
 
 
 const nuevo_cassete = document.getElementById("nuevo_cassete");
