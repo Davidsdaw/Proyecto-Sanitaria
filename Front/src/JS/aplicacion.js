@@ -1071,6 +1071,33 @@ borrarMuestra.addEventListener("click", EliminarMuestra);
 //funcion para modificar muestra
 const modificarMuestra = async () => {
     try {
+        // Validar que todos los campos tengan valores antes de hacer la petición
+        if (
+            !nuevaMuestra_desc.value ||
+            !nuevaMuestra_fecha.value ||
+            !nuevaMuestra_tincion.value ||
+            !nuevaMuestra_observ.value ||
+            !cassetteActual?.id ||
+            !muestraSeleccionada?.id
+        ) {
+            if (cerrarModalModificarMuestra) {
+                cerrarModalModificarMuestra.click();
+            }
+            if (cerrarModalMuestrasImagenes) {
+                cerrarModalMuestrasImagenes.click();
+            }
+            mensaje.textContent = "Todos los campos son obligatorios.";
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return; // Detener ejecución si hay valores vacíos
+        }
+
+        console.log("Enviando datos al servidor...");
+
         const response = await fetch(`http://localhost:3000/sanitaria/muestra/edit/${muestraSeleccionada.id}`, {
             method: "PATCH",
             headers: {
@@ -1086,11 +1113,19 @@ const modificarMuestra = async () => {
             })
         });
 
+        console.log("Respuesta recibida:", response);
+
         const data = await response.json();
 
+        console.log("Datos del servidor:", data);
+
         if (response.ok) {
+            console.log("Muestra modificada con éxito");
+
             if (cerrarModalModificarMuestra) {
                 cerrarModalModificarMuestra.click();
+            }
+            if (cerrarModalMuestrasImagenes) {
                 cerrarModalMuestrasImagenes.click();
             }
 
@@ -1103,7 +1138,8 @@ const modificarMuestra = async () => {
                 location.reload();
             }, 2000);
         } else {
-            mensaje.textContent = "Error al modificar la muestra: " + data.message;
+            console.error("Error en la respuesta del servidor:", data.message);
+            mensaje.textContent = "Error al modificar la muestra: " + (data.message || "Error desconocido");
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
@@ -1114,8 +1150,16 @@ const modificarMuestra = async () => {
 
     } catch (error) {
         console.error("Error al modificar la muestra:", error);
+        mensaje.textContent = "Ocurrió un error al modificar la muestra.";
+        mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+        mensaje.style.display = "block";
+
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 2000);
     }
 };
+
 
 const botonModificarMuestra = document.getElementById("botonModificarMuestra");
 botonModificarMuestra.addEventListener("click", modificarMuestra)
