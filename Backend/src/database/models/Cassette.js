@@ -61,6 +61,7 @@ Cassette.init(
     idOrgano: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true, // Asegura que cada idOrgano sea único
       validate: {
         notEmpty: {
           msg: "El campo 'idOrgano' no puede estar vacío."

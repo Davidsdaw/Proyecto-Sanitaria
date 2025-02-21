@@ -70,10 +70,28 @@ const editCassettes = async (req, res) => {
   }
 };
 
+const getIdOrgano = async (req, res) => {
+  try {
+    const { idOrgano } = req.params;
+
+    // Buscar en la base de datos por idOrgano
+    const cassette = await cassetteService.getCassetteByIdOrgano(idOrgano);
+
+    if (cassette) {
+      return res.status(200).json(cassette);
+    } else {
+      return res.status(404).json({ message: "Cassette no encontrado" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
     getAllCassettes,
     getCassettesById,
     deleteCassettes,
     createCassettes,
-    editCassettes
+    editCassettes,
+    getIdOrgano
 }

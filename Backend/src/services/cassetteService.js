@@ -53,10 +53,15 @@ const editCassettes = async (id, cassetteData) => {
     }
   };
 
+  const getCassetteByIdOrgano = async (idOrgano) => {
+    return await Cassette.findOne({ where: { idOrgano } });
+  };
+
 module.exports = {
     getAllCassettes,
     getCassettesById,
     deleteCassettes,
     createCassettes,
     editCassettes,
+    getCassetteByIdOrgano
 }
