@@ -238,7 +238,6 @@ const eliminarUsuario = async (userId) => {
 };
 
 const eliminarTodos = async() => {
-    if(confirm("¿ Deseas borrar todos los usuarios ?")){
         console.log(token)
         try {
             await fetch(`http://localhost:3000/sanitaria/users/delete`, {
@@ -251,10 +250,21 @@ const eliminarTodos = async() => {
         console.error("Error al eliminar :", error);
     }
     window.location.href="../index.html";
-}
+
 }
 
-eliminar_usuarios.addEventListener("click",eliminarTodos)
+const eliminar_todos_usuarios = document.getElementById("eliminar_todos_usuarios");
+const modalEliminarTodosUsuario = document.getElementById("modalEliminarTodosUsuario");
+const cerrarModalEliminarTodosUsuario = document.getElementById("cerrarModalEliminarTodosUsuario");
+
+eliminar_usuarios.addEventListener("click", e => {
+    e.preventDefault();
+    modalEliminarTodosUsuario.classList.remove("hidden");
+});
+cerrarModalEliminarTodosUsuario.addEventListener("click", e => {
+    modalEliminarTodosUsuario.classList.add("hidden");
+});
+eliminar_todos_usuarios.addEventListener("click",eliminarTodos)
 volver_inicio.addEventListener("click", ()=>{
     window.location.href="aplicacion.html";
 })
