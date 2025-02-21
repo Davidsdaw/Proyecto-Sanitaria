@@ -57,6 +57,8 @@ const modalMuestrasImagenes = document.getElementById("modalMuestrasImagenes");
 //editar muestras
 const nuevaMuestra_desc = document.getElementById("nuevaMuestra_desc");
 const nuevaMuestra_fecha = document.getElementById("nuevaMuestra_fecha");
+nuevaMuestra_fecha.min = new Date().toISOString().split('T')[0];
+fechaMuestra.min = new Date().toISOString().split('T')[0];
 const nuevaMuestra_tincion = document.getElementById("nuevaMuestra_tincion");
 const nuevaMuestra_observ = document.getElementById("nuevaMuestra_observ");
 
