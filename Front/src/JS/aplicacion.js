@@ -910,12 +910,16 @@ const modificarCassette = async () => {
             !modificar_observaciones_cassette.value ||
             !modificar_identificador_cassette.value
         ) {
+            if (cerrarModalModificarCassete) {
+                cerrarModalModificarCassete.click();
+            }
             mensaje.textContent = "Todos los campos son obligatorios.";
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             setTimeout(() => {
                 mensaje.style.display = "none";
+                location.reload()
             }, 2000);
             return; // Detener la ejecución si hay campos vacíos
         }
@@ -939,8 +943,8 @@ const modificarCassette = async () => {
         const data = await response.json();
 
         if (data.ok) {
-            if (cerrarModalNuevoCassete) {
-                cerrarModalNuevoCassete.click();
+            if (cerrarModalModificarCassete) {
+                cerrarModalModificarCassete.click();
             }
 
             mensaje.textContent = "Cassette modificado con éxito";
@@ -952,8 +956,11 @@ const modificarCassette = async () => {
                 location.reload();
             }, 2000);
         } else {
-            mensaje.textContent = "Error al modificar el cassette: " + data.message;
-            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            if (cerrarModalModificarCassete) {
+                cerrarModalModificarCassete.click();
+            }
+            mensaje.textContent = "Cassette modificado con éxito";
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
             mensaje.style.display = "block";
 
             setTimeout(() => {
