@@ -524,7 +524,7 @@
     <!--MODAL MODIFICAR CASSETE-->
     <div id="modalModificarCassete"
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto">
+        <form class="bg-white p-6 rounded-lg shadow-lg w-2/5 h-80 relative text-center h-auto novalidate">
             <button id="cerrarModalModificarCassete"
                 class="absolute top-2 right-2 text-blue-300 hover:text-blue-500 text-xl">
                 &times;
@@ -537,6 +537,7 @@
                 </h2>
                 <input id="modificar_descripcion_cassette" type="text"
                     class="border w-full rounded h-8 text-blue-300 hover:border-blue-300 focus:outline-none">
+                    <p id="modificar_descripcion_cassette_error"></p>
             </div>
 
             <div class="flex mb-5 w-full">
@@ -633,11 +634,11 @@
                 <input id="modificar_observaciones_cassette" type="text"
                     class="border w-full rounded h-12 text-blue-300 hover:border-blue-300 focus:outline-none">
             </div>
-            <button id="botonModificarCassette"
+            <button type="submit" id="botonModificarCassette"
                 class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full">
                 Modificar Cassete
             </button>
-        </div>
+        </form>
     </div>
 
 
