@@ -524,8 +524,30 @@ const verificarIdOrgano = async (idOrgano) => {
 //funcion para crear cassette
 const crearCassette = async () => {
     try {
-        const id_user = sessionStorage.getItem("user_id");
-        const idOrganoGenerado = selectCassete.value.slice(0, 3) + "-" + id_identificadorCassete.value;
+        const id_user = sessionStorage.getItem("user_id") || "";
+        const organoSeleccionado = selectCassete.value || "";
+        const identificador = id_identificadorCassete.value || "";
+        const descripcion = descripcionCassete.value || "";
+        const fecha = fechaCassete.value || "";
+        const caracteristicas = caracteristicasCassete.value || "";
+        const observaciones = observacionesCassete.value || "";
+        const idOrganoGenerado = organoSeleccionado.slice(0, 3) + "-" + identificador;
+
+        // Verificar si todos los campos están llenos
+        if (!id_user || !organoSeleccionado || !identificador || !descripcion || !fecha || !caracteristicas || !observaciones) {
+            if (cerrarModalNuevoCassete) {
+                cerrarModalNuevoCassete.click();
+            }
+            mensaje.textContent = "Todos los campos son obligatorios.";
+            mensaje.className = ""; // Limpiar clases previas
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return;
+        }
 
         // Verificar si idOrgano ya existe
         const existe = await verificarIdOrgano(idOrganoGenerado);
@@ -541,7 +563,7 @@ const crearCassette = async () => {
             setTimeout(() => {
                 mensaje.style.display = "none";
             }, 2000);
-            return; // No continuar con la creación
+            return;
         }
 
         // Si el idOrgano no existe, procedemos con la creación
@@ -552,12 +574,12 @@ const crearCassette = async () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                descripcion: descripcionCassete.value,
-                fecha: fechaCassete.value,
-                organo: selectCassete.value,
+                descripcion,
+                fecha,
+                organo: organoSeleccionado,
                 idOrgano: idOrganoGenerado,
-                caracteristicas: caracteristicasCassete.value,
-                observaciones: observacionesCassete.value,
+                caracteristicas,
+                observaciones,
                 qr_cassette: "http://localhost:3000/sanitaria/cassette",
                 usuario_id: id_user,
             }),
@@ -604,6 +626,7 @@ const crearCassette = async () => {
         }, 2000);
     }
 };
+
 
 
 
