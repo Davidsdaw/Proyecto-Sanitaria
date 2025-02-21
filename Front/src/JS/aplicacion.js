@@ -62,13 +62,16 @@ fechaMuestra.min = new Date().toISOString().split('T')[0];
 const nuevaMuestra_tincion = document.getElementById("nuevaMuestra_tincion");
 const nuevaMuestra_observ = document.getElementById("nuevaMuestra_observ");
 
+//token
 const token = localStorage.getItem('token')
 
-
+//elementos del ordenar
 const ordenarPorFecha = document.getElementById("ordenarPorFechaCassette");
 const ordenarPorDescripcion = document.getElementById("ordenarPorDescripcionCassette");
 const ordenarPorOrgano = document.getElementById("ordenarPorOrganoCassette");
 
+
+//funcion para cargar cassettes al cargar la página
 const cargarCassettes = async () => {
     if(!sessionStorage.getItem("user_id")){
         location.href="../index.html"
@@ -98,6 +101,7 @@ let ascendenteFechaC = true;
 let ascendenteDescripcionC = true;
 let ascendenteOrganoC = true;
 
+//funcion para ordenar cassettes
 const ordenarCassettes = (campo, tipo) => {
     return () => {
         let ascendente = tipo === "fecha" ? ascendenteFechaC : tipo === "descripcion" ? ascendenteDescripcionC : ascendenteOrganoC;
@@ -129,7 +133,7 @@ document.getElementById("ordenarPorDescripcionCassette").addEventListener("click
 document.getElementById("ordenarPorOrganoCassette").addEventListener("click", ordenarCassettes("organo", "organo"));
 
 
-
+//funcion que usamos para mostrar los cassettes
 const mostrar_cassettes = (data) => {
     tabla_cassettes.textContent = '';
 
@@ -183,6 +187,7 @@ const mostrar_cassettes = (data) => {
 
 let cassetteActual = null;
 
+//funcion para mostrar los detalles de los cassettes
 const mostrarDetallesCassettes = (cassette) => {
     cassetteActual = cassette;
     //Editamos la fecha para DD/MM/YYYY
@@ -203,6 +208,7 @@ let ascendenteDescripcion = true;
 let ascendenteTincion = true;
 let muestrasFiltradas = [];
 
+//funcion paea ordenar muestras
 const ordenarMuestras = (campo, tipo) => {
     return () => {
         if (muestrasFiltradas.length === 0) return; 
@@ -230,7 +236,7 @@ const ordenarMuestras = (campo, tipo) => {
     };
 };
 
-
+//funcion para mostrar las muestras de los cassettes
 const mostrarMuestrasCassette = async (cassette) => {
     const response = await fetch("http://localhost:3000/sanitaria/muestra", {
         method: 'GET',
@@ -246,6 +252,7 @@ const mostrarMuestrasCassette = async (cassette) => {
     renderizarMuestras();
 };
 
+//funcion para renderizar las muestras
 const renderizarMuestras = () => {
     tabla_muestras.innerHTML = "";
 
@@ -307,6 +314,7 @@ document.getElementById("ordenarPorDescripcionMuestra").addEventListener("click"
 document.getElementById("ordenarPorTincionMuestra").addEventListener("click", ordenarMuestras("tincion", "tincion"));
 
 
+//funcion para mostrar los detalles de la muestra
 let muestraSeleccionada = null;
 const mostrarDetallesMuestra = (muestra) => {
     muestraSeleccionada = muestra;
@@ -323,6 +331,7 @@ const mostrarDetallesMuestra = (muestra) => {
 
 }
 const imgBig = document.getElementById("imgBig")
+//funcion para mostrar las imagenes de las muestras
 const mostrarImagenesMuestra = async (idMuestra) => {
     sessionStorage.setItem("idMuestra",idMuestra)
     try {
@@ -396,6 +405,9 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         console.error("Error cargando las imágenes:", error);
     }
 };
+
+
+//funcion para eliminar la imagen de muestras actual
 const eliminarImagenActual = async () => {
     try {
         const imgBig = document.getElementById("imgBig");
@@ -439,7 +451,7 @@ document.getElementById("abrirModalBasuraMuestra").addEventListener("click", (e)
 });
 
 
-
+//funcion enable añadir muestra
 document.getElementById("botonEliminarAñadirMuestra").addEventListener("click", async () => {
     const inputImagen = document.getElementById("imagenMuestra2");
     const file = inputImagen.files[0]; // Obtener el archivo seleccionado
@@ -471,7 +483,7 @@ document.getElementById("botonEliminarAñadirMuestra").addEventListener("click",
 });
 
 
-
+//funcion para verificar id del organo
 const verificarIdOrgano = async (idOrgano) => {
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/idOrgano/${idOrgano}`, {
@@ -493,7 +505,7 @@ const verificarIdOrgano = async (idOrgano) => {
     return true; // En caso de error asumimos que existe
 };
 
-
+//funcion para crear cassette
 const crearCassette = async () => {
     try {
         const id_user = sessionStorage.getItem("user_id");
@@ -585,7 +597,7 @@ nuevo_cassete.addEventListener("click", crearCassette);
 document.addEventListener("DOMContentLoaded", cargarCassettes);
 
 
-
+//funcion para eliminar el cassette
 const eliminarCassette = async () => {
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
@@ -637,7 +649,7 @@ const botonEliminarCassette = document.getElementById("botonEliminarCassette");
 botonEliminarCassette.addEventListener("click", eliminarCassette)
 
 
-
+//funcion para crear muestra
 const crearMuestra = async (cassette) => {
     try {
         const response = await fetch("http://localhost:3000/sanitaria/muestra/create", {
@@ -702,7 +714,7 @@ const crearMuestra = async (cassette) => {
 
 
 
-
+//funcion para crear imagen
 const createImage = async (file, muestraID) => {
     const formData = new FormData();
     formData.append('imagen', file);
@@ -720,6 +732,7 @@ const createImage = async (file, muestraID) => {
     console.log(data);
 };
 
+//funcion para crear imagen
 const cargarImagen = async (imagenID) => {
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/imagen/${imagenID}`, {
@@ -771,6 +784,7 @@ const cargarSelectID = async () => {
 
 }
 
+//funcion para cargar selects por id
 const filtrarCassettesporID = async () => {
     const data = await cargarCassettes();
     let cassttesfilter;
@@ -783,6 +797,7 @@ const filtrarCassettesporID = async () => {
     mostrar_cassettes(cassttesfilter);
 }
 
+//funcion para filtrar cassettes por fecha
 const filtrarCassettesporFecha = async (event) => {
     const data = await cargarCassettes();
     let cassettesfilter = [];
@@ -838,6 +853,7 @@ fecha_fin.addEventListener("change", filtrarCassettesporFecha);
 fecha_inicio.addEventListener("change", filtrarCassettesporFecha);
 fecha_fin.addEventListener("change", filtrarCassettesporFecha);
 
+//funcion para modificar cassette
 const modificarCassette = async () => {
     try {
         console.log(descripcionCassete.value)
@@ -887,6 +903,7 @@ const modificarCassette = async () => {
     }
 };
 
+//funcion para mostrar el boton admin a los admins
 cargarBotonAdmin = async () => {
     const id_user = sessionStorage.getItem("user_id");
 
@@ -931,7 +948,7 @@ botonModificarCassette.addEventListener("click", modificarCassette)
 
 
 
-
+//funcion para eliminar muestras
 const EliminarMuestra = async () => {
     console.log(muestraSeleccionada.id);
 
@@ -987,7 +1004,7 @@ borrarMuestra.addEventListener("click", EliminarMuestra);
 
 
 
-
+//funcion para modificar muestra
 const modificarMuestra = async () => {
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/muestra/edit/${muestraSeleccionada.id}`, {
@@ -1042,6 +1059,7 @@ botonModificarMuestra.addEventListener("click", modificarMuestra)
 
 const btn_logout=document.getElementById("btn_logout");
 
+//logout de la aplicación
 const logout=(event)=>{
     console.log(event.target);
     location.href="/Front/src/index.html";
