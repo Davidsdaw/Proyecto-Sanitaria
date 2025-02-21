@@ -15,6 +15,7 @@ const observaciones_cassette = document.getElementById("observaciones_cassette")
 //Funcion crear cassete
 const descripcionCassete = document.getElementById('id_descripcionCassete');
 const fechaCassete = document.getElementById('id_fechaCassete');
+fechaCassete.min = new Date().toISOString().split('T')[0];
 const selectCassete = document.getElementById("organosCassete");
 const caracteristicasCassete = document.getElementById('id_caracteristicasCassete');
 const observacionesCassete = document.getElementById('id_observacionesCassete');
@@ -23,6 +24,7 @@ const id_identificadorCassete = document.getElementById('id_identificadorCassete
 //Modificar cassette
 const modificar_descripcion_cassette = document.getElementById("modificar_descripcion_cassette");
 const modificar_fecha_cassette = document.getElementById("modificar_fecha_cassette");
+modificar_fecha_cassette.min=fechaCassete.min = new Date().toISOString().split('T')[0];
 const modificar_caracteristicas_cassette = document.getElementById("modificar_caracteristicas_cassette");
 const modificar_observaciones_cassette = document.getElementById("modificar_observaciones_cassette");
 
