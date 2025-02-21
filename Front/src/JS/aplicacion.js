@@ -40,6 +40,7 @@ const imagenMuestra =document.getElementById("imagenMuestra")
 const eliminarImagenGrande=document.getElementById("eliminarImagenGrande")
 
 //filtros
+const BoxFilters = document.getElementById("Boxfilters");
 //select organo
 const organoSelect = document.getElementById("organoSelect");
 //select id
@@ -160,7 +161,7 @@ const mostrar_cassettes = (data) => {
         icono.id = `boton_detalles_cassette`;
 
         icono.addEventListener("click", () => {
-            mostrarDetallesCassettes(cassette); 
+            mostrarDetallesCassettes(cassette);
             mostrarMuestrasCassette(cassette);
         });
 
@@ -257,7 +258,7 @@ const renderizarMuestras = () => {
             columna_tincion.classList.add("p-2", "text-blue-400", "border-b", "border-blue-400", "w-1/3", "pl-10");
 
             let columna_icono = document.createElement("td");
-            columna_icono.classList.add("border-b", "border-blue-400", "flex", "justify-center", "items-center", "pl-4"); 
+            columna_icono.classList.add("border-b", "border-blue-400", "flex", "justify-center", "items-center", "pl-4");
             let icono = document.createElement("i");
             icono.classList.add("fa-solid", "fa-file-invoice", "text-blue-400", "mr-5");
             columna_icono.appendChild(icono);
@@ -333,7 +334,7 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         }
 
         const imagenes = await response.json(); // Obtener las imágenes en Base64
-        
+
         // Seleccionamos el contenedor donde se mostrarán las imágenes
         const contenedorImagenes = document.querySelector(".border-t-2.mt-10.flex.pt-3.items-center");
         const imgBig = document.getElementById("imgBig"); // Seleccionar la imagen grande
@@ -474,7 +475,7 @@ const crearCassette = async () => {
         const response = await fetch("http://localhost:3000/sanitaria/cassette/create", {
             method: "POST",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -543,7 +544,7 @@ const eliminarCassette = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/delete/${cassetteActual.id}`, {
             method: "DELETE",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
         });
@@ -609,7 +610,7 @@ const crearMuestra = async (cassette) => {
         });
 
         const data = await response.json();
-        
+
         if (cerrarModalNuevaMuestra) {
             cerrarModalNuevaMuestra.click();
         }
@@ -710,17 +711,17 @@ const filtrarCassettesporOrgano = async () => {
 }
 
 //cargar select id
-const cargarSelectID = async() => {
+const cargarSelectID = async () => {
     const data = await cargarCassettes();
 
-    data.forEach (cassette => {
+    data.forEach(cassette => {
         const option = document.createElement('option');
         option.value = cassette.idOrgano;
         option.textContent = cassette.idOrgano;
-        idOrganoSelect.appendChild (option);
+        idOrganoSelect.appendChild(option);
     });
 
-    
+
 }
 
 const filtrarCassettesporID = async () => {
@@ -796,7 +797,7 @@ const modificarCassette = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/cassette/edit/${cassetteActual.id}`, {
             method: "PATCH",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -809,9 +810,9 @@ const modificarCassette = async () => {
             })
         });
 
-        const data = await response.json(); 
+        const data = await response.json();
 
-        if(response.ok){
+        if (response.ok) {
             if (cerrarModalNuevoCassete) {
                 cerrarModalNuevoCassete.click();
             }
@@ -836,17 +837,47 @@ const modificarCassette = async () => {
 
     } catch (error) {
         console.error("Error al modificar el cassette:", error);
-    }       
+    }
+};
+
+cargarBotonAdmin = async () => {
+    const id_user = sessionStorage.getItem("user_id");
+
+    const response = await fetch("http://localhost:3000/sanitaria/users", {
+        method: 'GET',
+        headers: {
+            'Authorization': `${token}`,
+        }
+    });
+
+    const data = await response.json();
+    data.forEach(user => {
+        if (id_user == user.id) {
+            if (user.rol == "administrador") {
+                console.log("es admin");
+                let button = document.createElement("a");
+                button.textContent = "Ir al panel de control";
+                button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded" , "text-center");
+
+                button.href = "./admin.html";
+                BoxFilters.appendChild(button);
+                BoxFilters.classList.remove("md:grid-cols-5");
+                BoxFilters.classList.add("md:grid-cols-6");
+                
+            }
+        }
+    });
 };
 
 
 organoSelect.addEventListener("change", filtrarCassettesporOrgano);
 idOrganoSelect.addEventListener("change", filtrarCassettesporID);
 nueva_muestra.addEventListener("click", () => {
-    crearMuestra(cassetteActual)
+crearMuestra(cassetteActual)
 })
 document.addEventListener("DOMContentLoaded", () => {
     cargarSelectID();
+    cargarBotonAdmin();
 });
 const botonModificarCassette = document.getElementById("botonModificarCassette");
 botonModificarCassette.addEventListener("click", modificarCassette)
@@ -854,14 +885,14 @@ botonModificarCassette.addEventListener("click", modificarCassette)
 
 
 
-const EliminarMuestra= async () => {
+const EliminarMuestra = async () => {
     console.log(muestraSeleccionada.id);
 
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/muestra/delete/${muestraSeleccionada.id}`, {
             method: "DELETE",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
         });
@@ -915,7 +946,7 @@ const modificarMuestra = async () => {
         const response = await fetch(`http://localhost:3000/sanitaria/muestra/edit/${muestraSeleccionada.id}`, {
             method: "PATCH",
             headers: {
-                'Authorization': `${token}` ,
+                'Authorization': `${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -927,9 +958,9 @@ const modificarMuestra = async () => {
             })
         });
 
-        const data = await response.json(); 
+        const data = await response.json();
 
-        if(response.ok){
+        if (response.ok) {
             if (cerrarModalModificarMuestra) {
                 cerrarModalModificarMuestra.click();
                 cerrarModalMuestrasImagenes.click();
@@ -955,7 +986,7 @@ const modificarMuestra = async () => {
 
     } catch (error) {
         console.error("Error al modificar la muestra:", error);
-    }       
+    }
 };
 
 const botonModificarMuestra = document.getElementById("botonModificarMuestra");
