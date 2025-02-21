@@ -193,23 +193,48 @@ const modificarUsuarios = async () => {
 
 // Función para eliminar usuario
 const eliminarUsuario = async (userId) => {
-    // if (!confirm("¿Estás seguro de que deseas eliminar este usuario?")) return;
     document.getElementById("modalEliminarUsuario").classList.remove("hidden");
-    eliminar_usuario.addEventListener("click" , async() => {
+
+    eliminar_usuario.addEventListener("click", async () => {
         try {
             await fetch(`http://localhost:3000/sanitaria/users/delete/${userId}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `${token}`,
+                    Authorization: `${token}`, 
                 },
             });
-            document.getElementById("modalEliminarUsuario").classList.add("hidden");
-            cargarUsuarios();
+
+            
+            if (cerrarModalEliminarUsuario) {
+                cerrarModalEliminarUsuario.click();
+            }
+
+            const mensaje = document.getElementById("mensaje");
+            mensaje.textContent = "Usuario eliminado con éxito.";
+            mensaje.classList.remove("bg-red-500");
+            mensaje.classList.add("bg-green-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+                location.reload();
+                cargarUsuarios();
+            }, 2000);
+
         } catch (error) {
             console.error("Error al eliminar usuario:", error);
-        }
-    })
 
+            const mensaje = document.getElementById("mensaje");
+            mensaje.textContent = "Hubo un problema al intentar eliminar el usuario.";
+            mensaje.classList.remove("bg-green-500");
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+        }
+    });
 };
 
 const eliminarTodos = async() => {

@@ -7,13 +7,12 @@
     <title>Dashboard Cassette</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/ec5d753fff.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
 </head>
 
 <body class="">
     <div class="flex justify-center items-center align-middle w-full h-full bg-blue-300">
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 w-9/12 mt-3">
+        <div id="Boxfilters" class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 w-9/12 mt-3">
 
             <!-- SELECT ID_CASSETTE ORGANO-->
             <select class="p-2 border rounded text-blue-400" id="idOrganoSelect"
@@ -128,7 +127,7 @@
                             <div
                                 id="ordenarPorFechaCassette" class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
                                 Fecha
-                                <span id="ascendente" class="text-gray-500">&#x25B4;</span>
+                                <span id="ascendenteF" class="text-gray-500">&#x25B4;</span>
                             </div>
                             <div id="ordenarPorDescripcionCassette"
                                 class="flex-1 p-2 flex items-center justify-between gap-2 cursor-pointer bg-gray-100 hover:bg-blue-300">
