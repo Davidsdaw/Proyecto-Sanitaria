@@ -34,7 +34,13 @@ const cerrarModalModificarCassete = document.getElementById("cerrarModalModifica
 abrirModalModificarCassete.addEventListener("click", (e) => {
     e.preventDefault();
     if(cassetteActual){
+        console.log(cassetteActual);
         modalModifiCass.classList.remove("hidden");
+        modificar_descripcion_cassette.value = cassetteActual.descripcion;
+        modificar_fecha_cassette.value = cassetteActual.fecha;
+        organos.value = cassetteActual.organo;
+        modificar_caracteristicas_cassette.value = cassetteActual.caracteristicas;
+        modificar_observaciones_cassette.value = cassetteActual.observaciones;
     }
 });
 // Funcion para cerrar modal para modificar cassette
