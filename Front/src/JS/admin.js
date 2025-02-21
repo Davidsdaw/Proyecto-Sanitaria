@@ -138,34 +138,58 @@ const abrirModalModificar = async (userId) => {
 };
 
 const modificar_usuario = document.getElementById("modificar_usuario")
+const modificar_alumno_nombre= document.getElementById("modificar_alumno_nombre")
+const modificar_alumno_apellidos= document.getElementById("modificar_alumno_apellidos")
+const modificar_alumno_gmail=document.getElementById("modificar_alumno_gmail")
+const modificar_alumno_password=document.getElementById("modificar_alumno_password")
+const modificar_alumno_centro=document.getElementById("modificar_alumno_centro")
+const modificar_alumno_rol=document.getElementById("modificar_alumno_rol")
+
 // Función para modificar usuario
 const modificarUsuarios = async () => {
     const userId = document.getElementById("id_usuario_modificar").textContent;
+    const token = localStorage.getItem("token"); // Asegúrate de tener un token válido
+
+    // Crear el objeto de actualización sin incluir la contraseña si el input está vacío
+    const datosActualizar = {
+        nombre: modificar_alumno_nombre?.value || "",
+        apellido: modificar_alumno_apellidos?.value || "",
+        email: modificar_alumno_gmail?.value || "",
+        centro: modificar_alumno_centro?.value || "",
+        rol: modificar_alumno_rol?.value || ""
+    };
+
+    // Solo agregar la contraseña si el input tiene un valor
+    if (modificar_alumno_password?.value) {
+        datosActualizar.password = modificar_alumno_password.value;
+    }
 
     try {
-        await fetch(`http://localhost:3000/sanitaria/users/edit/${userId}`, {
+        const response = await fetch(`http://localhost:3000/sanitaria/users/edit/${userId}`, {
             method: "PATCH",
             headers: {
-                Authorization: `${token}`,
                 "Content-Type": "application/json",
+                Authorization: `${token}`,
             },
-            body: JSON.stringify({
-                nombre: document.getElementById("modificar_alumno_nombre").value,
-                apellido: document.getElementById("modificar_alumno_apellidos").value,
-                email: document.getElementById("modificar_alumno_gmail").value,
-                password: document.getElementById("modificar_alumno_password").value,
-                centro: document.getElementById("modificar_alumno_centro").value,
-                rol: document.getElementById("modificar_alumno_rol").value,
-            })
+            body: JSON.stringify(datosActualizar),
         });
 
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error ${response.status}: ${errorData.message || "Error desconocido"}`);
+        }
+
+        console.log("Usuario modificado correctamente");
+        
         // Cerrar modal y recargar tabla
         document.getElementById("modalModificarUsuario").classList.add("hidden");
         cargarUsuarios();
     } catch (error) {
         console.error("Error al modificar usuario:", error);
+        alert(`Error al modificar usuario: ${error.message}`);
     }
 };
+
 
 // Función para eliminar usuario
 const eliminarUsuario = async (userId) => {
