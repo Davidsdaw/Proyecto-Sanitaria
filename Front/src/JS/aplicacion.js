@@ -36,7 +36,8 @@ const observaciones_muestra = document.getElementById("observaciones_muestra");
 const tabla_muestras = document.getElementById("tabla_muestras");
 
 const nueva_muestra = document.getElementById("nueva_muestra");
-const imagenMuestra = document.getElementById("imagenMuestra")
+const imagenMuestra =document.getElementById("imagenMuestra")
+const eliminarImagenGrande=document.getElementById("eliminarImagenGrande")
 
 //filtros
 const BoxFilters = document.getElementById("Boxfilters");
@@ -62,21 +63,81 @@ const token = localStorage.getItem('token')
 
 
 
+const ordenarPorFecha = document.getElementById("ordenarPorFechaCassette");
+const ordenarPorDescripcion = document.getElementById("ordenarPorDescripcionCassette");
+const ordenarPorOrgano = document.getElementById("ordenarPorOrganoCassette");
+
+let dataCassettes = [];
+let sortableInstance = null; 
+
+const inicializarSortable = () => {
+    if (typeof Sortable === "undefined") {
+        console.error("SortableJS no está definido.");
+        return;
+    }
+
+    if (!sortableInstance) {
+        sortableInstance = new Sortable(tabla_cassettes, {
+            animation: 150,
+            ghostClass: "bg-gray-100",
+            onEnd: function (evt) {
+                const newOrder = [...tabla_cassettes.children].map(child => 
+                    dataCassettes.find(c => c.id == child.dataset.id)
+                );
+                dataCassettes = newOrder;
+                console.log("Nuevo orden manual:", dataCassettes);
+            }
+        });
+    }
+};
+
 const cargarCassettes = async () => {
-    const response = await fetch("http://localhost:3000/sanitaria/cassette", {
-        method: 'GET',
-        headers: {
-            'Authorization': `${token}`,
+    if(!sessionStorage.getItem("user_id")){
+        location.href="../index.html"
+    }
+    try {
+        const response = await fetch("http://localhost:3000/sanitaria/cassette", {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al obtener dato");
         }
-    });
-    const data = await response.json();
-    console.log(token)
-    // data.forEach(cassette => {
-    //     console.log(cassette);
-    // });
-    mostrar_cassettes(data);
-    return data;
-}
+
+        dataCassettes = await response.json();
+
+        mostrar_cassettes(dataCassettes);
+        inicializarSortable(); 
+        return dataCassettes;
+    } catch (error) {
+        console.error("Error al cargar cassettes:", error);
+    }
+};
+
+const ordenarCassettes = (campo) => {
+    let ascendente = true;
+
+    return () => {
+        dataCassettes.sort((a, b) => {
+            if (a[campo] < b[campo]) return ascendente ? -1 : 1;
+            if (a[campo] > b[campo]) return ascendente ? 1 : -1;
+            return 0;
+        });
+
+        ascendente = !ascendente;
+         
+        mostrar_cassettes(dataCassettes);
+        mostrarMuestrasCassette(dataCassettes)
+    };
+};
+
+ordenarPorFecha.addEventListener("click", ordenarCassettes("fecha"));
+ordenarPorDescripcion.addEventListener("click", ordenarCassettes("descripcion"));
+ordenarPorOrgano.addEventListener("click", ordenarCassettes("organo"));
+
 
 
 const mostrar_cassettes = (data) => {
@@ -134,9 +195,7 @@ let cassetteActual = null;
 
 const mostrarDetallesCassettes = (cassette) => {
     cassetteActual = cassette;
-
-    // console.log(cassette);
-    //editamos la fecha para DD/MM/YYYY
+    //Editamos la fecha para DD/MM/YYYY
     const fechaFormateada = new Date(cassette.fecha);
     const fechaTexto = fechaFormateada.toLocaleDateString('es-ES');
 
@@ -146,9 +205,42 @@ const mostrarDetallesCassettes = (cassette) => {
     organo_cassette.textContent = cassette.organo;
     caracteristicas_cassette.textContent = cassette.caracteristicas;
     observaciones_cassette.textContent = cassette.observaciones;
-
+    mostrarMuestrasCassette(cassette);
 }
 
+let ascendenteFecha = true;
+let ascendenteDescripcion = true;
+let ascendenteTincion = true;
+let muestrasFiltradas = []; 
+
+const ordenarMuestras = (campo, tipo) => {
+    return () => {
+        let ascendente = tipo === "fecha" ? ascendenteFecha : tipo === "descripcion" ? ascendenteDescripcion : ascendenteTincion;
+
+        // Ordenamos las muestras según el campo
+        muestrasFiltradas.sort((a, b) => {
+            if (a[campo] < b[campo]) return ascendente ? -1 : 1;
+            if (a[campo] > b[campo]) return ascendente ? 1 : -1;
+            return 0;
+        });
+
+        // Cambiamos el estado de ascendente/descendente
+        if (tipo === "fecha") {
+            ascendenteFecha = !ascendenteFecha;
+        } else if (tipo === "descripcion") {
+            ascendenteDescripcion = !ascendenteDescripcion;
+        } else {
+            ascendenteTincion = !ascendenteTincion;
+        }
+
+        // Actualizamos el ícono de la dirección de la ordenación
+        const icono = document.getElementById(`ascendente${tipo === "fecha" ? "M" : tipo === "descripcion" ? "DescM" : "Tincion"}`);
+        icono.innerHTML = ascendente ? "&#x25B4;" : "&#x25BE;"; 
+
+        // Recargamos la tabla con las muestras ordenadas
+        renderizarMuestras();
+    };
+};
 
 const mostrarMuestrasCassette = async (cassette) => {
     const response = await fetch("http://localhost:3000/sanitaria/muestra", {
@@ -160,7 +252,15 @@ const mostrarMuestrasCassette = async (cassette) => {
     const data = await response.json();
     tabla_muestras.innerHTML = "";
 
-    const muestrasFiltradas = data.filter(muestra => muestra.cassette_id == cassette.id);
+    // Filtrar las muestras por cassette_id
+    muestrasFiltradas = data.filter(muestra => muestra.cassette_id == cassette.id);
+
+    renderizarMuestras(); // Llamamos a la función para mostrar las muestras
+};
+
+// Nueva función para renderizar la tabla con las muestras (se usa en mostrarMuestrasCassette y ordenarMuestras)
+const renderizarMuestras = () => {
+    tabla_muestras.innerHTML = "";
 
     if (muestrasFiltradas.length > 0) {
         muestrasFiltradas.forEach(muestra => {
@@ -213,7 +313,12 @@ const mostrarMuestrasCassette = async (cassette) => {
         fila_vacia.appendChild(columna_vacia);
         tabla_muestras.appendChild(fila_vacia);
     }
-}
+};
+
+// Agregar los event listeners para cada botón
+document.getElementById("ordenarPorFechaMuestra").addEventListener("click", ordenarMuestras("fecha", "fecha"));
+document.getElementById("ordenarPorDescripcionMuestra").addEventListener("click", ordenarMuestras("descripcion", "descripcion"));
+document.getElementById("ordenarPorTincionMuestra").addEventListener("click", ordenarMuestras("tincion", "tincion"));
 
 
 let muestraSeleccionada = null;
@@ -233,6 +338,7 @@ const mostrarDetallesMuestra = (muestra) => {
 }
 const imgBig = document.getElementById("imgBig")
 const mostrarImagenesMuestra = async (idMuestra) => {
+    sessionStorage.setItem("idMuestra",idMuestra)
     try {
         const response = await fetch(`http://localhost:3000/sanitaria/imagen/all/${idMuestra}`, {
             method: "GET",
@@ -259,10 +365,12 @@ const mostrarImagenesMuestra = async (idMuestra) => {
             const imgElement = document.createElement("img");
             imgElement.src = img.imagen; // Base64 ya viene en el JSON
             imgElement.classList.add("w-24", "mr-5", "miniatura");
+            imgElement.dataset.id = img.id; // Guardamos el ID en un atributo dataset
 
             // Evento para cambiar la imagen grande cuando se haga clic en una miniatura
             imgElement.addEventListener("click", () => {
                 imgBig.src = img.imagen;
+                imgBig.alt = img.id; // Guardar el ID en el alt de la imagen grande
             });
 
             contenedorImagenes.appendChild(imgElement);
@@ -271,6 +379,7 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         // Mostrar la primera imagen como principal
         if (imagenes.length > 0) {
             imgBig.src = imagenes[0].imagen;
+            imgBig.alt = imagenes[0].id; // Guardar el ID de la primera imagen en el alt
         }
 
         // Agregar el ícono de añadir imagen
@@ -301,7 +410,79 @@ const mostrarImagenesMuestra = async (idMuestra) => {
         console.error("Error cargando las imágenes:", error);
     }
 };
+const eliminarImagenActual = async () => {
+    try {
+        const imgBig = document.getElementById("imgBig");
+        const idImagen = imgBig.alt; // Obtener el ID desde el alt
+        if (!idImagen) {
+            console.error("No se encontró un ID en la imagen.");
+            return;
+        }
 
+        // Obtener el ID de la muestra (puedes pasarlo como parámetro o extraerlo de otro elemento)
+        const idMuestra = imgBig.muestraId;
+
+        // Hacer la petición DELETE al servidor
+        const response = await fetch(`http://localhost:3000/sanitaria/imagen/delete/${idImagen}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `${token}`,
+                "Content-Type": "application/json",
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar la imagen");
+        }
+
+        console.log("Imagen eliminada correctamente.");
+
+
+        // 🔄 Volver a cargar las imágenes después de la eliminación
+        mostrarImagenesMuestra(sessionStorage.getItem("idMuestra"));
+
+    } catch (error) {
+        console.error("Error al eliminar la imagen:", error);
+    }
+};
+
+// Asociar la función al botón de la papelera
+document.getElementById("abrirModalBasuraMuestra").addEventListener("click", (e) => {
+    e.preventDefault();
+    eliminarImagenActual();
+});
+
+
+
+document.getElementById("botonEliminarAñadirMuestra").addEventListener("click", async () => {
+    const inputImagen = document.getElementById("imagenMuestra2");
+    const file = inputImagen.files[0]; // Obtener el archivo seleccionado
+    const modalAñadirImagen = document.getElementById("modalAñadirImagen");
+
+    if (!file) {
+        alert("Por favor, selecciona una imagen.");
+        return;
+    }
+
+    // Obtener el ID de la muestra desde sessionStorage
+    const idMuestra = sessionStorage.getItem("idMuestra");
+
+    if (!idMuestra) {
+        console.error("No se encontró un ID de muestra.");
+        return;
+    }
+
+    await createImage(file, idMuestra);
+
+    // Cerrar el modal
+    modalAñadirImagen.classList.add("hidden");
+
+    // Limpiar el input
+    inputImagen.value = "";
+
+    // Recargar imágenes para mostrar la nueva
+    mostrarImagenesMuestra(idMuestra);
+});
 
 
 
@@ -466,6 +647,9 @@ const crearMuestra = async (cassette) => {
                 mensaje.style.display = "none";
                 location.reload();
             }, 1000000);
+
+            location.reload()
+
         } else {
             mensaje.textContent = "Error al crear la muestra: " + (data.message || "Error desconocido");
             mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
@@ -827,202 +1011,15 @@ const botonModificarMuestra = document.getElementById("botonModificarMuestra");
 botonModificarMuestra.addEventListener("click", modificarMuestra)
 
 
+const btn_logout=document.getElementById("btn_logout");
+
+const logout=(event)=>{
+    console.log(event.target);
+    location.href="/Front/src/index.html";
+    sessionStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+}
 
 
-//Ordenar por fecha cassettes
-let ordenAscendente = true;
-
-const ordenarFecha = () => {
-    let cassettes = Array.from(tabla_cassettes.children).map(div => {
-        return {
-            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')),
-            descripcion: div.children[1].textContent,
-            organo: div.children[2].textContent
-        };
-    });
-
-    cassettes.sort((a, b) => {
-        return ordenAscendente ? a.fecha - b.fecha : b.fecha - a.fecha;
-    });
-
-    ordenAscendente = !ordenAscendente;
-
-    if (ordenAscendente) {
-        ascendente.innerHTML = "&#x25B4;";
-    } else {
-        ascendente.innerHTML = "&#x25BE;";
-    }
-
-    mostrar_cassettes(cassettes);
-};
-
-const ascendente = document.getElementById("ascendente");
-const botonOrdenar = document.getElementById("ordenarPorFechaCassette");
-botonOrdenar.addEventListener("click", ordenarFecha);
-
-
-
-//Ordenar por fecha muestras
-let ordenAscendenteM = true;
-
-const ordenarFechaMuestras = () => {
-    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
-
-    muestrasFiltradas.sort((a, b) => {
-        const fechaTextoA = a.querySelector("td:nth-child(1)").textContent;
-        const fechaTextoB = b.querySelector("td:nth-child(1)").textContent;
-
-        const [diaA, mesA, añoA] = fechaTextoA.split('/');
-        const [diaB, mesB, añoB] = fechaTextoB.split('/');
-
-        const fechaA = new Date(`${añoA}-${mesA}-${diaA}`);
-        const fechaB = new Date(`${añoB}-${mesB}-${diaB}`);
-
-        return ordenAscendenteM ? fechaA - fechaB : fechaB - fechaA;
-    });
-
-    ordenAscendenteM = !ordenAscendenteM;
-    ascendenteM.innerHTML = ordenAscendenteM ? "&#x25B4;" : "&#x25BE;";
-
-    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
-};
-
-const ascendenteM = document.getElementById("ascendenteM");
-const botonOrdenarMuestras = document.getElementById("ordenarPorFechaMuestra");
-botonOrdenarMuestras.addEventListener("click", ordenarFechaMuestras);
-
-
-
-//Ordenar por descripcion cassettes
-let ordenAscendenteDescCassettes = true;
-const ordenarDescripcionCassettes = () => {
-    let cassettes = Array.from(tabla_cassettes.children).map(div => {
-        return {
-            descripcion: div.children[1].textContent,
-            fecha: new Date(div.children[0].textContent.split('/').reverse().join('-')),
-            organo: div.children[2].textContent
-        };
-    });
-
-    cassettes.sort((a, b) => {
-        return ordenAscendenteDescCassettes ? a.descripcion.localeCompare(b.descripcion) : b.descripcion.localeCompare(a.descripcion);
-    });
-
-    ordenAscendenteDescCassettes = !ordenAscendenteDescCassettes;
-
-    if (ordenAscendenteDescCassettes) {
-        ascendenteDesc.innerHTML = "&#x25B4;";
-    } else {
-        ascendenteDesc.innerHTML = "&#x25BE;";
-    }
-
-    mostrar_cassettes(cassettes);
-};
-const ascendenteDesc = document.getElementById("ascendenteDesc");
-const botonOrdenarDescCassettes = document.getElementById("ordenarPorDescripcionCassette");
-botonOrdenarDescCassettes.addEventListener("click", ordenarDescripcionCassettes);
-
-
-
-
-//Ordenar por descripcion muestras
-let ordenAscendenteDescM = true;
-
-const ordenarDescripcionMuestras = () => {
-    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
-
-    muestrasFiltradas.sort((a, b) => {
-        const descripcionA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();
-        const descripcionB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
-
-        return ordenAscendenteDescM
-            ? descripcionA.localeCompare(descripcionB)
-            : descripcionB.localeCompare(descripcionA);
-    });
-
-
-    ordenAscendenteDescM = !ordenAscendenteDescM;
-
-    if (ordenAscendenteDescM) {
-        ascendenteDescM.innerHTML = "&#x25B4;";
-    } else {
-        ascendenteDescM.innerHTML = "&#x25BE;";
-    }
-
-    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
-};
-
-const ascendenteDescM = document.getElementById("ascendenteDescM");
-const botonOrdenarDescMuestras = document.getElementById("ordenarPorDescripcionMuestra");
-botonOrdenarDescMuestras.addEventListener("click", ordenarDescripcionMuestras);
-
-
-
-//Ordenar por organo cassettes
-let ordenAscendenteOrg = true;
-
-const ordenarOrganoCassette = () => {
-    let cassettes = Array.from(tabla_cassettes.children).map(row => {
-        return {
-            fecha: row.children[0].textContent,
-            descripcion: row.children[1].textContent,
-            organo: row.children[2].textContent,
-            elemento: row
-        };
-    });
-
-    cassettes.sort((a, b) => {
-        let letraA = a.organo.charAt(0).toLowerCase();
-        let letraB = b.organo.charAt(0).toLowerCase();
-        return ordenAscendenteOrg ? (letraA > letraB ? 1 : -1) : (letraA < letraB ? 1 : -1);
-    });
-
-    tabla_cassettes.textContent = "";
-
-    ordenAscendenteOrg = !ordenAscendenteOrg;
-
-    if (ordenAscendenteOrg) {
-        ascendenteOrg.innerHTML = "&#x25B4;";
-    } else {
-        ascendenteOrg.innerHTML = "&#x25BE;";
-    }
-
-    cassettes.forEach(cassette => tabla_cassettes.appendChild(cassette.elemento));
-
-
-};
-const ascendenteOrg = document.getElementById("ascendenteOrg");
-const botonOrdenarOrganoCassette = document.getElementById("ordenarPorOrganoCassette");
-botonOrdenarOrganoCassette.addEventListener("click", ordenarOrganoCassette);
-
-
-//Ordenar por tincion muestras
-let ordenAscendenteTincion = true;
-const ordenarTincion = () => {
-    const filasMuestras = Array.from(tabla_muestras.querySelectorAll("tr"));
-    const muestrasFiltradas = filasMuestras.filter(fila => fila.querySelector("td"));
-
-    muestrasFiltradas.sort((a, b) => {
-        const tincionA = a.querySelector("td:nth-child(3)").textContent.toLowerCase();
-        const tincionB = b.querySelector("td:nth-child(3)").textContent.toLowerCase();
-
-        return ordenAscendenteTincion ? tincionA > tincionB ? 1 : -1 : tincionA < tincionB ? 1 : -1;
-    });
-
-    ordenAscendenteTincion = !ordenAscendenteTincion;
-
-    if (ordenAscendenteTincion) {
-        ascendenteTincion.innerHTML = "&#x25B4;";
-    } else {
-        ascendenteTincion.innerHTML = "&#x25BE;";
-    }
-
-    muestrasFiltradas.forEach(fila => tabla_muestras.appendChild(fila));
-};
-
-const ascendenteTincion = document.getElementById("ascendenteTincion");
-const botonOrdenarTincion = document.getElementById("ordenarPorTincionMuestra");
-botonOrdenarTincion.addEventListener("click", ordenarTincion);
+eliminarImagenGrande.addEventListener("click",eliminarImagenActual)
+btn_logout.addEventListener("click", logout);
