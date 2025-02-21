@@ -417,8 +417,24 @@ const eliminarImagenActual = async () => {
             return;
         }
 
-        // Obtener el ID de la muestra (puedes pasarlo como parámetro o extraerlo de otro elemento)
-        const idMuestra = imgBig.muestraId;
+        // Contar cuántas imágenes hay en el contenedor
+        const contenedorImagenes = document.querySelector(".border-t-2.mt-10.flex.pt-3.items-center");
+        const totalImagenes = contenedorImagenes.querySelectorAll("img").length; // Contar las imágenes
+
+        if (totalImagenes <= 1) {
+            if (cerrarModalBasuraMuestra) {
+                cerrarModalMuestrasImagenes.click();
+            }
+            mensaje.textContent = "Error: No puedes eliminar la única imagen disponible.";
+            mensaje.className = ""; // Limpiar clases previas
+            mensaje.classList.add("bg-red-500", "text-white", "p-2", "rounded", "text-center");
+            mensaje.style.display = "block";
+
+            setTimeout(() => {
+                mensaje.style.display = "none";
+            }, 2000);
+            return;
+        }
 
         // Hacer la petición DELETE al servidor
         const response = await fetch(`http://localhost:3000/sanitaria/imagen/delete/${idImagen}`, {
@@ -435,7 +451,6 @@ const eliminarImagenActual = async () => {
 
         console.log("Imagen eliminada correctamente.");
 
-
         // 🔄 Volver a cargar las imágenes después de la eliminación
         mostrarImagenesMuestra(sessionStorage.getItem("idMuestra"));
 
@@ -443,6 +458,7 @@ const eliminarImagenActual = async () => {
         console.error("Error al eliminar la imagen:", error);
     }
 };
+
 
 // Asociar la función al botón de la papelera
 document.getElementById("abrirModalBasuraMuestra").addEventListener("click", (e) => {
